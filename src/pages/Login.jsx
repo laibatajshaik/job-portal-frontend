@@ -112,35 +112,12 @@ function Login() {
             
             {/* Header */}
             <div className="space-y-1 text-left">
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
-                Welcome back 👋
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                Welcome back
               </h2>
               <p className="text-xs text-slate-500 font-medium">
                 Login to continue to your account
               </p>
-            </div>
-
-            {/* Quick Demo Login Shortcuts */}
-            <div className="bg-white border border-slate-200 p-3 rounded-2xl shadow-sm space-y-2">
-              <p className="text-[10px] font-bold text-slate-400 text-center uppercase tracking-wider">Quick Demo Credentials</p>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => fillDemoUser('manager@gmail.com', 'manager123')}
-                  className="flex items-center justify-center gap-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-xs py-2 px-3 rounded-xl font-bold transition"
-                >
-                  <Building2 className="w-3.5 h-3.5" />
-                  <span>Demo Manager</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => fillDemoUser('user@gmail.com', 'user123')}
-                  className="flex items-center justify-center gap-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs py-2 px-3 rounded-xl font-bold transition"
-                >
-                  <UserCheck className="w-3.5 h-3.5" />
-                  <span>Demo Applicant</span>
-                </button>
-              </div>
             </div>
 
             {error && (

@@ -88,7 +88,7 @@ function Register() {
             
             <div className="space-y-1 text-left">
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                Create an Account ✨
+                Create an Account
               </h2>
               <p className="text-xs text-slate-500 font-medium">
                 Enter your details to register as candidate or manager

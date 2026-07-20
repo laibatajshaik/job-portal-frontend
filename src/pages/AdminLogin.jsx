@@ -103,7 +103,7 @@ function AdminLogin() {
                 <ShieldCheck className="w-5 h-5" />
               </div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-                Admin Control Login 🛡️
+                Admin Control Login
               </h2>
               <p className="text-xs text-slate-500 font-medium">
                 Log in to access administrative settings and platform management
