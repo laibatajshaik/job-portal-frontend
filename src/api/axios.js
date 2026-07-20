@@ -2,8 +2,9 @@ import axios from 'axios'
 
 // Use VITE_API_URL if provided at build/runtime, otherwise fallback to deployed backend URL or localhost
 const getBaseURL = () => {
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL
+  const envUrl = import.meta.env.VITE_API_URL
+  if (envUrl && !envUrl.includes('job-portal-backend-phu8')) {
+    return envUrl
   }
   if (typeof window !== 'undefined') {
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
