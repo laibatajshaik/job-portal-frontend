@@ -18,9 +18,19 @@ const demoUsers = [
   
 ]
 
+const getInitialUser = () => {
+  try {
+    const savedUser = localStorage.getItem('user')
+    return savedUser ? JSON.parse(savedUser) : null
+  } catch (err) {
+    console.error("Failed to parse saved user from localStorage:", err)
+    localStorage.removeItem('user')
+    return null
+  }
+}
+
 export function AuthProvider({ children }) {
-  const savedUser = localStorage.getItem('user')
-  const [user, setUser] = useState(savedUser ? JSON.parse(savedUser) : null)
+  const [user, setUser] = useState(getInitialUser)
   const [loading, setLoading] = useState(false)
 
   const login = async (email, password) => {

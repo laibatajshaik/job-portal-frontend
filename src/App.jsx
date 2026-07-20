@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import PrivateRoute from './components/PrivateRoute'
@@ -19,89 +19,92 @@ import AdminDashboard from './pages/AdminDashboard'
 import AdminLogin from './pages/AdminLogin'
 
 function App() {
+  const location = useLocation()
+  const isDashboardRoute = location.pathname.includes('/dashboard') || location.pathname.includes('/manager/') || location.pathname.includes('/user/') || location.pathname.includes('/admin/dashboard')
+
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navbar />
+    <div className="min-h-screen flex flex-col bg-slate-50">
+      {!isDashboardRoute && <Navbar />}
       <div className="flex-1">
         <ErrorBoundary>
           <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/jobs" element={<JobListing />} />
-          <Route path="/jobs/:id" element={<JobDetails />} />
-          <Route path="/admin/login" element={<AdminLogin />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/jobs" element={<JobListing />} />
+            <Route path="/jobs/:id" element={<JobDetails />} />
+            <Route path="/admin/login" element={<AdminLogin />} />
 
-          <Route
-            path="/apply/:id"
-            element={
-              <PrivateRoute allowedRoles={['user']}>
-                <JobApplication />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/user/dashboard"
-            element={
-              <PrivateRoute allowedRoles={['user']}>
-                <UserDashboard />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/status"
-            element={
-              <PrivateRoute allowedRoles={['user']}>
-                <ApplicationStatus />
-              </PrivateRoute>
-            }
-          />
+            <Route
+              path="/apply/:id"
+              element={
+                <PrivateRoute allowedRoles={['user']}>
+                  <JobApplication />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/user/dashboard"
+              element={
+                <PrivateRoute allowedRoles={['user']}>
+                  <UserDashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/status"
+              element={
+                <PrivateRoute allowedRoles={['user']}>
+                  <ApplicationStatus />
+                </PrivateRoute>
+              }
+            />
 
-          <Route
-            path="/manager/dashboard"
-            element={
-              <PrivateRoute allowedRoles={['manager']}>
-                <ManagerDashboard />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/manager/company-profile"
-            element={
-              <PrivateRoute allowedRoles={['manager']}>
-                <CompanyProfile />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/manager/post-job"
-            element={
-              <PrivateRoute allowedRoles={['manager']}>
-                <JobPosting />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/manager/applicants/:jobId"
-            element={
-              <PrivateRoute allowedRoles={['manager']}>
-                <ApplicantManagement />
-              </PrivateRoute>
-            }
-          />
+            <Route
+              path="/manager/dashboard"
+              element={
+                <PrivateRoute allowedRoles={['manager']}>
+                  <ManagerDashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/manager/company-profile"
+              element={
+                <PrivateRoute allowedRoles={['manager']}>
+                  <CompanyProfile />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/manager/post-job"
+              element={
+                <PrivateRoute allowedRoles={['manager']}>
+                  <JobPosting />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/manager/applicants/:jobId"
+              element={
+                <PrivateRoute allowedRoles={['manager']}>
+                  <ApplicantManagement />
+                </PrivateRoute>
+              }
+            />
 
-          <Route
-            path="/admin/dashboard"
-            element={
-              <PrivateRoute allowedRoles={['admin']}>
-                <AdminDashboard />
-              </PrivateRoute>
-            }
-          />
+            <Route
+              path="/admin/dashboard"
+              element={
+                <PrivateRoute allowedRoles={['admin']}>
+                  <AdminDashboard />
+                </PrivateRoute>
+              }
+            />
           </Routes>
         </ErrorBoundary>
       </div>
-      <Footer />
+      {!isDashboardRoute && <Footer />}
     </div>
   )
 }
