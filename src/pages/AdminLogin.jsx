@@ -7,8 +7,8 @@ function AdminLogin() {
   const { setUser } = useContext(AuthContext)
   const navigate = useNavigate()
 
-  const [email, setEmail] = useState('admin@jobportal.com')
-  const [password, setPassword] = useState('Admin@123')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState('')
 
   const handleSubmit = (e) => {
@@ -68,6 +68,7 @@ function AdminLogin() {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter admin email"
                 className="bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-full font-medium"
                 required
               />
@@ -82,6 +83,7 @@ function AdminLogin() {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter admin password"
                 className="bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-full font-medium"
                 required
               />
