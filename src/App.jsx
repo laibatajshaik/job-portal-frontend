@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import PrivateRoute from './components/PrivateRoute'
+import ErrorBoundary from './components/ErrorBoundary'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -22,7 +23,8 @@ function App() {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <div className="flex-1">
-        <Routes>
+        <ErrorBoundary>
+          <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
@@ -96,7 +98,8 @@ function App() {
               </PrivateRoute>
             }
           />
-        </Routes>
+          </Routes>
+        </ErrorBoundary>
       </div>
       <Footer />
     </div>
