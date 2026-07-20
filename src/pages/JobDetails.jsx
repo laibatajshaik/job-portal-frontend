@@ -10,8 +10,8 @@ const defaultDemoJobs = [
     id: 0,
     title: 'Frontend Developer',
     description: 'We are looking for a skilled React.js frontend developer to build responsive user interfaces.',
-    location: 'Remote',
-    salary: '₹90,000',
+    location: 'Bengaluru, KA',
+    salary: '₹9,00,000',
     job_type: 'Full Time',
     company_name: 'Shnoor Technologies'
   },
@@ -19,8 +19,8 @@ const defaultDemoJobs = [
     id: 1,
     title: 'Full Stack Python Developer',
     description: 'Join our engineering team to build scalable FastAPI web APIs and modern web applications.',
-    location: 'New York, NY',
-    salary: '₹1,10,000',
+    location: 'Mumbai, MH',
+    salary: '₹11,50,000',
     job_type: 'Full Time',
     company_name: 'Shnoor International'
   },
@@ -28,8 +28,8 @@ const defaultDemoJobs = [
     id: 2,
     title: 'UI/UX Designer',
     description: 'Design intuitive user journeys, wireframes, and high-fidelity mockups for our web platform.',
-    location: 'Remote',
-    salary: '₹85,000',
+    location: 'Hyderabad, TS',
+    salary: '₹8,50,000',
     job_type: 'Contract',
     company_name: 'TechSoft'
   },
@@ -37,8 +37,8 @@ const defaultDemoJobs = [
     id: 3,
     title: 'Data Analyst',
     description: 'Analyze key product metrics, generate actionable business reports, and manage SQL data models.',
-    location: 'Austin, TX',
-    salary: '₹80,000',
+    location: 'Pune, MH',
+    salary: '₹8,00,000',
     job_type: 'Full Time',
     company_name: 'Analytics Hub'
   }
