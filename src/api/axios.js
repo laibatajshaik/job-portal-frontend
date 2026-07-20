@@ -10,7 +10,7 @@ const getBaseURL = () => {
       return 'http://127.0.0.1:8000'
     }
   }
-  return 'https://job-portal-backend-phu8.onrender.com'
+  return 'https://job-portal-backend-1f0h.onrender.com'
 }
 
 const api = axios.create({
