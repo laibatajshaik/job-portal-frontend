@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { MapPin, DollarSign, Building } from 'lucide-react'
+import { MapPin, Building } from 'lucide-react'
 
 function JobCard({ job }) {
   const companyName = job.company_name || 'Demo Company'
@@ -45,9 +45,8 @@ function JobCard({ job }) {
             <span>{job.location || 'Remote'}</span>
           </div>
 
-          <div className="flex items-center gap-1 text-emerald-700 font-semibold">
-            <DollarSign className="w-3.5 h-3.5" />
-            <span>{job.salary || '₹90,000'}</span>
+          <div className="text-emerald-700 font-bold">
+            <span>{job.salary || '₹9,00,000'}</span>
           </div>
         </div>
       </div>

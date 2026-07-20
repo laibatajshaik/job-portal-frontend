@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import api from '../api/axios'
 import Loader from '../components/Loader'
 import { AuthContext } from '../context/AuthContext'
-import { MapPin, DollarSign, Building, Briefcase, ArrowLeft, CheckCircle2 } from 'lucide-react'
+import { MapPin, Building, Briefcase, ArrowLeft, CheckCircle2 } from 'lucide-react'
 
 const defaultDemoJobs = [
   {
