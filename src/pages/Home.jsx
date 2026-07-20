@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../api/axios'
 import JobCard from '../components/JobCard'
-import { Search, MapPin, Briefcase, ArrowRight, Code, Palette, LineChart, Megaphone } from 'lucide-react'
+import { Search, MapPin, ArrowRight } from 'lucide-react'
 
 const defaultDemoJobs = [
   {
@@ -69,12 +69,14 @@ function Home() {
     navigate(`/jobs?search=${encodeURIComponent(search)}&location=${encodeURIComponent(location)}`)
   }
 
-  const categories = [
-    { title: 'Software Engineering', count: '140+ jobs', icon: Code },
-    { title: 'Product & Design', count: '85+ jobs', icon: Palette },
-    { title: 'Data & Analytics', count: '62+ jobs', icon: LineChart },
-    { title: 'Sales & Marketing', count: '45+ jobs', icon: Megaphone },
-  ]
+  const formatSalary = (salary) => {
+    if (!salary) return '₹9,00,000'
+    if (typeof salary === 'number') return `₹${salary.toLocaleString('en-IN')}`
+    const strSal = String(salary).trim()
+    if (strSal.startsWith('₹')) return strSal
+    if (strSal.startsWith('$')) return `₹${strSal.substring(1)}`
+    return `₹${strSal}`
+  }
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 font-sans">
@@ -130,33 +132,9 @@ function Home() {
         </div>
       </section>
 
-      {/* CATEGORIES */}
-      <section className="py-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {categories.map((cat, idx) => {
-            const IconComp = cat.icon
-            return (
-              <Link
-                key={idx}
-                to="/jobs"
-                className="bg-white p-4 rounded-lg border border-slate-200 hover:border-blue-400 transition shadow-sm flex items-center gap-3"
-              >
-                <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
-                  <IconComp className="w-4 h-4" />
-                </div>
-                <div>
-                  <h3 className="text-xs font-bold text-slate-900">{cat.title}</h3>
-                  <p className="text-[11px] text-slate-500">{cat.count}</p>
-                </div>
-              </Link>
-            )
-          })}
-        </div>
-      </section>
-
       {/* DIRECT JOBS LISTING */}
-      <section className="py-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-4">
+      <section className="py-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-bold text-slate-900">Latest Job Openings</h2>
           <Link to="/jobs" className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1">
             <span>View all jobs</span>
@@ -173,7 +151,7 @@ function Home() {
                 title: job.title,
                 description: job.description,
                 location: job.location,
-                salary: typeof job.salary === 'number' ? `$${job.salary.toLocaleString()}` : (job.salary || '$90,000'),
+                salary: formatSalary(job.salary),
                 job_type: job.job_type,
                 company_name: job.company_name || "Demo Company"
               }}
