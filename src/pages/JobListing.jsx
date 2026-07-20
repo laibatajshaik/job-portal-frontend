@@ -82,7 +82,7 @@ function JobListing() {
                 title: job.title,
                 description: job.description,
                 location: job.location,
-                salary: job.salary,
+                salary: typeof job.salary === 'number' ? `$${job.salary.toLocaleString()}` : job.salary,
                 job_type: job.job_type,
                 company_name: "Demo Company"
               }}
