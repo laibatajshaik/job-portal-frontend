@@ -1,4 +1,4 @@
-import { Sparkles, Heart, Github, Twitter, Linkedin, Mail } from 'lucide-react'
+import { Sparkles, Heart, Globe, Code2, Share2, Mail } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 function Footer() {
@@ -21,14 +21,14 @@ function Footer() {
               Empowering talented professionals and top employers to connect, innovate, and grow together.
             </p>
             <div className="flex items-center gap-3 text-slate-400 pt-1">
-              <a href="#" className="p-2 rounded-lg bg-slate-900 border border-slate-800 hover:text-indigo-400 transition">
-                <Github className="w-4 h-4" />
+              <a href="#" className="p-2 rounded-lg bg-slate-900 border border-slate-800 hover:text-indigo-400 transition" title="Website">
+                <Globe className="w-4 h-4" />
               </a>
-              <a href="#" className="p-2 rounded-lg bg-slate-900 border border-slate-800 hover:text-indigo-400 transition">
-                <Twitter className="w-4 h-4" />
+              <a href="#" className="p-2 rounded-lg bg-slate-900 border border-slate-800 hover:text-indigo-400 transition" title="Code">
+                <Code2 className="w-4 h-4" />
               </a>
-              <a href="#" className="p-2 rounded-lg bg-slate-900 border border-slate-800 hover:text-indigo-400 transition">
-                <Linkedin className="w-4 h-4" />
+              <a href="#" className="p-2 rounded-lg bg-slate-900 border border-slate-800 hover:text-indigo-400 transition" title="Social">
+                <Share2 className="w-4 h-4" />
               </a>
             </div>
           </div>
