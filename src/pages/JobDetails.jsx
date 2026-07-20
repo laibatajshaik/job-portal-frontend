@@ -4,6 +4,45 @@ import api from '../api/axios'
 import Loader from '../components/Loader'
 import { AuthContext } from '../context/AuthContext'
 
+const defaultDemoJobs = [
+  {
+    id: 0,
+    title: 'Frontend Developer',
+    description: 'We are looking for a skilled React.js frontend developer to build responsive user interfaces.',
+    location: 'Remote',
+    salary: '$90,000',
+    job_type: 'Full Time',
+    company_name: 'Shnoor Technologies'
+  },
+  {
+    id: 1,
+    title: 'Full Stack Python Developer',
+    description: 'Join our engineering team to build scalable FastAPI web APIs and modern web applications.',
+    location: 'New York, NY',
+    salary: '$110,000',
+    job_type: 'Full Time',
+    company_name: 'Shnoor International'
+  },
+  {
+    id: 2,
+    title: 'UI/UX Designer',
+    description: 'Design intuitive user journeys, wireframes, and high-fidelity mockups for our web platform.',
+    location: 'Remote',
+    salary: '$85,000',
+    job_type: 'Contract',
+    company_name: 'TechSoft'
+  },
+  {
+    id: 3,
+    title: 'Data Analyst',
+    description: 'Analyze key product metrics, generate actionable business reports, and manage SQL data models.',
+    location: 'Austin, TX',
+    salary: '$80,000',
+    job_type: 'Full Time',
+    company_name: 'Analytics Hub'
+  }
+]
+
 function JobDetails() {
   const { id } = useParams()
   const { user } = useContext(AuthContext)
@@ -18,10 +57,16 @@ function JobDetails() {
     setLoading(true)
     try {
       const res = await api.get(`/jobs/${id}`)
-      setJob(res.data.job)
+      if (res.data && res.data.job) {
+        setJob(res.data.job)
+        setLoading(false)
+        return
+      }
     } catch (err) {
       console.log(err)
     }
+    const idx = parseInt(id, 10) || 0
+    setJob(defaultDemoJobs[idx] || defaultDemoJobs[0])
     setLoading(false)
   }
 
