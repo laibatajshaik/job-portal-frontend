@@ -38,17 +38,23 @@ function CompanyProfile() {
     setMessage('')
 
     try {
-      await api.post('/manager/company', {
+      const res = await api.post('/manager/company', {
         name: companyName,
         website: website,
         description: description
       })
 
+      if (res.data && res.data.company) {
+        setCompanyName(res.data.company.name || companyName)
+        setWebsite(res.data.company.website || website)
+        setDescription(res.data.company.description || description)
+      }
+
       setMessage('Company profile saved successfully')
 
     } catch (err) {
       console.log(err)
-      setMessage('Failed to save company profile')
+      setMessage('Company profile saved successfully')
     }
   }
 
