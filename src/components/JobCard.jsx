@@ -47,7 +47,7 @@ function JobCard({ job }) {
 
           <div className="flex items-center gap-1 text-emerald-700 font-semibold">
             <DollarSign className="w-3.5 h-3.5" />
-            <span>{job.salary || '$90,000'}</span>
+            <span>{job.salary || '₹90,000'}</span>
           </div>
         </div>
       </div>

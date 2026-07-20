@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import api from '../api/axios'
 import Loader from '../components/Loader'
 import { AuthContext } from '../context/AuthContext'
+import { MapPin, DollarSign, Building, Briefcase, ArrowLeft, CheckCircle2 } from 'lucide-react'
 
 const defaultDemoJobs = [
   {
@@ -10,7 +11,7 @@ const defaultDemoJobs = [
     title: 'Frontend Developer',
     description: 'We are looking for a skilled React.js frontend developer to build responsive user interfaces.',
     location: 'Remote',
-    salary: '$90,000',
+    salary: '₹90,000',
     job_type: 'Full Time',
     company_name: 'Shnoor Technologies'
   },
@@ -19,7 +20,7 @@ const defaultDemoJobs = [
     title: 'Full Stack Python Developer',
     description: 'Join our engineering team to build scalable FastAPI web APIs and modern web applications.',
     location: 'New York, NY',
-    salary: '$110,000',
+    salary: '₹1,10,000',
     job_type: 'Full Time',
     company_name: 'Shnoor International'
   },
@@ -28,7 +29,7 @@ const defaultDemoJobs = [
     title: 'UI/UX Designer',
     description: 'Design intuitive user journeys, wireframes, and high-fidelity mockups for our web platform.',
     location: 'Remote',
-    salary: '$85,000',
+    salary: '₹85,000',
     job_type: 'Contract',
     company_name: 'TechSoft'
   },
@@ -37,7 +38,7 @@ const defaultDemoJobs = [
     title: 'Data Analyst',
     description: 'Analyze key product metrics, generate actionable business reports, and manage SQL data models.',
     location: 'Austin, TX',
-    salary: '$80,000',
+    salary: '₹80,000',
     job_type: 'Full Time',
     company_name: 'Analytics Hub'
   }
@@ -70,32 +71,96 @@ function JobDetails() {
     setLoading(false)
   }
 
+  const formatSalary = (salary) => {
+    if (!salary) return '₹90,000'
+    if (typeof salary === 'number') return `₹${salary.toLocaleString('en-IN')}`
+    const strSal = String(salary).trim()
+    if (strSal.startsWith('₹')) return strSal
+    if (strSal.startsWith('$')) return `₹${strSal.substring(1)}`
+    return `₹${strSal}`
+  }
+
   if (loading) return <Loader />
   if (!job) return <p className="text-center mt-10">Job not found</p>
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white border border-gray-300 rounded mt-6">
-      <h2 className="text-2xl font-bold">{job.title}</h2>
-      <p className="text-gray-600 mt-1">{job.company_name}</p>
-      <p className="text-gray-600">{job.location}</p>
-      <p className="text-gray-600">{job.job_type}</p>
-      <p className="text-gray-800 mt-2 font-semibold">Salary: {job.salary}</p>
-      <div className="mt-4">
-        <h3 className="font-semibold mb-1">Job Description</h3>
-        <p className="text-gray-700 whitespace-pre-line">{job.description}</p>
-      </div>
-      {user && user.role === 'user' ? (
-        <Link
-          to={`/apply/${job.id}`}
-          className="inline-block mt-6 bg-blue-700 text-white px-5 py-2 rounded"
-        >
-          Apply Now
+    <div className="min-h-screen bg-slate-50 py-10 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto space-y-6">
+
+        {/* Back Link */}
+        <Link to="/jobs" className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-blue-600 transition">
+          <ArrowLeft className="w-4 h-4" />
+          <span>Back to Job Listings</span>
         </Link>
-      ) : !user ? (
-        <p className="mt-6 text-gray-600">
-          <Link to="/login" className="text-blue-700">Login</Link> to apply for this job.
-        </p>
-      ) : null}
+
+        {/* Main Job Detail Card */}
+        <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
+          
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-slate-100 pb-6">
+            <div>
+              <h1 className="text-2xl font-bold text-slate-900">{job.title}</h1>
+              <div className="flex items-center gap-2 text-xs text-slate-500 mt-1">
+                <Building className="w-4 h-4 text-slate-400" />
+                <span className="font-semibold text-slate-700">{job.company_name || 'Demo Company'}</span>
+                <span>•</span>
+                <MapPin className="w-4 h-4 text-slate-400" />
+                <span>{job.location || 'Remote'}</span>
+              </div>
+            </div>
+
+            <span className="self-start px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold">
+              {job.job_type || 'Full Time'}
+            </span>
+          </div>
+
+          {/* Key Details Grid */}
+          <div className="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+            <div>
+              <p className="text-[11px] text-slate-500 font-semibold uppercase">Offered Salary</p>
+              <p className="text-sm font-bold text-emerald-700 mt-0.5">{formatSalary(job.salary)}</p>
+            </div>
+            <div>
+              <p className="text-[11px] text-slate-500 font-semibold uppercase">Job Type</p>
+              <p className="text-sm font-bold text-slate-800 mt-0.5">{job.job_type || 'Full Time'}</p>
+            </div>
+          </div>
+
+          {/* Description */}
+          <div className="space-y-2">
+            <h3 className="text-sm font-bold text-slate-900">Job Description</h3>
+            <p className="text-xs text-slate-600 leading-relaxed whitespace-pre-line">
+              {job.description}
+            </p>
+          </div>
+
+          {/* Action Button */}
+          <div className="pt-4 border-t border-slate-100">
+            {user && user.role === 'user' ? (
+              <Link
+                to={`/apply/${job.id}`}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-6 py-3 rounded-xl shadow-md transition"
+              >
+                <CheckCircle2 className="w-4 h-4" />
+                <span>Apply for this Position</span>
+              </Link>
+            ) : !user ? (
+              <div className="bg-slate-100 p-4 rounded-xl text-center text-xs text-slate-600">
+                Please{' '}
+                <Link to="/login" className="text-blue-600 font-bold hover:underline">
+                  Sign In
+                </Link>{' '}
+                to apply for this position.
+              </div>
+            ) : (
+              <p className="text-xs text-slate-500 italic">
+                Logged in as Manager/Admin. Candidate applications are submitted by Job Seekers.
+              </p>
+            )}
+          </div>
+
+        </div>
+
+      </div>
     </div>
   )
 }
