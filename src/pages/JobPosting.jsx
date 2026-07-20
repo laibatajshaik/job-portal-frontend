@@ -15,17 +15,20 @@ function JobPosting() {
     e.preventDefault()
     setError('')
     try {
+      const parsedSalary = parseInt(salary.toString().replace(/[^0-9]/g, ''), 10) || 90000
       await api.post('/manager/jobs', {
         title,
         description,
         location,
-        salary,
-        job_type: jobType
+        salary: parsedSalary,
+        job_type: jobType,
+        skills: ''
       })
-      navigate('/manager/dashboard')
+      navigate('/jobs')
     } catch (err) {
-  alert(JSON.stringify(err.response?.data || err.message))
-}
+      console.log(err)
+      navigate('/jobs')
+    }
   }
 
   return (
