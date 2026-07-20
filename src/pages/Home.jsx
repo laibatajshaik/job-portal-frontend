@@ -1,94 +1,107 @@
-import { Link } from 'react-router-dom'
-import { 
-  Sparkles, 
-  Search, 
-  MapPin, 
-  Briefcase, 
-  TrendingUp, 
-  Users, 
-  Building2, 
-  ArrowRight, 
-  ShieldCheck, 
-  Zap, 
-  Award,
-  Code,
-  LineChart,
-  Palette,
-  Megaphone
-} from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import api from '../api/axios'
+import JobCard from '../components/JobCard'
+import { Search, MapPin, Briefcase, ArrowRight, Code, Palette, LineChart, Megaphone } from 'lucide-react'
+
+const defaultDemoJobs = [
+  {
+    id: 0,
+    title: 'Frontend Developer',
+    description: 'We are looking for a skilled React.js frontend developer to build responsive user interfaces.',
+    location: 'Remote',
+    salary: '$90,000',
+    job_type: 'Full Time',
+    company_name: 'Shnoor Technologies'
+  },
+  {
+    id: 1,
+    title: 'Full Stack Python Developer',
+    description: 'Join our engineering team to build scalable FastAPI web APIs and modern web applications.',
+    location: 'New York, NY',
+    salary: '$110,000',
+    job_type: 'Full Time',
+    company_name: 'Shnoor International'
+  },
+  {
+    id: 2,
+    title: 'UI/UX Designer',
+    description: 'Design intuitive user journeys, wireframes, and high-fidelity mockups for our web platform.',
+    location: 'Remote',
+    salary: '$85,000',
+    job_type: 'Contract',
+    company_name: 'TechSoft'
+  },
+  {
+    id: 3,
+    title: 'Data Analyst',
+    description: 'Analyze key product metrics, generate actionable business reports, and manage SQL data models.',
+    location: 'Austin, TX',
+    salary: '$80,000',
+    job_type: 'Full Time',
+    company_name: 'Analytics Hub'
+  }
+]
 
 function Home() {
-  const categories = [
-    { title: 'Software Engineering', count: '140+ Open Roles', icon: Code, color: 'bg-indigo-50 text-indigo-600 border-indigo-200' },
-    { title: 'Product & Design', count: '85+ Open Roles', icon: Palette, color: 'bg-purple-50 text-purple-600 border-purple-200' },
-    { title: 'Data & Analytics', count: '62+ Open Roles', icon: LineChart, color: 'bg-emerald-50 text-emerald-600 border-emerald-200' },
-    { title: 'Sales & Marketing', count: '45+ Open Roles', icon: Megaphone, color: 'bg-amber-50 text-amber-600 border-amber-200' },
-  ]
+  const [jobs, setJobs] = useState(defaultDemoJobs)
+  const [search, setSearch] = useState('')
+  const [location, setLocation] = useState('')
+  const navigate = useNavigate()
 
-  const featuredJobs = [
-    {
-      id: 0,
-      title: 'Frontend Developer',
-      company: 'Shnoor Technologies',
-      location: 'Remote',
-      type: 'Full Time',
-      salary: '$90,000 / yr',
-      tags: ['React', 'JavaScript', 'TailwindCSS']
-    },
-    {
-      id: 1,
-      title: 'Full Stack Python Developer',
-      company: 'Shnoor International',
-      location: 'New York, NY',
-      type: 'Full Time',
-      salary: '$110,000 / yr',
-      tags: ['Python', 'FastAPI', 'PostgreSQL']
-    },
-    {
-      id: 2,
-      title: 'UI/UX Designer',
-      company: 'TechSoft',
-      location: 'Remote',
-      type: 'Contract',
-      salary: '$85,000 / yr',
-      tags: ['Figma', 'Prototyping', 'UI/UX']
-    },
+  useEffect(() => {
+    fetchJobs()
+  }, [])
+
+  const fetchJobs = async () => {
+    try {
+      const res = await api.get('/jobs/')
+      if (Array.isArray(res.data) && res.data.length > 0) {
+        setJobs(res.data)
+      }
+    } catch (err) {
+      console.log('Using initial jobs fallback:', err)
+    }
+  }
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault()
+    navigate(`/jobs?search=${encodeURIComponent(search)}&location=${encodeURIComponent(location)}`)
+  }
+
+  const categories = [
+    { title: 'Software Engineering', count: '140+ jobs', icon: Code },
+    { title: 'Product & Design', count: '85+ jobs', icon: Palette },
+    { title: 'Data & Analytics', count: '62+ jobs', icon: LineChart },
+    { title: 'Sales & Marketing', count: '45+ jobs', icon: Megaphone },
   ]
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-500 selection:text-white">
+    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans">
 
-      {/* HERO SECTION */}
-      <section id="home" className="relative pt-16 pb-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-indigo-50/70 via-slate-50 to-slate-50">
-        
-        <div className="max-w-4xl mx-auto text-center space-y-5">
+      {/* HERO / SEARCH SECTION */}
+      <section className="bg-white border-b border-slate-200 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto text-center space-y-4">
           
-          {/* Badge */}
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-100 border border-indigo-200 text-indigo-800 text-xs font-semibold">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-            <span>Modern Career & Hiring Platform</span>
-          </div>
-
-          {/* Headline */}
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-tight">
-            Find Your Dream Job <br />
-            <span className="text-indigo-600">Accelerate Your Career</span>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Find your next job
           </h1>
 
-          {/* Subtitle */}
-          <p className="text-slate-600 text-sm sm:text-base max-w-xl mx-auto font-normal leading-relaxed">
-            Discover verified remote & tech opportunities, connect directly with recruiters, and apply with 1-click ATS profiles.
+          <p className="text-slate-600 text-sm max-w-lg mx-auto">
+            Search open job opportunities across technology, design, and business.
           </p>
 
-          {/* Search Box */}
-          <div className="pt-4 max-w-2xl mx-auto">
-            <div className="p-2 rounded-xl bg-white border border-slate-200 shadow-md flex flex-col sm:flex-row items-center gap-2">
+          {/* Search Form */}
+          <form onSubmit={handleSearchSubmit} className="pt-2 max-w-3xl mx-auto">
+            <div className="bg-white p-2 rounded-xl border border-slate-300 shadow-sm flex flex-col sm:flex-row items-center gap-2">
               
               <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2.5 flex-1 w-full">
-                <Search className="w-4 h-4 text-indigo-600" />
+                <Search className="w-4 h-4 text-slate-400" />
                 <input
                   type="text"
-                  placeholder="Job title or skill..."
+                  placeholder="Job title, skill, or keyword..."
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
                   className="bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-full"
                 />
               </div>
@@ -97,226 +110,75 @@ function Home() {
                 <MapPin className="w-4 h-4 text-slate-400" />
                 <input
                   type="text"
-                  placeholder="Location or remote..."
+                  placeholder="City, state, or remote..."
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
                   className="bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-full"
                 />
               </div>
 
-              <Link
-                to="/jobs"
-                className="w-full sm:w-auto flex items-center justify-center gap-1.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-5 py-2.5 rounded-lg shadow-sm transition"
+              <button
+                type="submit"
+                className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs px-5 py-2.5 rounded-lg transition"
               >
-                <span>Search</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+                Search Jobs
+              </button>
 
             </div>
-          </div>
-
-          {/* Popular Searches */}
-          <div className="flex flex-wrap items-center justify-center gap-2 text-xs text-slate-500 pt-2">
-            <span className="font-semibold text-slate-700">Popular:</span>
-            <Link to="/jobs" className="px-2.5 py-0.5 rounded-md bg-white border border-slate-200 hover:border-indigo-300 hover:text-indigo-600 transition">
-              React Developer
-            </Link>
-            <Link to="/jobs" className="px-2.5 py-0.5 rounded-md bg-white border border-slate-200 hover:border-indigo-300 hover:text-indigo-600 transition">
-              Python FastAPI
-            </Link>
-            <Link to="/jobs" className="px-2.5 py-0.5 rounded-md bg-white border border-slate-200 hover:border-indigo-300 hover:text-indigo-600 transition">
-              UI/UX Designer
-            </Link>
-          </div>
+          </form>
 
         </div>
       </section>
 
-      {/* STATS BANNER */}
-      <section className="py-8 bg-white border-y border-slate-200">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-          
-          <div className="p-3">
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">500+</h3>
-            <p className="text-xs text-slate-500 font-medium">Active Jobs</p>
-          </div>
-
-          <div className="p-3">
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">120+</h3>
-            <p className="text-xs text-slate-500 font-medium">Companies</p>
-          </div>
-
-          <div className="p-3">
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">2,500+</h3>
-            <p className="text-xs text-slate-500 font-medium">Applicants Hired</p>
-          </div>
-
-          <div className="p-3">
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">98%</h3>
-            <p className="text-xs text-slate-500 font-medium">Match Accuracy</p>
-          </div>
-
-        </div>
-      </section>
-
-      {/* POPULAR CATEGORIES */}
-      <section className="py-16 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center space-y-2 mb-10">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">Top Categories</h2>
-          <p className="text-slate-600 text-xs max-w-md mx-auto">
-            Browse through specialized job roles in tech, product, and design.
-          </p>
-        </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* CATEGORIES */}
+      <section className="py-8 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {categories.map((cat, idx) => {
-            const IconComponent = cat.icon
+            const IconComp = cat.icon
             return (
               <Link
                 key={idx}
                 to="/jobs"
-                className="group bg-white p-5 rounded-xl border border-slate-200 hover:border-indigo-300 transition shadow-sm hover:shadow-md"
+                className="bg-white p-4 rounded-lg border border-slate-200 hover:border-blue-400 transition shadow-sm flex items-center gap-3"
               >
-                <div className={`w-10 h-10 rounded-lg ${cat.color} border flex items-center justify-center mb-3 group-hover:scale-105 transition`}>
-                  <IconComponent className="w-5 h-5" />
+                <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+                  <IconComp className="w-4 h-4" />
                 </div>
-                <h3 className="text-sm font-bold text-slate-900 group-hover:text-indigo-600 transition">{cat.title}</h3>
-                <p className="text-xs text-slate-500 mt-0.5">{cat.count}</p>
+                <div>
+                  <h3 className="text-xs font-bold text-slate-900">{cat.title}</h3>
+                  <p className="text-[11px] text-slate-500">{cat.count}</p>
+                </div>
               </Link>
             )
           })}
         </div>
       </section>
 
-      {/* FEATURED JOBS */}
-      <section className="py-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between mb-8">
-          <div>
-            <h2 className="text-2xl font-extrabold text-slate-900">Featured Openings</h2>
-            <p className="text-slate-500 text-xs mt-0.5">Hand-picked remote & high-growth job opportunities.</p>
-          </div>
-
-          <Link
-            to="/jobs"
-            className="flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:text-indigo-700 transition"
-          >
-            <span>View All</span>
+      {/* DIRECT JOBS LISTING */}
+      <section className="py-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-bold text-slate-900">Latest Job Openings</h2>
+          <Link to="/jobs" className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1">
+            <span>View all jobs</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-5">
-          {featuredJobs.map((job) => (
-            <div
-              key={job.id}
-              className="bg-white p-5 rounded-xl border border-slate-200 hover:border-indigo-300 transition shadow-sm flex flex-col justify-between"
-            >
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    {job.type}
-                  </span>
-                  <span className="text-xs font-bold text-slate-700">{job.salary}</span>
-                </div>
-                
-                <h3 className="text-base font-bold text-slate-900 mb-0.5">{job.title}</h3>
-                <p className="text-xs text-slate-500 mb-3">{job.company} • {job.location}</p>
-
-                <div className="flex flex-wrap gap-1 mb-5">
-                  {job.tags.map((tag, i) => (
-                    <span key={i} className="text-[10px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded border border-slate-200">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <Link
-                to={`/jobs/${job.id}`}
-                className="w-full text-center bg-indigo-50 hover:bg-indigo-600 text-indigo-700 hover:text-white border border-indigo-200 px-3 py-1.5 rounded-lg text-xs font-semibold transition"
-              >
-                View Details
-              </Link>
-            </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {jobs.map((job, index) => (
+            <JobCard
+              key={index}
+              job={{
+                id: index,
+                title: job.title,
+                description: job.description,
+                location: job.location,
+                salary: typeof job.salary === 'number' ? `$${job.salary.toLocaleString()}` : (job.salary || '$90,000'),
+                job_type: job.job_type,
+                company_name: job.company_name || "Demo Company"
+              }}
+            />
           ))}
-        </div>
-      </section>
-
-      {/* HOW IT WORKS */}
-      <section id="how-it-works" className="py-16 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-slate-200">
-        <div className="text-center space-y-2 mb-12">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">How It Works</h2>
-          <p className="text-slate-500 text-xs max-w-md mx-auto">
-            Simple steps to kickstart your application or hire talent.
-          </p>
-        </div>
-
-        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
-
-          <div className="bg-white p-5 rounded-xl border border-slate-200 text-center space-y-2">
-            <div className="w-8 h-8 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center mx-auto">
-              1
-            </div>
-            <h3 className="text-sm font-bold text-slate-900">Register Account</h3>
-            <p className="text-xs text-slate-500">
-              Sign up as a Job Seeker or Recruiter Manager.
-            </p>
-          </div>
-
-          <div className="bg-white p-5 rounded-xl border border-slate-200 text-center space-y-2">
-            <div className="w-8 h-8 rounded-full bg-purple-600 text-white font-bold text-xs flex items-center justify-center mx-auto">
-              2
-            </div>
-            <h3 className="text-sm font-bold text-slate-900">Complete Profile</h3>
-            <p className="text-xs text-slate-500">
-              Add your skills, resume, and experience details.
-            </p>
-          </div>
-
-          <div className="bg-white p-5 rounded-xl border border-slate-200 text-center space-y-2">
-            <div className="w-8 h-8 rounded-full bg-pink-600 text-white font-bold text-xs flex items-center justify-center mx-auto">
-              3
-            </div>
-            <h3 className="text-sm font-bold text-slate-900">Apply to Jobs</h3>
-            <p className="text-xs text-slate-500">
-              Explore verified listings and submit applications.
-            </p>
-          </div>
-
-          <div className="bg-white p-5 rounded-xl border border-slate-200 text-center space-y-2">
-            <div className="w-8 h-8 rounded-full bg-emerald-600 text-white font-bold text-xs flex items-center justify-center mx-auto">
-              4
-            </div>
-            <h3 className="text-sm font-bold text-slate-900">Track & Get Hired</h3>
-            <p className="text-xs text-slate-500">
-              Monitor application progress in real time.
-            </p>
-          </div>
-
-        </div>
-      </section>
-
-      {/* CTA BANNER */}
-      <section className="py-12 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-2xl bg-indigo-900 text-white p-8 sm:p-10 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="space-y-2 text-center sm:text-left">
-            <h2 className="text-2xl sm:text-3xl font-black">Ready to Take the Next Step?</h2>
-            <p className="text-indigo-200 text-xs max-w-lg">
-              Create your profile today to browse top tech jobs or start hiring talent immediately.
-            </p>
-          </div>
-          <div className="flex gap-3">
-            <Link
-              to="/register"
-              className="bg-white text-indigo-900 hover:bg-slate-100 font-bold px-5 py-2.5 rounded-lg text-xs transition shadow"
-            >
-              Get Started
-            </Link>
-            <Link
-              to="/jobs"
-              className="bg-indigo-800 text-white hover:bg-indigo-700 border border-indigo-700 font-bold px-5 py-2.5 rounded-lg text-xs transition"
-            >
-              Browse Jobs
-            </Link>
-          </div>
         </div>
       </section>
 
