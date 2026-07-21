@@ -1,7 +1,8 @@
 import { useContext, useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
-import { Mail, Lock, User, UserPlus, AlertCircle, Briefcase } from 'lucide-react'
+import PasswordStrengthMeter from '../components/password/PasswordStrengthMeter'
+import { Mail, Lock, User, UserPlus, AlertCircle } from 'lucide-react'
 
 function Register() {
   const { register } = useContext(AuthContext)
@@ -91,6 +92,7 @@ function Register() {
                 required
               />
             </div>
+            <PasswordStrengthMeter password={password} />
           </div>
 
           <div>

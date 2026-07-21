@@ -6,7 +6,8 @@ import ErrorBoundary from './components/ErrorBoundary'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
-import ForgotPassword from './pages/ForgotPassword'
+import ForgotPasswordPage from './pages/password/ForgotPasswordPage'
+import ChangePasswordPage from './pages/password/ChangePasswordPage'
 import JobListing from './pages/JobListing'
 import JobDetails from './pages/JobDetails'
 import JobApplication from './pages/JobApplication'
@@ -32,7 +33,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/change-password" element={<ChangePasswordPage />} />
             <Route path="/jobs" element={<JobListing />} />
             <Route path="/jobs/:id" element={<JobDetails />} />
             <Route path="/admin/login" element={<AdminLogin />} />
