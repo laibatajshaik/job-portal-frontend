@@ -91,6 +91,23 @@ export function AuthProvider({ children }) {
     }
   }
 
+  const resetPassword = async (email, newPassword) => {
+    setLoading(true)
+    const existingUser = demoUsers.find(
+      (user) => user.email.toLowerCase() === email.toLowerCase()
+    )
+
+    if (existingUser) {
+      existingUser.password = newPassword
+      setLoading(false)
+      return { success: true }
+    }
+
+    // If registered in memory session
+    setLoading(false)
+    return { success: true }
+  }
+
   const logout = () => {
     setUser(null)
     localStorage.removeItem('user')
@@ -104,6 +121,7 @@ export function AuthProvider({ children }) {
         setUser,
         login,
         register,
+        resetPassword,
         logout,
         loading,
       }}
