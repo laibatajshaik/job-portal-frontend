@@ -15,7 +15,7 @@ function ForgotPasswordPage() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const [generatedCode] = useState('849201')
+  const [otpCode, setOtpCode] = useState('')
 
   const handleRequestCode = async (e) => {
     e.preventDefault()
@@ -26,15 +26,27 @@ function ForgotPasswordPage() {
     }
 
     setLoading(true)
-    setTimeout(() => {
+    try {
+      const res = await api.post('/auth/forgot-password', { email })
+      if (res.data && res.data.code) {
+        setOtpCode(res.data.code)
+      }
       setLoading(false)
       setStep(2)
-    }, 600)
+    } catch (err) {
+      setLoading(false)
+      setError(err.response?.data?.detail || 'Failed to request verification code. Please check email address.')
+    }
   }
 
   const handleResetPassword = async (e) => {
     e.preventDefault()
     setError('')
+
+    if (!resetCode) {
+      setError('Please enter the verification code')
+      return
+    }
 
     if (!newPassword || newPassword.length < 8) {
       setError('Password must be at least 8 characters long')
@@ -48,14 +60,23 @@ function ForgotPasswordPage() {
 
     setLoading(true)
 
-    if (resetPassword) {
-      await resetPassword(email, newPassword)
-    }
-
-    setTimeout(() => {
+    try {
+      // Expose resetPassword Context locally
+      if (resetPassword) {
+        await resetPassword(email, newPassword)
+      }
+      // Call backend reset API with matching code
+      await api.post('/auth/reset-password', {
+        email,
+        code: resetCode.trim(),
+        new_password: newPassword
+      })
       setLoading(false)
       setStep(3)
-    }, 600)
+    } catch (err) {
+      setLoading(false)
+      setError(err.response?.data?.detail || 'Reset failed. Invalid verification code.')
+    }
   }
 
   return (
@@ -117,8 +138,8 @@ function ForgotPasswordPage() {
         {step === 2 && (
           <form onSubmit={handleResetPassword} className="space-y-4">
             <div className="bg-blue-50 border border-blue-100 text-blue-800 text-xs p-3 rounded-xl flex items-center justify-between">
-              <span>Verification Code: <strong className="font-mono text-sm">{generatedCode}</strong></span>
-              <span className="text-[10px] text-blue-600 bg-white px-2 py-0.5 rounded font-medium border border-blue-200">Demo OTP</span>
+              <span>Generated Code: <strong className="font-mono text-sm">{otpCode}</strong></span>
+              <span className="text-[10px] text-blue-600 bg-white px-2 py-0.5 rounded font-medium border border-blue-200">Real-Time OTP</span>
             </div>
 
             <div>
