@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import ForgotPasswordPage from './pages/password/ForgotPasswordPage'
 import ChangePasswordPage from './pages/password/ChangePasswordPage'
+import ResetPasswordPage from './pages/password/ResetPasswordPage'
 import JobListing from './pages/JobListing'
 import JobDetails from './pages/JobDetails'
 import JobApplication from './pages/JobApplication'
@@ -34,6 +35,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/reset-password" element={<ResetPasswordPage />} />
             <Route path="/change-password" element={<ChangePasswordPage />} />
             <Route path="/jobs" element={<JobListing />} />
             <Route path="/jobs/:id" element={<JobDetails />} />

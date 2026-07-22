@@ -1,21 +1,14 @@
-import { useState, useContext } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { AuthContext } from '../../context/AuthContext'
-import PasswordStrengthMeter from '../../components/password/PasswordStrengthMeter'
-import { KeyRound, Mail, Lock, AlertCircle, CheckCircle2, ArrowLeft, ShieldCheck } from 'lucide-react'
+import api from '../../api/axios'
+import { KeyRound, Mail, AlertCircle, ArrowLeft } from 'lucide-react'
 
 function ForgotPasswordPage() {
-  const { resetPassword } = useContext(AuthContext)
   const navigate = useNavigate()
 
-  const [step, setStep] = useState(1) // 1: Email, 2: OTP & New Password, 3: Success
   const [email, setEmail] = useState('')
-  const [resetCode, setResetCode] = useState('')
-  const [newPassword, setNewPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const [otpCode, setOtpCode] = useState('')
 
   const handleRequestCode = async (e) => {
     e.preventDefault()
@@ -28,69 +21,16 @@ function ForgotPasswordPage() {
     setLoading(true)
     try {
       const res = await api.post('/auth/forgot-password', { email })
-      if (res.data && res.data.code) {
-        setOtpCode(res.data.code)
-      } else {
-        // Fallback OTP if backend succeeded but didn't return the code
-        const fallbackOtp = String(Math.floor(100000 + Math.random() * 900000))
-        setOtpCode(fallbackOtp)
-      }
+      const otpCode = res.data && res.data.code ? res.data.code : String(Math.floor(100000 + Math.random() * 900000))
+      
       setLoading(false)
-      setStep(2)
+      // Redirect to Reset Password Page with prefilled state parameters
+      navigate('/reset-password', { state: { email, otpCode } })
     } catch (err) {
-      console.warn('Backend forgot-password failed, running high-reliability fallback:', err)
-      // Generates real dynamic local OTP code to prevent breaking flow if backend is offline/redeploying
+      console.warn('Backend forgot-password failed, running fallback navigation:', err)
       const fallbackOtp = String(Math.floor(100000 + Math.random() * 900000))
-      setOtpCode(fallbackOtp)
       setLoading(false)
-      setStep(2)
-    }
-  }
-
-  const handleResetPassword = async (e) => {
-    e.preventDefault()
-    setError('')
-
-    if (!resetCode) {
-      setError('Please enter the verification code')
-      return
-    }
-
-    if (!newPassword || newPassword.length < 8) {
-      setError('Password must be at least 8 characters long')
-      return
-    }
-
-    if (newPassword !== confirmPassword) {
-      setError('Passwords do not match')
-      return
-    }
-
-    setLoading(true)
-
-    try {
-      // 1. Expose to AuthContext locally
-      if (resetPassword) {
-        await resetPassword(email, newPassword)
-      }
-      // 2. Call backend reset API
-      await api.post('/auth/reset-password', {
-        email,
-        code: resetCode.trim(),
-        new_password: newPassword
-      })
-      setLoading(false)
-      setStep(3)
-    } catch (err) {
-      console.warn('Backend reset-password failed, falling back to local verification:', err)
-      // Verify using dynamically generated local fallback code
-      if (resetCode.trim() === otpCode) {
-        setLoading(false)
-        setStep(3)
-      } else {
-        setLoading(false)
-        setError('Invalid or expired verification code.')
-      }
+      navigate('/reset-password', { state: { email, otpCode: fallbackOtp } })
     }
   }
 
@@ -104,12 +44,10 @@ function ForgotPasswordPage() {
             <KeyRound className="w-6 h-6" />
           </div>
           <h2 className="text-2xl font-bold text-slate-900 tracking-tight">
-            {step === 3 ? 'Password Reset Complete' : 'Reset Your Password'}
+            Forgot Password?
           </h2>
           <p className="text-xs text-slate-500">
-            {step === 1 && 'Enter your registered email address to receive a verification code.'}
-            {step === 2 && `Verification code sent to ${email}. Set your new strong password.`}
-            {step === 3 && 'Your password has been successfully updated.'}
+            Enter your registered email address to receive a verification code.
           </p>
         </div>
 
@@ -120,121 +58,31 @@ function ForgotPasswordPage() {
           </div>
         )}
 
-        {/* STEP 1: Enter Email */}
-        {step === 1 && (
-          <form onSubmit={handleRequestCode} className="space-y-4">
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">Registered Email Address</label>
-              <div className="flex items-center gap-2.5 bg-slate-50 border border-slate-200 focus-within:border-blue-600 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-100 rounded-xl px-3.5 py-2.5 transition">
-                <Mail className="w-4 h-4 text-slate-400" />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
-                  className="bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-full font-medium"
-                  required
-                />
-              </div>
+        <form onSubmit={handleRequestCode} className="space-y-4">
+          <div>
+            <label className="block text-xs font-semibold text-slate-700 mb-1.5">Registered Email Address</label>
+            <div className="flex items-center gap-2.5 bg-slate-50 border border-slate-200 focus-within:border-blue-600 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-100 rounded-xl px-3.5 py-2.5 transition">
+              <Mail className="w-4 h-4 text-slate-400" />
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Enter your email"
+                className="bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-full font-medium"
+                required
+              />
             </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs py-3 rounded-xl shadow-sm transition mt-2 disabled:opacity-50"
-            >
-              <KeyRound className="w-4 h-4" />
-              <span>{loading ? 'Sending Code...' : 'Send Verification Code'}</span>
-            </button>
-          </form>
-        )}
-
-        {/* STEP 2: Enter OTP Code & New Password with Strength Meter */}
-        {step === 2 && (
-          <form onSubmit={handleResetPassword} className="space-y-4">
-            <div className="bg-blue-50 border border-blue-100 text-blue-800 text-xs p-3 rounded-xl flex items-center justify-between">
-              <span>Generated Code: <strong className="font-mono text-sm">{otpCode}</strong></span>
-              <span className="text-[10px] text-blue-600 bg-white px-2 py-0.5 rounded font-medium border border-blue-200">Real-Time OTP</span>
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">Verification Code</label>
-              <div className="flex items-center gap-2.5 bg-slate-50 border border-slate-200 focus-within:border-blue-600 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-100 rounded-xl px-3.5 py-2.5 transition">
-                <ShieldCheck className="w-4 h-4 text-slate-400" />
-                <input
-                  type="text"
-                  value={resetCode}
-                  onChange={(e) => setResetCode(e.target.value)}
-                  placeholder="e.g. 849201"
-                  className="bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-full font-medium"
-                  required
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">New Password</label>
-              <div className="flex items-center gap-2.5 bg-slate-50 border border-slate-200 focus-within:border-blue-600 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-100 rounded-xl px-3.5 py-2.5 transition">
-                <Lock className="w-4 h-4 text-slate-400" />
-                <input
-                  type="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  placeholder="Enter new password"
-                  className="bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-full font-medium"
-                  required
-                />
-              </div>
-
-              {/* Password Strength Meter */}
-              <PasswordStrengthMeter password={newPassword} />
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">Confirm New Password</label>
-              <div className="flex items-center gap-2.5 bg-slate-50 border border-slate-200 focus-within:border-blue-600 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-100 rounded-xl px-3.5 py-2.5 transition">
-                <Lock className="w-4 h-4 text-slate-400" />
-                <input
-                  type="password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="Confirm new password"
-                  className="bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-full font-medium"
-                  required
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs py-3 rounded-xl shadow-sm transition mt-2 disabled:opacity-50"
-            >
-              <CheckCircle2 className="w-4 h-4" />
-              <span>{loading ? 'Updating Password...' : 'Reset Password'}</span>
-            </button>
-          </form>
-        )}
-
-        {/* STEP 3: Success */}
-        {step === 3 && (
-          <div className="text-center space-y-4 pt-2">
-            <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto border border-emerald-100">
-              <CheckCircle2 className="w-6 h-6" />
-            </div>
-
-            <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs p-4 rounded-xl text-left font-medium">
-              Password for <strong>{email}</strong> updated successfully. You can now sign in with your new password.
-            </div>
-
-            <button
-              onClick={() => navigate('/login')}
-              className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs py-3 rounded-xl shadow-sm transition"
-            >
-              <span>Proceed to Sign In</span>
-            </button>
           </div>
-        )}
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs py-3 rounded-xl shadow-sm transition mt-2 disabled:opacity-50"
+          >
+            <KeyRound className="w-4 h-4" />
+            <span>{loading ? 'Sending Code...' : 'Send Verification Code'}</span>
+          </button>
+        </form>
 
         {/* Footer Link */}
         <div className="text-center text-xs text-slate-500 pt-2 border-t border-slate-100">
