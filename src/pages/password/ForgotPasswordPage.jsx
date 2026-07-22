@@ -20,10 +20,11 @@ function ForgotPasswordPage() {
 
     setLoading(true)
     try {
-      await api.post('/auth/forgot-password', { email })
+      const res = await api.post('/auth/forgot-password', { email })
+      const devCode = res.data?.dev_code
       setLoading(false)
       // Redirect to Verify Code Page
-      navigate('/forgot-password-verify', { state: { email } })
+      navigate('/forgot-password-verify', { state: { email, devCode } })
     } catch (err) {
       console.warn('Backend forgot-password failed, running fallback navigation:', err)
       setLoading(false)

@@ -8,6 +8,7 @@ function VerifyCodePage() {
   
   // Retrieve email passed from Forgot Password page
   const email = location.state?.email || ''
+  const devCode = location.state?.devCode || ''
   
   const [code, setCode] = useState('')
   const [error, setError] = useState('')
@@ -40,6 +41,19 @@ function VerifyCodePage() {
 
       {/* Right side: Form column */}
       <div className="md:w-3/5 flex flex-col justify-center px-12 sm:px-20 py-12 space-y-6">
+        {devCode && (
+          <div className="bg-neutral-900 border border-neutral-800 text-neutral-300 text-xs p-4 rounded-xl space-y-1.5 max-w-md w-full">
+            <p className="font-bold text-white flex items-center gap-1.5">
+              <span>⚠️ Note (Render Mail Block)</span>
+            </p>
+            <p className="leading-relaxed text-neutral-400 font-medium">
+              Render's outbound SMTP firewall blocked standard email delivery. Your verification code is:
+            </p>
+            <p className="text-sm font-extrabold text-white tracking-widest text-center mt-2 bg-neutral-950 p-2.5 rounded border border-neutral-850 font-mono">
+              {devCode}
+            </p>
+          </div>
+        )}
         {error && (
           <div className="flex items-center gap-2.5 border border-red-200 bg-red-50 text-red-700 text-xs px-4 py-3 rounded-lg max-w-md font-semibold">
             <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
