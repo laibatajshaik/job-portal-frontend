@@ -29,10 +29,10 @@ function Navbar() {
         
         {/* Brand Logo */}
         <Link to="/" className="flex items-center gap-2.5 text-slate-900 font-extrabold text-base tracking-tight hover:opacity-90 transition">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-slate-900 to-indigo-800 flex items-center justify-center text-white shadow-md shadow-indigo-900/10">
+          <div className="w-9 h-9 rounded-xl bg-black flex items-center justify-center text-white shadow-md">
             <Briefcase className="w-4.5 h-4.5" />
           </div>
-          <span className="bg-gradient-to-r from-slate-900 to-indigo-950 bg-clip-text text-transparent font-bold">JobPortal</span>
+          <span className="text-black font-bold">JobPortal</span>
         </Link>
 
         {/* Nav Links */}
@@ -41,8 +41,8 @@ function Navbar() {
             to="/jobs"
             className={`text-xs font-semibold tracking-wide uppercase transition ${
               location.pathname === '/jobs'
-                ? 'text-indigo-600 font-bold'
-                : 'text-slate-500 hover:text-slate-900'
+                ? 'text-black font-bold border-b-2 border-black pb-1'
+                : 'text-slate-500 hover:text-black'
             }`}
           >
             Find Jobs
@@ -51,9 +51,9 @@ function Navbar() {
           {user && user.role === 'manager' && (
             <Link
               to="/manager/post-job"
-              className="hidden sm:flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase text-slate-500 hover:text-indigo-600 transition"
+              className="hidden sm:flex items-center gap-1.5 text-xs font-semibold tracking-wide uppercase text-slate-500 hover:text-black transition"
             >
-              <PlusCircle className="w-4 h-4 text-indigo-600" />
+              <PlusCircle className="w-4 h-4 text-black" />
               <span>Post a Job</span>
             </Link>
           )}
@@ -62,7 +62,7 @@ function Navbar() {
             <div className="flex items-center gap-3.5 pl-4 border-l border-slate-200">
               <button
                 onClick={goToDashboard}
-                className="flex items-center gap-2 bg-slate-900 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-md transition duration-150"
+                className="flex items-center gap-2 bg-black hover:bg-neutral-800 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-md transition duration-150"
               >
                 <User className="w-3.5 h-3.5" />
                 <span>Dashboard</span>
@@ -87,14 +87,14 @@ function Navbar() {
             <div className="flex items-center gap-2 pl-3 border-l border-slate-200">
               <Link
                 to="/login"
-                className="text-xs font-bold text-slate-700 hover:text-indigo-600 px-3.5 py-2 rounded-xl transition"
+                className="text-xs font-bold text-slate-700 hover:text-black px-3.5 py-2 rounded-xl transition"
               >
                 Sign In
               </Link>
 
               <Link
                 to="/register"
-                className="bg-slate-900 hover:bg-indigo-700 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-sm transition"
+                className="bg-black hover:bg-neutral-800 text-white text-xs font-bold px-4 py-2 rounded-xl shadow-sm transition"
               >
                 Register
               </Link>

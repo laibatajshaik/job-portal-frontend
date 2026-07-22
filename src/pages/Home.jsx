@@ -83,12 +83,10 @@ function Home() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
 
         {/* HERO / SEARCH SECTION */}
-        <section className="bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 text-white rounded-3xl py-16 px-6 sm:px-12 text-center relative overflow-hidden shadow-xl shadow-indigo-950/10">
-          {/* Subtle Decorative Backdrop Glow */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(99,102,241,0.08),transparent)] pointer-events-none" />
+        <section className="bg-black text-white rounded-3xl py-20 px-6 sm:px-12 text-center relative overflow-hidden shadow-xl shadow-neutral-950/10">
           
           <div className="relative z-10 space-y-5 max-w-4xl mx-auto">
-            <span className="inline-flex items-center gap-1.5 bg-indigo-500/10 text-indigo-400 text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-indigo-500/20">
+            <span className="inline-flex items-center gap-1.5 bg-neutral-800 text-neutral-300 text-[10px] font-bold uppercase tracking-widest px-3.5 py-1 rounded-full border border-neutral-700">
               Welcome to Shnoor JobPortal
             </span>
             
@@ -96,39 +94,39 @@ function Home() {
               Find your next job
             </h1>
 
-            <p className="text-slate-350 text-sm max-w-lg mx-auto leading-relaxed">
+            <p className="text-neutral-400 text-sm max-w-lg mx-auto leading-relaxed">
               Search open job opportunities across technology, design, and business.
             </p>
 
             {/* Search Form */}
             <form onSubmit={handleSearchSubmit} className="pt-4 max-w-3xl mx-auto">
-              <div className="bg-white/10 backdrop-blur-md p-2 rounded-2xl border border-white/10 shadow-lg flex flex-col md:flex-row items-center gap-2">
+              <div className="bg-neutral-900 p-2 rounded-2xl border border-neutral-850 shadow-xl flex flex-col md:flex-row items-center gap-2">
                 
-                <div className="flex items-center gap-2 bg-white/5 border border-white/5 focus-within:bg-white/10 rounded-xl px-4 py-3 flex-1 w-full transition">
-                  <Search className="w-4 h-4 text-indigo-400 shrink-0" />
+                <div className="flex items-center gap-2 bg-neutral-950 border border-neutral-800 focus-within:border-white rounded-xl px-4 py-3 flex-1 w-full transition">
+                  <Search className="w-4 h-4 text-neutral-400 shrink-0" />
                   <input
                     type="text"
                     placeholder="Job title, skill, or keyword..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    className="bg-transparent text-xs text-white placeholder-slate-400 focus:outline-none w-full font-medium"
+                    className="bg-transparent text-xs text-white placeholder-neutral-500 focus:outline-none w-full font-medium"
                   />
                 </div>
 
-                <div className="flex items-center gap-2 bg-white/5 border border-white/5 focus-within:bg-white/10 rounded-xl px-4 py-3 flex-1 w-full transition">
-                  <MapPin className="w-4 h-4 text-indigo-400 shrink-0" />
+                <div className="flex items-center gap-2 bg-neutral-950 border border-neutral-800 focus-within:border-white rounded-xl px-4 py-3 flex-1 w-full transition">
+                  <MapPin className="w-4 h-4 text-neutral-400 shrink-0" />
                   <input
                     type="text"
                     placeholder="City, state, or remote..."
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
-                    className="bg-transparent text-xs text-white placeholder-slate-400 focus:outline-none w-full font-medium"
+                    className="bg-transparent text-xs text-white placeholder-neutral-500 focus:outline-none w-full font-medium"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full md:w-auto bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs px-6 py-3.5 rounded-xl transition shadow-md shadow-indigo-600/20 shrink-0"
+                  className="w-full md:w-auto bg-white hover:bg-neutral-200 text-black font-bold text-xs px-6 py-3.5 rounded-xl transition shrink-0"
                 >
                   Search Jobs
                 </button>
@@ -145,7 +143,7 @@ function Home() {
               <h2 className="text-xl font-extrabold text-slate-900 tracking-tight">Latest Job Openings</h2>
               <p className="text-xs text-slate-500 mt-0.5 font-medium">Handpicked opportunities updated daily</p>
             </div>
-            <Link to="/jobs" className="text-xs font-bold text-indigo-600 hover:text-indigo-750 flex items-center gap-1 bg-indigo-50 hover:bg-indigo-100/80 px-3.5 py-2 rounded-xl transition">
+            <Link to="/jobs" className="text-xs font-bold text-black hover:text-neutral-700 flex items-center gap-1 bg-white hover:bg-slate-100 border border-slate-200 px-3.5 py-2 rounded-xl transition">
               <span>View all jobs</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>

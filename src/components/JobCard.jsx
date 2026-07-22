@@ -24,8 +24,8 @@ function JobCard({ job }) {
           <span
             className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg shrink-0 ${
               isFullTime
-                ? 'bg-emerald-50 text-emerald-800 border border-emerald-100/50'
-                : 'bg-indigo-50 text-indigo-700 border border-indigo-100/50'
+                ? 'bg-black text-white'
+                : 'bg-slate-100 text-slate-750 border border-slate-200/60'
             }`}
           >
             {job.job_type || 'Full Time'}
@@ -46,7 +46,7 @@ function JobCard({ job }) {
             <span>{job.location || 'Remote'}</span>
           </div>
 
-          <div className="text-indigo-650 font-bold bg-indigo-50/50 px-2.5 py-1 rounded-lg border border-indigo-100/20">
+          <div className="text-slate-900 font-bold bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200/60">
             <span>{job.salary || '₹9,00,000'}</span>
           </div>
         </div>
@@ -56,7 +56,7 @@ function JobCard({ job }) {
       <div className="mt-5">
         <Link
           to={`/jobs/${job.id ?? 0}`}
-          className="w-full block text-center bg-slate-900 hover:bg-indigo-700 text-white font-bold text-xs py-3 rounded-xl shadow-sm transition duration-150 uppercase tracking-wider"
+          className="w-full block text-center bg-black hover:bg-neutral-800 text-white font-bold text-xs py-3 rounded-xl shadow-sm transition duration-150 uppercase tracking-wider"
         >
           View Job Details
         </Link>
