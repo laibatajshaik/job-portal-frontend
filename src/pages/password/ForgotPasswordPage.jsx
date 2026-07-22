@@ -52,9 +52,12 @@ function ForgotPasswordPage() {
         </div>
 
         {error && (
-          <div className="flex items-center gap-2 bg-rose-50 border border-rose-200 text-rose-700 text-xs p-3 rounded-xl">
-            <AlertCircle className="w-4 h-4 shrink-0" />
-            <span>{error}</span>
+          <div className="flex flex-col gap-1.5 bg-rose-50 border border-rose-200 text-rose-700 text-xs p-3 rounded-xl">
+            <div className="flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0" />
+              <span>{error}</span>
+            </div>
+            <p className="text-[10px] text-rose-500 font-medium pl-6">Tip: If you recently pushed changes, press Ctrl + Shift + R to clear browser cache and load the latest live build.</p>
           </div>
         )}
 
