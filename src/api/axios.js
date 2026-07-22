@@ -3,7 +3,7 @@ import axios from 'axios'
 // Use VITE_API_URL if provided at build/runtime, otherwise fallback to deployed backend URL or localhost
 const getBaseURL = () => {
   let envUrl = import.meta.env.VITE_API_URL
-  if (envUrl && !envUrl.includes('job-portal-backend-phu8')) {
+  if (envUrl && envUrl.includes('.onrender.com') && !envUrl.includes('job-portal-backend-phu8')) {
     if (!envUrl.startsWith('http://') && !envUrl.startsWith('https://')) {
       envUrl = `https://${envUrl}`
     }
