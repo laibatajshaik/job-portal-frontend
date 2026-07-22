@@ -51,7 +51,7 @@ function Register() {
       else if (loggedInUser.role === 'manager') navigate('/manager/dashboard')
       else navigate('/user/dashboard')
     } catch (err) {
-      setError(err.response?.data?.detail || 'Google Authentication failed on server verification.')
+      setError(err.response?.data?.detail || err.message || 'Google Authentication failed on server verification.')
     }
   }
 

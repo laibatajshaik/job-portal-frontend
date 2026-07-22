@@ -55,7 +55,7 @@ function Login() {
       else if (loggedInUser.role === 'manager') navigate('/manager/dashboard')
       else navigate('/user/dashboard')
     } catch (err) {
-      setError(err.response?.data?.detail || 'Google Authentication failed on server verification.')
+      setError(err.response?.data?.detail || err.message || 'Google Authentication failed on server verification.')
     }
   }
 
@@ -96,15 +96,7 @@ function Login() {
           </div>
 
           <div className="space-y-1.5">
-            <div className="flex justify-between items-center">
-              <label className="block text-xs font-semibold text-neutral-600">Password</label>
-              <Link
-                to="/forgot-password"
-                className="text-[11px] font-semibold text-blue-600 hover:underline font-medium"
-              >
-                Forgot password?
-              </Link>
-            </div>
+            <label className="block text-xs font-semibold text-neutral-600">Password</label>
             <input
               type="password"
               required
@@ -113,6 +105,14 @@ function Login() {
               placeholder="Password"
               className="w-full bg-white border border-neutral-300 rounded-md px-3.5 py-2.5 text-xs text-black placeholder-neutral-400 focus:outline-none focus:border-black font-semibold"
             />
+            <div className="text-right">
+              <Link
+                to="/forgot-password"
+                className="text-[11px] font-semibold text-blue-600 hover:underline font-medium"
+              >
+                Forgot password?
+              </Link>
+            </div>
           </div>
 
           <div className="flex items-center gap-3 pt-2">
