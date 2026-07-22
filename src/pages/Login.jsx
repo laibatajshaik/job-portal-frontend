@@ -1,7 +1,8 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import { Mail, Lock, LogIn, AlertCircle, Briefcase } from 'lucide-react'
+import api from '../api/axios'
 
 function Login() {
   const { login, setUser } = useContext(AuthContext)
@@ -28,16 +29,34 @@ function Login() {
     }
   }
 
-  const handleGoogleLogin = () => {
-    const googleUser = {
-      name: 'Google User',
-      email: 'google_user@gmail.com',
-      role: 'user'
+  useEffect(() => {
+    /* global google */
+    if (window.google) {
+      google.accounts.id.initialize({
+        client_id: "242260456878-i33gg7lb37j70rk893i4i9svc15ep1pl.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+      });
+      google.accounts.id.renderButton(
+        document.getElementById("googleBtn"),
+        { theme: "outline", size: "large", width: "380px" }
+      );
     }
-    setUser(googleUser)
-    localStorage.setItem('user', JSON.stringify(googleUser))
-    localStorage.setItem('token', 'google-oauth-demo-token')
-    navigate('/user/dashboard')
+  }, []);
+
+  const handleCredentialResponse = async (response) => {
+    setError('')
+    try {
+      const res = await api.post('/auth/google-login', { token: response.credential })
+      const loggedInUser = res.data.user
+      setUser(loggedInUser)
+      localStorage.setItem('user', JSON.stringify(loggedInUser))
+      localStorage.setItem('token', res.data.access_token)
+      if (loggedInUser.role === 'admin') navigate('/admin/dashboard')
+      else if (loggedInUser.role === 'manager') navigate('/manager/dashboard')
+      else navigate('/user/dashboard')
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Google Authentication failed on server verification.')
+    }
   }
 
   return (
@@ -118,14 +137,9 @@ function Login() {
           <div className="relative flex justify-center text-[10px]"><span className="bg-white px-2 text-slate-400 font-semibold uppercase tracking-wider">Or continue with</span></div>
         </div>
 
-        <button
-          onClick={handleGoogleLogin}
-          type="button"
-          className="w-full flex items-center justify-center gap-2.5 bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs py-2.5 rounded-xl border border-slate-200 shadow-sm transition"
-        >
-          <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24"><path fill="#EA4335" d="M12.24 10.285V14.4h6.887c-.648 2.41-2.519 4.114-5.136 4.114A5.99 5.99 0 0 1 8 12.5a5.99 5.99 0 0 1 5.99-6.015c1.55 0 2.903.585 3.93 1.545l3.18-3.18C19.14 2.91 16.79 2 13.99 2 8.47 2 4 6.47 4 12s4.47 10 9.99 10c5.8 0 9.66-4.07 9.66-9.85 0-.67-.06-1.32-.17-1.865H12.24Z"/></svg>
-          <span>Sign in with Google</span>
-        </button>
+        <div className="flex justify-center w-full min-h-[44px]">
+          <div id="googleBtn" className="w-full flex justify-center"></div>
+        </div>
 
         <div className="text-center text-xs text-slate-500 pt-2 border-t border-slate-100">
           <p>
