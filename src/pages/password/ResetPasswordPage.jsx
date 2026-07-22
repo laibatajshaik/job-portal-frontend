@@ -12,10 +12,9 @@ function ResetPasswordPage() {
 
   // Pull states passed from forgot password page
   const initialEmail = location.state?.email || ''
-  const initialOtp = location.state?.otpCode || ''
 
   const [email, setEmail] = useState(initialEmail)
-  const [resetCode, setResetCode] = useState(initialOtp)
+  const [resetCode, setResetCode] = useState('')
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
@@ -63,15 +62,9 @@ function ResetPasswordPage() {
       setLoading(false)
       setSuccess(true)
     } catch (err) {
-      console.warn('Backend reset failed, using high-reliability client verification:', err)
-      // Fallback local verification check
-      if (initialOtp && resetCode.trim() === initialOtp) {
-        setLoading(false)
-        setSuccess(true)
-      } else {
-        setLoading(false)
-        setError('Invalid or expired verification code.')
-      }
+      console.warn('Backend reset failed:', err)
+      setLoading(false)
+      setError(err.response?.data?.detail || 'Invalid or expired verification code.')
     }
   }
 
@@ -121,13 +114,6 @@ function ResetPasswordPage() {
         ) : (
           <form onSubmit={handleResetPassword} className="space-y-4">
             
-            {initialOtp && (
-              <div className="bg-blue-50 border border-blue-100 text-blue-800 text-xs p-3 rounded-xl flex items-center justify-between">
-                <span>Verification Code: <strong className="font-mono text-sm">{initialOtp}</strong></span>
-                <span className="text-[10px] text-blue-600 bg-white px-2 py-0.5 rounded font-medium border border-blue-200">Real-Time OTP</span>
-              </div>
-            )}
-
             <div>
               <label className="block text-xs font-semibold text-slate-700 mb-1.5">Email Address</label>
               <div className="flex items-center gap-2.5 bg-slate-50 border border-slate-200 focus-within:border-blue-600 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-100 rounded-xl px-3.5 py-2.5 transition">

@@ -20,17 +20,14 @@ function ForgotPasswordPage() {
 
     setLoading(true)
     try {
-      const res = await api.post('/auth/forgot-password', { email })
-      const otpCode = res.data && res.data.code ? res.data.code : String(Math.floor(100000 + Math.random() * 900000))
-      
+      await api.post('/auth/forgot-password', { email })
       setLoading(false)
-      // Redirect to Reset Password Page with prefilled state parameters
-      navigate('/reset-password', { state: { email, otpCode } })
+      // Redirect to Reset Password Page with prefilled email state
+      navigate('/reset-password', { state: { email } })
     } catch (err) {
       console.warn('Backend forgot-password failed, running fallback navigation:', err)
-      const fallbackOtp = String(Math.floor(100000 + Math.random() * 900000))
       setLoading(false)
-      navigate('/reset-password', { state: { email, otpCode: fallbackOtp } })
+      navigate('/reset-password', { state: { email } })
     }
   }
 
