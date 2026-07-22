@@ -10,16 +10,23 @@ function ResetPasswordPage() {
   const navigate = useNavigate()
   const location = useLocation()
 
-  // Pull states passed from forgot password page
+  // Pull states passed from verify code page
   const initialEmail = location.state?.email || ''
+  const initialCode = location.state?.code || ''
 
   const [email, setEmail] = useState(initialEmail)
-  const [resetCode, setResetCode] = useState('')
+  const [resetCode, setResetCode] = useState(initialCode)
   const [newPassword, setNewPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
   const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    if (!initialEmail || !initialCode) {
+      setError('Please verify your code first before resetting your password.')
+    }
+  }, [initialEmail, initialCode])
 
   const handleResetPassword = async (e) => {
     e.preventDefault()
@@ -32,7 +39,7 @@ function ResetPasswordPage() {
     }
 
     if (!resetCode) {
-      setError('Please enter the verification code')
+      setError('Verification code is missing. Please verify your code first.')
       return
     }
 
@@ -123,21 +130,6 @@ function ResetPasswordPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-full font-medium"
-                  required
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-xs font-semibold text-slate-700 mb-1.5">Verification Code</label>
-              <div className="flex items-center gap-2.5 bg-slate-50 border border-slate-200 focus-within:border-blue-600 focus-within:bg-white focus-within:ring-2 focus-within:ring-blue-100 rounded-xl px-3.5 py-2.5 transition">
-                <ShieldCheck className="w-4 h-4 text-slate-400" />
-                <input
-                  type="text"
-                  value={resetCode}
-                  onChange={(e) => setResetCode(e.target.value)}
-                  placeholder="Enter 6-digit code"
                   className="bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-full font-medium"
                   required
                 />

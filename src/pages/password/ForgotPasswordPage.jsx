@@ -22,12 +22,12 @@ function ForgotPasswordPage() {
     try {
       await api.post('/auth/forgot-password', { email })
       setLoading(false)
-      // Redirect to Reset Password Page with prefilled email state
-      navigate('/reset-password', { state: { email } })
+      // Redirect to Verify Code Page
+      navigate('/forgot-password-verify', { state: { email } })
     } catch (err) {
       console.warn('Backend forgot-password failed, running fallback navigation:', err)
       setLoading(false)
-      navigate('/reset-password', { state: { email } })
+      navigate('/forgot-password-verify', { state: { email } })
     }
   }
 
