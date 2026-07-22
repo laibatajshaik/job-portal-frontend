@@ -10,7 +10,9 @@ function PrivateRoute({ children, allowedRoles }) {
   }
 
   if (allowedRoles && !allowedRoles.includes(user.role)) {
-    return <Navigate to="/" />
+    if (user.role === 'admin') return <Navigate to="/admin/dashboard" />
+    if (user.role === 'manager') return <Navigate to="/manager/dashboard" />
+    return <Navigate to="/user/dashboard" />
   }
 
   return children
