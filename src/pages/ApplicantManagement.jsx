@@ -50,8 +50,8 @@ function ApplicantManagement() {
     try {
       await api.put(`/manager/applicants/${id}/${action}`)
       // Update local state instantly for snappier feedback
-      setApplicants(prev => prev.map(app => {
-        if (app.id === id) {
+      setApplicants(prev => prev.map((app, idx) => {
+        if (app.id === id || (app.id === undefined && idx + 1 === id)) {
           return { ...app, status: action === 'shortlist' ? 'Shortlisted' : 'Rejected' }
         }
         return app
@@ -242,7 +242,7 @@ function ApplicantManagement() {
                           <td className="p-3 text-right">
                             <div className="inline-flex items-center gap-1.5">
                               <button
-                                onClick={() => handleStatusChange(app.id, 'shortlist')}
+                                onClick={() => handleStatusChange(app.id ?? (index + 1), 'shortlist')}
                                 disabled={app.status === 'Shortlisted'}
                                 className={`inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold transition border ${
                                   app.status === 'Shortlisted'
@@ -254,7 +254,7 @@ function ApplicantManagement() {
                                 <span>Shortlist</span>
                               </button>
                               <button
-                                onClick={() => handleStatusChange(app.id, 'reject')}
+                                onClick={() => handleStatusChange(app.id ?? (index + 1), 'reject')}
                                 disabled={app.status === 'Rejected'}
                                 className={`inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold transition border ${
                                   app.status === 'Rejected'
