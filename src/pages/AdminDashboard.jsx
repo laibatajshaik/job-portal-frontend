@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../api/axios'
 import Loader from '../components/Loader'
@@ -17,7 +17,8 @@ import {
   ChevronRight,
   Award,
   Link2,
-  RefreshCw
+  RefreshCw,
+  X
 } from 'lucide-react'
 
 function AdminDashboard() {
@@ -33,6 +34,23 @@ function AdminDashboard() {
   const [atsThreshold, setAtsThreshold] = useState(80)
   const [maintenanceMode, setMaintenanceMode] = useState(false)
   const [apiServer, setApiServer] = useState('https://job-portal-backend-1f0h.onrender.com')
+
+  // Read viewed items state from localStorage
+  const [viewedUsers, setViewedUsers] = useState(() => {
+    return JSON.parse(localStorage.getItem('viewedUserIds') || '[]')
+  })
+  const [viewedJobs, setViewedJobs] = useState(() => {
+    return JSON.parse(localStorage.getItem('viewedJobIds') || '[]')
+  })
+  const [viewedCompanies, setViewedCompanies] = useState(() => {
+    return JSON.parse(localStorage.getItem('viewedCompanyNames') || '[]')
+  })
+  const [viewedApplications, setViewedApplications] = useState(() => {
+    return JSON.parse(localStorage.getItem('viewedApplicationIds') || '[]')
+  })
+
+  // Selected PDF resume URL for the inline modal viewer
+  const [selectedResumeUrl, setSelectedResumeUrl] = useState(null)
 
   useEffect(() => {
     fetchData()
@@ -117,6 +135,36 @@ function AdminDashboard() {
   const companiesList = getCompaniesList()
   const companiesCount = companiesList.length
 
+  // Track and clear viewed items dynamically on tab switch or collection updates
+  useEffect(() => {
+    if (tab === 'users' && users.length > 0) {
+      const allIds = users.map(u => u.id)
+      setViewedUsers(allIds)
+      localStorage.setItem('viewedUserIds', JSON.stringify(allIds))
+    }
+    if (tab === 'jobs' && jobs.length > 0) {
+      const allIds = jobs.map(j => j.id)
+      setViewedJobs(allIds)
+      localStorage.setItem('viewedJobIds', JSON.stringify(allIds))
+    }
+    if (tab === 'companies' && companiesList.length > 0) {
+      const allNames = companiesList.map(c => c.name)
+      setViewedCompanies(allNames)
+      localStorage.setItem('viewedCompanyNames', JSON.stringify(allNames))
+    }
+    if (tab === 'applications' && applications.length > 0) {
+      const allIds = applications.map(a => a.id)
+      setViewedApplications(allIds)
+      localStorage.setItem('viewedApplicationIds', JSON.stringify(allIds))
+    }
+  }, [tab, users.length, jobs.length, applications.length, companiesCount])
+
+  // Calculate counts of new (unopened) items
+  const unopenedUsersCount = users.filter(u => !viewedUsers.includes(u.id)).length
+  const unopenedJobsCount = jobs.filter(j => !viewedJobs.includes(j.id)).length
+  const unopenedCompaniesCount = companiesList.filter(c => !viewedCompanies.includes(c.name)).length
+  const unopenedApplicationsCount = applications.filter(a => !viewedApplications.includes(a.id)).length
+
   // Generate logs dynamically
   const generateNotificationLogs = () => {
     const logs = []
@@ -161,17 +209,17 @@ function AdminDashboard() {
   if (loading) return <Loader />
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 p-4 sm:p-6 lg:p-8 font-sans">
+    <div className="min-h-screen bg-[#F0F4F8] text-slate-800 p-4 sm:p-6 lg:p-8 font-sans">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
 
-        {/* FLOATING DARK SIDEBAR (Matching reference photo) */}
-        <aside className="w-full lg:w-64 bg-[#181824] rounded-3xl p-5 text-white flex flex-col justify-between shadow-xl shrink-0 min-h-[620px]">
+        {/* FLOATING DEEP NAVY SIDEBAR (Matching provided design system mockup) */}
+        <aside className="w-full lg:w-64 bg-[#0B2545] rounded-3xl p-5 text-white flex flex-col justify-between shadow-xl shrink-0 min-h-[620px]">
           
           <div className="space-y-6">
             {/* Sidebar Title */}
             <div className="flex items-center gap-2.5 px-3 py-2 text-base font-bold tracking-tight">
               <div className="w-8 h-8 rounded-xl bg-white flex items-center justify-center text-black shadow-md">
-                <LayoutDashboard className="w-4 h-4" />
+                <LayoutDashboard className="w-4 h-4 text-[#0B2545]" />
               </div>
               <span>Admin Portal</span>
             </div>
@@ -183,7 +231,7 @@ function AdminDashboard() {
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-left ${
                   tab === 'users'
                     ? 'bg-white text-black font-bold shadow-md'
-                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                    : 'text-slate-350 hover:text-white hover:bg-white/5'
                 }`}
               >
                 <LayoutDashboard className="w-4 h-4" />
@@ -192,50 +240,78 @@ function AdminDashboard() {
 
               <button
                 onClick={() => setTab('users')}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-left ${
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition text-left ${
                   tab === 'users'
                     ? 'text-white bg-white/10 font-bold'
-                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                    : 'text-slate-350 hover:text-white hover:bg-white/5'
                 }`}
               >
-                <Users className="w-4 h-4" />
-                <span>Users ({users.length})</span>
+                <div className="flex items-center gap-3">
+                  <Users className="w-4 h-4" />
+                  <span>Users</span>
+                </div>
+                {unopenedUsersCount > 0 && (
+                  <span className="bg-red-500 text-white text-[9px] px-1.5 py-0.5 rounded-full font-bold">
+                    {unopenedUsersCount}
+                  </span>
+                )}
               </button>
 
               <button
                 onClick={() => setTab('jobs')}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-left ${
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition text-left ${
                   tab === 'jobs'
                     ? 'text-white bg-white/10 font-bold'
-                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                    : 'text-slate-350 hover:text-white hover:bg-white/5'
                 }`}
               >
-                <Briefcase className="w-4 h-4" />
-                <span>Jobs ({jobs.length})</span>
+                <div className="flex items-center gap-3">
+                  <Briefcase className="w-4 h-4" />
+                  <span>Jobs</span>
+                </div>
+                {unopenedJobsCount > 0 && (
+                  <span className="bg-red-500 text-white text-[9px] px-1.5 py-0.5 rounded-full font-bold">
+                    {unopenedJobsCount}
+                  </span>
+                )}
               </button>
 
               <button
                 onClick={() => setTab('companies')}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-left ${
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition text-left ${
                   tab === 'companies'
                     ? 'text-white bg-white/10 font-bold'
-                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                    : 'text-slate-350 hover:text-white hover:bg-white/5'
                 }`}
               >
-                <Building2 className="w-4 h-4" />
-                <span>Companies ({companiesCount})</span>
+                <div className="flex items-center gap-3">
+                  <Building2 className="w-4 h-4" />
+                  <span>Companies</span>
+                </div>
+                {unopenedCompaniesCount > 0 && (
+                  <span className="bg-red-500 text-white text-[9px] px-1.5 py-0.5 rounded-full font-bold">
+                    {unopenedCompaniesCount}
+                  </span>
+                )}
               </button>
 
               <button
                 onClick={() => setTab('applications')}
-                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-left ${
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition text-left ${
                   tab === 'applications'
                     ? 'text-white bg-white/10 font-bold'
-                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                    : 'text-slate-355 hover:text-white hover:bg-white/5'
                 }`}
               >
-                <FileText className="w-4 h-4" />
-                <span>Applications ({applications.length})</span>
+                <div className="flex items-center gap-3">
+                  <FileText className="w-4 h-4" />
+                  <span>Applications</span>
+                </div>
+                {unopenedApplicationsCount > 0 && (
+                  <span className="bg-red-500 text-white text-[9px] px-1.5 py-0.5 rounded-full font-bold">
+                    {unopenedApplicationsCount}
+                  </span>
+                )}
               </button>
 
               <button
@@ -243,7 +319,7 @@ function AdminDashboard() {
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-left ${
                   tab === 'notifications'
                     ? 'text-white bg-white/10 font-bold'
-                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                    : 'text-slate-355 hover:text-white hover:bg-white/5'
                 }`}
               >
                 <Bell className="w-4 h-4" />
@@ -255,7 +331,7 @@ function AdminDashboard() {
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-left ${
                   tab === 'settings'
                     ? 'text-white bg-white/10 font-bold'
-                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                    : 'text-slate-355 hover:text-white hover:bg-white/5'
                 }`}
               >
                 <Settings className="w-4 h-4" />
@@ -267,7 +343,7 @@ function AdminDashboard() {
           {/* Logout Button */}
           <button
             onClick={handleLogout}
-            className="w-full bg-white hover:bg-neutral-200 text-black font-bold text-xs py-3 rounded-xl shadow-md transition uppercase tracking-wider mt-6"
+            className="w-full bg-[#134074] hover:bg-[#1D3557] text-white font-bold text-xs py-3 rounded-xl shadow-md transition uppercase tracking-wider mt-6"
           >
             LOGOUT
           </button>
@@ -292,57 +368,57 @@ function AdminDashboard() {
 
             <button
               onClick={fetchData}
-              className="inline-flex items-center gap-1.5 bg-black hover:bg-neutral-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition"
+              className="inline-flex items-center gap-1.5 bg-[#1D3557] hover:bg-[#0B2545] text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-sm transition"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>Refresh Data</span>
             </button>
           </div>
 
-          {/* STAT CARDS WITH FLOATING NEUTRAL ICON BADGES */}
+          {/* STAT CARDS WITH DEEP STEEL BLUE FLOATING NEUTRAL ICON BADGES */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-2">
             
             {/* Card 1: Total Jobs */}
             <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 flex items-center justify-between">
-              <div className="w-12 h-12 rounded-xl bg-black text-white flex items-center justify-center shadow-lg shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-[#1D3557] text-white flex items-center justify-center shadow-lg shrink-0">
                 <Building2 className="w-6 h-6" />
               </div>
               <div className="text-right">
-                <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Total Jobs</p>
-                <p className="text-2xl font-bold text-slate-900 mt-0.5">{jobs.length}</p>
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Jobs</p>
+                <p className="text-2xl font-bold text-[#0B2545] mt-0.5">{jobs.length}</p>
               </div>
             </div>
 
             {/* Card 2: Applications */}
             <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 flex items-center justify-between">
-              <div className="w-12 h-12 rounded-xl bg-neutral-900 text-white flex items-center justify-center shadow-lg shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-[#134074] text-white flex items-center justify-center shadow-lg shrink-0">
                 <FileText className="w-6 h-6" />
               </div>
               <div className="text-right">
-                <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Applications</p>
-                <p className="text-2xl font-bold text-slate-900 mt-0.5">{applications.length}</p>
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Applications</p>
+                <p className="text-2xl font-bold text-[#0B2545] mt-0.5">{applications.length}</p>
               </div>
             </div>
 
             {/* Card 3: Total Users */}
             <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 flex items-center justify-between">
-              <div className="w-12 h-12 rounded-xl bg-neutral-800 text-white flex items-center justify-center shadow-lg shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-[#0B2545] text-white flex items-center justify-center shadow-lg shrink-0">
                 <Users className="w-6 h-6" />
               </div>
               <div className="text-right">
-                <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Total Users</p>
-                <p className="text-2xl font-bold text-slate-900 mt-0.5">{users.length}</p>
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Users</p>
+                <p className="text-2xl font-bold text-[#0B2545] mt-0.5">{users.length}</p>
               </div>
             </div>
 
             {/* Card 4: Companies */}
             <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 flex items-center justify-between">
-              <div className="w-12 h-12 rounded-xl bg-neutral-700 text-white flex items-center justify-center shadow-lg shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-slate-700 text-white flex items-center justify-center shadow-lg shrink-0">
                 <Briefcase className="w-6 h-6" />
               </div>
               <div className="text-right">
-                <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Companies</p>
-                <p className="text-2xl font-bold text-slate-900 mt-0.5">{companiesCount || 1}</p>
+                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Companies</p>
+                <p className="text-2xl font-bold text-[#0B2545] mt-0.5">{companiesCount || 1}</p>
               </div>
             </div>
 
@@ -351,65 +427,65 @@ function AdminDashboard() {
           {/* MAIN MANAGEMENT DATA CARD */}
           <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
             
-            {/* Tab Controls */}
+            {/* Tab Controls - Redesigned to Capsule tabs matching the mockup */}
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-              <div className="flex items-center gap-2 overflow-x-auto py-1">
+              <div className="bg-slate-100 p-1 rounded-full flex gap-1 overflow-x-auto max-w-full">
                 <button
                   onClick={() => setTab('users')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition shrink-0 ${
+                  className={`px-5 py-2 rounded-full text-xs font-bold transition shrink-0 ${
                     tab === 'users'
-                      ? 'bg-black text-white shadow-sm'
-                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                      ? 'bg-[#1D3557] text-white shadow-sm'
+                      : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200/50'
                   }`}
                 >
                   Manage Users ({users.length})
                 </button>
                 <button
                   onClick={() => setTab('jobs')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition shrink-0 ${
+                  className={`px-5 py-2 rounded-full text-xs font-bold transition shrink-0 ${
                     tab === 'jobs'
-                      ? 'bg-black text-white shadow-sm'
-                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                      ? 'bg-[#1D3557] text-white shadow-sm'
+                      : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200/50'
                   }`}
                 >
                   Manage Jobs ({jobs.length})
                 </button>
                 <button
                   onClick={() => setTab('companies')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition shrink-0 ${
+                  className={`px-5 py-2 rounded-full text-xs font-bold transition shrink-0 ${
                     tab === 'companies'
-                      ? 'bg-black text-white shadow-sm'
-                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                      ? 'bg-[#1D3557] text-white shadow-sm'
+                      : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200/50'
                   }`}
                 >
                   Companies ({companiesCount})
                 </button>
                 <button
                   onClick={() => setTab('applications')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition shrink-0 ${
+                  className={`px-5 py-2 rounded-full text-xs font-bold transition shrink-0 ${
                     tab === 'applications'
-                      ? 'bg-black text-white shadow-sm'
-                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                      ? 'bg-[#1D3557] text-white shadow-sm'
+                      : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200/50'
                   }`}
                 >
                   Applications ({applications.length})
                 </button>
                 <button
                   onClick={() => setTab('notifications')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition shrink-0 ${
+                  className={`px-5 py-2 rounded-full text-xs font-bold transition shrink-0 ${
                     tab === 'notifications'
-                      ? 'bg-black text-white shadow-sm'
-                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                      ? 'bg-[#1D3557] text-white shadow-sm'
+                      : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200/50'
                   }`}
                 >
                   Notifications Logs
                 </button>
                 <button
                   onClick={() => setTab('settings')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition shrink-0 ${
+                  className={`px-5 py-2 rounded-full text-xs font-bold transition shrink-0 ${
                     tab === 'settings'
-                      ? 'bg-black text-white shadow-sm'
-                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                      ? 'bg-[#1D3557] text-white shadow-sm'
+                      : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200/50'
                   }`}
                 >
                   Portal Settings
@@ -445,7 +521,7 @@ function AdminDashboard() {
                           <td className="p-3 text-right">
                             <button
                               onClick={() => deleteUser(u.id)}
-                              className="inline-flex items-center gap-1 text-rose-600 hover:text-rose-700 text-xs font-semibold bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg border border-rose-200 transition"
+                              className="inline-flex items-center gap-1 text-rose-600 hover:text-rose-700 text-xs font-bold bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-full border border-rose-200 transition"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                               <span>Delete</span>
@@ -483,7 +559,7 @@ function AdminDashboard() {
                           <td className="p-3 text-right">
                             <button
                               onClick={() => deleteJob(job.id)}
-                              className="inline-flex items-center gap-1 text-rose-600 hover:text-rose-700 text-xs font-semibold bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg border border-rose-200 transition"
+                              className="inline-flex items-center gap-1 text-rose-600 hover:text-rose-700 text-xs font-bold bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-full border border-rose-200 transition"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                               <span>Delete</span>
@@ -518,14 +594,14 @@ function AdminDashboard() {
                           <td className="p-3 font-bold text-slate-900">{comp.name}</td>
                           <td className="p-3 text-slate-600">{comp.location}</td>
                           <td className="p-3">
-                            <span className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[10px] font-bold border border-slate-200">
+                            <span className="bg-slate-100 text-slate-770 px-2 py-0.5 rounded text-[10px] font-bold border border-slate-200">
                               {comp.jobsCount} Openings
                             </span>
                           </td>
                           <td className="p-3 text-right">
                             <button
                               onClick={() => setTab('jobs')}
-                              className="inline-flex items-center gap-1 text-black hover:underline font-bold text-xs"
+                              className="inline-flex items-center gap-1 text-[#1D3557] hover:underline font-bold text-xs"
                             >
                               <span>View Jobs</span>
                             </button>
@@ -571,22 +647,20 @@ function AdminDashboard() {
                           </td>
                           <td className="p-3">
                             <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-lg ${
-                              app.status === 'Shortlisted' ? 'bg-black text-white' : 'bg-slate-100 text-slate-700 border border-slate-200'
+                              app.status === 'Shortlisted' ? 'bg-[#1D3557] text-white' : 'bg-slate-100 text-slate-700 border border-slate-200'
                             }`}>
                               {app.status || 'Pending'}
                             </span>
                           </td>
                           <td className="p-3">
                             {app.resume_url ? (
-                              <a
-                                href={app.resume_url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 text-black hover:underline font-bold"
+                              <button
+                                onClick={() => setSelectedResumeUrl(app.resume_url)}
+                                className="inline-flex items-center gap-1 text-[#1D3557] hover:underline font-bold"
                               >
                                 <Link2 className="w-3.5 h-3.5" />
                                 <span>CV Link</span>
-                              </a>
+                              </button>
                             ) : (
                               <span className="text-slate-400">Not Provided</span>
                             )}
@@ -594,7 +668,7 @@ function AdminDashboard() {
                           <td className="p-3 text-right">
                             <button
                               onClick={() => deleteApplication(app.id)}
-                              className="inline-flex items-center gap-1 text-rose-600 hover:text-rose-700 text-xs font-semibold bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-lg border border-rose-200 transition"
+                              className="inline-flex items-center gap-1 text-rose-600 hover:text-rose-700 text-xs font-bold bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-full border border-rose-200 transition"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                               <span>Delete</span>
@@ -616,14 +690,14 @@ function AdminDashboard() {
                 ) : (
                   notificationLogs.map((log) => (
                     <div key={log.id} className="p-4 rounded-xl border border-neutral-200 bg-white flex items-start gap-3 transition hover:shadow-sm">
-                      <div className="mt-0.5 w-7 h-7 rounded-lg bg-slate-50 border border-slate-250 flex items-center justify-center text-slate-650 shrink-0">
+                      <div className="mt-0.5 w-7 h-7 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-[#1D3557] shrink-0">
                         {log.type === 'user' && <Users className="w-4 h-4" />}
                         {log.type === 'job' && <Briefcase className="w-4 h-4" />}
                         {log.type === 'application' && <FileText className="w-4 h-4" />}
                       </div>
                       <div className="space-y-1">
                         <h4 className="font-bold text-xs text-slate-900">{log.title}</h4>
-                        <p className="text-xs text-slate-600 leading-relaxed">{log.message}</p>
+                        <p className="text-xs text-slate-650 leading-relaxed">{log.message}</p>
                         <span className="block text-[10px] text-slate-400 font-medium">{log.time}</span>
                       </div>
                     </div>
@@ -635,7 +709,7 @@ function AdminDashboard() {
             {/* Settings Tab */}
             {tab === 'settings' && (
               <div className="max-w-xl py-2">
-                <form onSubmit={handleSaveSettings} className="space-y-4 text-xs font-semibold text-neutral-700">
+                <form onSubmit={handleSaveSettings} className="space-y-4 text-xs font-semibold text-slate-700">
                   <div>
                     <label className="block mb-1.5">ATS Auto-Shortlist Threshold (%)</label>
                     <input
@@ -644,7 +718,7 @@ function AdminDashboard() {
                       max="100"
                       value={atsThreshold}
                       onChange={(e) => setAtsThreshold(e.target.value)}
-                      className="w-full bg-slate-50 border border-neutral-200 focus:border-black rounded-xl px-4 py-2.5 text-neutral-900 font-medium focus:outline-none transition"
+                      className="w-full bg-slate-50 border border-neutral-200 focus:border-[#1D3557] rounded-xl px-4 py-2.5 text-neutral-900 font-medium focus:outline-none transition"
                     />
                   </div>
 
@@ -654,7 +728,7 @@ function AdminDashboard() {
                       type="url"
                       value={apiServer}
                       onChange={(e) => setApiServer(e.target.value)}
-                      className="w-full bg-slate-50 border border-neutral-200 focus:border-black rounded-xl px-4 py-2.5 text-neutral-900 font-medium focus:outline-none transition"
+                      className="w-full bg-slate-50 border border-neutral-200 focus:border-[#1D3557] rounded-xl px-4 py-2.5 text-neutral-900 font-medium focus:outline-none transition"
                     />
                   </div>
 
@@ -664,14 +738,14 @@ function AdminDashboard() {
                       id="maintenance"
                       checked={maintenanceMode}
                       onChange={(e) => setMaintenanceMode(e.target.checked)}
-                      className="w-4 h-4 rounded border-neutral-300 focus:ring-black text-black accent-black"
+                      className="w-4 h-4 rounded border-neutral-300 focus:ring-[#1D3557] text-[#1D3557] accent-[#1D3557]"
                     />
                     <label htmlFor="maintenance" className="select-none cursor-pointer">Enable Portal Maintenance Mode</label>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full bg-black hover:bg-neutral-800 text-white font-bold text-xs py-3 rounded-xl shadow-md transition uppercase tracking-wider"
+                    className="w-full bg-[#1D3557] hover:bg-[#0B2545] text-white font-bold text-xs py-3 rounded-full shadow-md transition uppercase tracking-wider"
                   >
                     Save Configuration
                   </button>
@@ -684,6 +758,32 @@ function AdminDashboard() {
         </main>
 
       </div>
+
+      {/* INLINE RESUME VIEWER OVERLAY MODAL */}
+      {selectedResumeUrl && (
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl w-full max-w-4xl h-[90vh] flex flex-col overflow-hidden shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
+            <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
+              <h3 className="font-bold text-slate-900 text-sm">Resume / CV Viewer</h3>
+              <button
+                onClick={() => setSelectedResumeUrl(null)}
+                className="px-4 py-2 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold transition flex items-center gap-1"
+              >
+                <X className="w-3.5 h-3.5" />
+                <span>Close Viewer</span>
+              </button>
+            </div>
+            <div className="flex-1 bg-slate-100 relative">
+              <iframe
+                src={selectedResumeUrl}
+                title="Resume PDF Viewer"
+                className="w-full h-full border-none"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   )
 }

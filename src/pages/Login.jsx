@@ -36,20 +36,6 @@ function Login() {
     }
   }
 
-  useEffect(() => {
-    /* global google */
-    if (window.google) {
-      google.accounts.id.initialize({
-        client_id: "242260456878-i33gg7lb37j70rk893i4i9svc15ep1pl.apps.googleusercontent.com",
-        callback: handleCredentialResponse
-      });
-      google.accounts.id.renderButton(
-        document.getElementById("googleBtn"),
-        { theme: "outline", size: "large", width: "380px" }
-      );
-    }
-  }, []);
-
   const handleCredentialResponse = async (response) => {
     setError('')
     try {
@@ -66,24 +52,46 @@ function Login() {
     }
   }
 
+  useEffect(() => {
+    /* global google */
+    if (window.google) {
+      google.accounts.id.initialize({
+        client_id: "242260456878-i33gg7lb37j70rk893i4i9svc15ep1pl.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+      });
+      google.accounts.id.renderButton(
+        document.getElementById("googleBtn"),
+        { theme: "outline", size: "large", width: "380px" }
+      );
+    }
+  }, []);
+
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-white">
-      {/* Left side: Black column */}
-      <div className="md:w-2/5 bg-black text-white flex flex-col justify-center px-12 py-12 space-y-4">
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight">
-          Application <br />
-          Login Page
+    <div className="min-h-screen flex flex-col md:flex-row bg-[#F0F4F8]">
+      {/* Left side: Deep Navy column matching reference mockup */}
+      <div className="md:w-2/5 bg-[#0B2545] text-white flex flex-col justify-center px-12 py-12 space-y-4 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-16 -mt-16"></div>
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -ml-16 -mb-16"></div>
+        
+        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight z-10">
+          Job Portal <br />
+          Authentication
         </h1>
-        <p className="text-neutral-450 text-sm leading-relaxed max-w-xs font-semibold">
-          Login or register from here to access.
+        <p className="text-slate-300 text-sm leading-relaxed max-w-xs font-semibold z-10">
+          Access your premium candidate, recruiter, or administrator dashboard.
         </p>
       </div>
 
-      {/* Right side: Form column */}
+      {/* Right side: Modern Form column with rounded outlines and pill buttons */}
       <div className="md:w-3/5 flex flex-col justify-center px-12 sm:px-20 py-12 space-y-6">
         
+        <div className="max-w-md w-full">
+          <h2 className="text-2xl font-bold text-[#0B2545] tracking-tight">Login to Portal</h2>
+          <p className="text-xs text-slate-500 font-semibold mt-1">Enter your details or log in via Google SSO.</p>
+        </div>
+
         {error && (
-          <div className="flex items-center gap-2.5 border border-red-200 bg-red-50 text-red-700 text-xs px-4 py-3 rounded-lg max-w-md font-semibold">
+          <div className="flex items-center gap-2.5 border border-red-200 bg-red-50 text-red-700 text-xs px-4 py-3 rounded-2xl max-w-md font-semibold">
             <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
             <span>{error}</span>
           </div>
@@ -91,31 +99,31 @@ function Login() {
 
         <form onSubmit={handleSubmit} className="space-y-5 max-w-md w-full">
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-neutral-600">Email</label>
+            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Email</label>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
-              className="w-full bg-white border border-neutral-300 rounded-md px-3.5 py-2.5 text-xs text-black placeholder-neutral-400 focus:outline-none focus:border-black font-semibold"
+              placeholder="name@company.com"
+              className="w-full bg-white border border-slate-200 rounded-full px-5 py-3 text-xs text-black placeholder-slate-400 focus:outline-none focus:border-[#0B2545] font-semibold transition"
             />
           </div>
 
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-neutral-600">Password</label>
+            <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider">Password</label>
             <input
               type="password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              className="w-full bg-white border border-neutral-300 rounded-md px-3.5 py-2.5 text-xs text-black placeholder-neutral-400 focus:outline-none focus:border-black font-semibold"
+              placeholder="••••••••"
+              className="w-full bg-white border border-slate-200 rounded-full px-5 py-3 text-xs text-black placeholder-slate-400 focus:outline-none focus:border-[#0B2545] font-semibold transition"
             />
             <div className="text-right">
               <Link
                 to="/forgot-password"
-                className="text-[11px] font-semibold text-blue-600 hover:underline font-medium"
+                className="text-[11px] font-semibold text-[#134074] hover:underline"
               >
                 Forgot password?
               </Link>
@@ -125,7 +133,7 @@ function Login() {
           <div className="flex items-center gap-3 pt-2">
             <button
               type="submit"
-              className="bg-black hover:bg-neutral-800 text-white font-bold text-xs px-6 py-2.5 rounded-md transition duration-150"
+              className="bg-[#0B2545] hover:bg-[#134074] text-white font-bold text-xs px-8 py-3 rounded-full shadow-md transition duration-150 uppercase tracking-wider"
             >
               Login
             </button>
@@ -134,7 +142,7 @@ function Login() {
               onClick={() => {
                 navigate('/register');
               }}
-              className="bg-slate-600 hover:bg-slate-700 text-white font-bold text-xs px-6 py-2.5 rounded-md transition duration-150"
+              className="bg-slate-200 hover:bg-slate-300 text-[#0B2545] font-bold text-xs px-8 py-3 rounded-full transition duration-150 uppercase tracking-wider"
             >
               Register
             </button>
@@ -143,16 +151,16 @@ function Login() {
 
         <div className="relative my-2 max-w-md w-full">
           <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-200"></div></div>
-          <div className="relative flex justify-center text-[10px]"><span className="bg-white px-2 text-slate-400 font-semibold uppercase tracking-wider">Or continue with</span></div>
+          <div className="relative flex justify-center text-[10px]"><span className="bg-[#F0F4F8] px-2 text-slate-400 font-bold uppercase tracking-wider">Or continue with</span></div>
         </div>
 
         {/* Google Role Selector */}
         <div className="space-y-1.5 max-w-md w-full">
-          <label className="block text-[10px] font-bold text-neutral-500 uppercase tracking-wider">Select Role (Only for New Google Signups):</label>
+          <label className="block text-[10px] font-bold text-slate-500 uppercase tracking-wider">Select Role (Only for New Google Signups):</label>
           <select
             value={googleRole}
             onChange={(e) => setGoogleRole(e.target.value)}
-            className="w-full bg-slate-50 border border-neutral-300 rounded-md px-3 py-2 text-xs text-black font-semibold cursor-pointer focus:outline-none focus:border-black"
+            className="w-full bg-white border border-slate-200 rounded-full px-5 py-3 text-xs text-black font-semibold cursor-pointer focus:outline-none focus:border-[#0B2545]"
           >
             <option value="user">Job Seeker (Candidate)</option>
             <option value="manager">Company Manager (Recruiter)</option>
@@ -169,5 +177,3 @@ function Login() {
 }
 
 export default Login
-
-
