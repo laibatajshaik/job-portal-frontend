@@ -61,17 +61,17 @@ function Register() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-[#F0F4F8]">
-      {/* Left side: Deep Navy column matching reference mockup */}
-      <div className="md:w-2/5 bg-[#0B2545] text-white flex flex-col justify-center px-12 py-12 space-y-4 shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-16 -mt-16"></div>
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -ml-16 -mb-16"></div>
+    <div className="min-h-screen flex flex-col md:flex-row bg-[#F8FAFC]">
+      {/* Left side: Honey Orange column matching reference mockup */}
+      <div className="md:w-2/5 bg-gradient-to-br from-[#FFA726] to-[#FFB84C] text-white flex flex-col justify-center px-12 py-12 space-y-4 shadow-xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -mr-16 -mt-16"></div>
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -ml-16 -mb-16"></div>
         
         <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight z-10">
           Job Portal <br />
           Authentication
         </h1>
-        <p className="text-slate-300 text-sm leading-relaxed max-w-xs font-semibold z-10">
+        <p className="text-white opacity-90 text-sm leading-relaxed max-w-xs font-semibold z-10 font-sans">
           Access your premium candidate, recruiter, or administrator dashboard.
         </p>
       </div>
@@ -80,8 +80,8 @@ function Register() {
       <div className="md:w-3/5 flex flex-col justify-center px-12 sm:px-20 py-12 space-y-6">
         
         <div className="max-w-md w-full">
-          <h2 className="text-2xl font-bold text-[#0B2545] tracking-tight">Create Account</h2>
-          <p className="text-xs text-slate-500 font-semibold mt-1 font-sans">Fill in the fields below or register directly via Google SSO.</p>
+          <h2 className="text-2xl font-bold text-slate-900 tracking-tight font-sans">Create Account</h2>
+          <p className="text-xs text-slate-500 font-semibold mt-1">Fill in the fields below or register directly via Google SSO.</p>
         </div>
 
         {error && (
@@ -100,7 +100,7 @@ function Register() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Full Name"
-              className="w-full bg-white border border-slate-200 rounded-full px-5 py-3 text-xs text-black placeholder-slate-400 focus:outline-none focus:border-[#0B2545] font-semibold transition"
+              className="w-full bg-white border border-slate-200 rounded-full px-5 py-3.5 text-xs text-black placeholder-slate-400 focus:outline-none focus:border-[#FFA726] font-semibold transition"
             />
           </div>
 
@@ -112,7 +112,7 @@ function Register() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
-              className="w-full bg-white border border-slate-200 rounded-full px-5 py-3 text-xs text-black placeholder-slate-400 focus:outline-none focus:border-[#0B2545] font-semibold transition"
+              className="w-full bg-white border border-slate-200 rounded-full px-5 py-3.5 text-xs text-black placeholder-slate-400 focus:outline-none focus:border-[#FFA726] font-semibold transition"
             />
           </div>
 
@@ -124,7 +124,7 @@ function Register() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Password"
-              className="w-full bg-white border border-slate-200 rounded-full px-5 py-3 text-xs text-black placeholder-slate-400 focus:outline-none focus:border-[#0B2545] font-semibold transition"
+              className="w-full bg-white border border-slate-200 rounded-full px-5 py-3.5 text-xs text-black placeholder-slate-400 focus:outline-none focus:border-[#FFA726] font-semibold transition"
             />
             <PasswordStrengthMeter password={password} />
           </div>
@@ -134,7 +134,7 @@ function Register() {
             <select
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              className="w-full bg-white border border-slate-200 rounded-full px-5 py-3 text-xs text-black font-semibold cursor-pointer focus:outline-none focus:border-[#0B2545]"
+              className="w-full bg-white border border-slate-200 rounded-full px-5 py-3.5 text-xs text-black font-semibold cursor-pointer focus:outline-none focus:border-[#FFA726]"
             >
               <option value="user">Job Seeker (Candidate)</option>
               <option value="manager">Company Manager (Recruiter)</option>
@@ -144,7 +144,7 @@ function Register() {
           <div className="flex items-center gap-3 pt-2">
             <button
               type="submit"
-              className="bg-[#0B2545] hover:bg-[#134074] text-white font-bold text-xs px-8 py-3 rounded-full shadow-md transition duration-150 uppercase tracking-wider"
+              className="bg-[#FFA726] hover:bg-[#FB8C00] text-white font-bold text-xs px-8 py-3.5 rounded-full shadow-md transition duration-150 uppercase tracking-wider"
             >
               Submit Register
             </button>
@@ -153,7 +153,7 @@ function Register() {
               onClick={() => {
                 navigate('/login');
               }}
-              className="bg-slate-200 hover:bg-slate-350 text-[#0B2545] font-bold text-xs px-8 py-3 rounded-full transition duration-150 uppercase tracking-wider"
+              className="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs px-8 py-3.5 rounded-full transition duration-150 uppercase tracking-wider"
             >
               Cancel
             </button>
@@ -162,7 +162,7 @@ function Register() {
 
         <div className="relative my-2 max-w-md w-full">
           <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-200"></div></div>
-          <div className="relative flex justify-center text-[10px]"><span className="bg-[#F0F4F8] px-2 text-slate-400 font-bold uppercase tracking-wider">Or continue with</span></div>
+          <div className="relative flex justify-center text-[10px]"><span className="bg-[#F8FAFC] px-2 text-slate-400 font-bold uppercase tracking-wider">Or continue with</span></div>
         </div>
 
         <div className="flex justify-center w-full max-w-md min-h-[44px]">

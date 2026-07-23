@@ -209,17 +209,17 @@ function AdminDashboard() {
   if (loading) return <Loader />
 
   return (
-    <div className="min-h-screen bg-[#F0F4F8] text-slate-800 p-4 sm:p-6 lg:p-8 font-sans">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-800 p-4 sm:p-6 lg:p-8 font-sans">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
 
-        {/* FLOATING DEEP NAVY SIDEBAR (Matching provided design system mockup) */}
-        <aside className="w-full lg:w-64 bg-[#0B2545] rounded-3xl p-5 text-white flex flex-col justify-between shadow-xl shrink-0 min-h-[620px]">
+        {/* BRIGHT WHITE SIDEBAR WITH HONEY ORANGE ACTIONS */}
+        <aside className="w-full lg:w-64 bg-white rounded-3xl p-5 text-slate-700 flex flex-col justify-between shadow-sm border border-slate-100 shrink-0 min-h-[620px]">
           
           <div className="space-y-6">
             {/* Sidebar Title */}
-            <div className="flex items-center gap-2.5 px-3 py-2 text-base font-bold tracking-tight">
-              <div className="w-8 h-8 rounded-xl bg-white flex items-center justify-center text-black shadow-md">
-                <LayoutDashboard className="w-4 h-4 text-[#0B2545]" />
+            <div className="flex items-center gap-2.5 px-3 py-2 text-base font-bold tracking-tight text-slate-900">
+              <div className="w-8 h-8 rounded-xl bg-[#FFA726] flex items-center justify-center text-white shadow-sm">
+                <LayoutDashboard className="w-4 h-4" />
               </div>
               <span>Admin Portal</span>
             </div>
@@ -230,8 +230,8 @@ function AdminDashboard() {
                 onClick={() => setTab('users')}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-left ${
                   tab === 'users'
-                    ? 'bg-white text-black font-bold shadow-md'
-                    : 'text-slate-350 hover:text-white hover:bg-white/5'
+                    ? 'bg-[#FFA726] text-white font-bold shadow-md'
+                    : 'text-slate-500 hover:text-[#FFA726] hover:bg-[#FFA726]/5'
                 }`}
               >
                 <LayoutDashboard className="w-4 h-4" />
@@ -242,8 +242,8 @@ function AdminDashboard() {
                 onClick={() => setTab('users')}
                 className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition text-left ${
                   tab === 'users'
-                    ? 'text-white bg-white/10 font-bold'
-                    : 'text-slate-350 hover:text-white hover:bg-white/5'
+                    ? 'bg-[#FFA726] text-white font-bold shadow-md'
+                    : 'text-slate-500 hover:text-[#FFA726] hover:bg-[#FFA726]/5'
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -251,7 +251,7 @@ function AdminDashboard() {
                   <span>Users</span>
                 </div>
                 {unopenedUsersCount > 0 && (
-                  <span className="bg-red-500 text-white text-[9px] px-1.5 py-0.5 rounded-full font-bold">
+                  <span className="bg-[#FFA726] text-white text-[9px] px-1.5 py-0.5 rounded-full font-bold">
                     {unopenedUsersCount}
                   </span>
                 )}
@@ -261,8 +261,8 @@ function AdminDashboard() {
                 onClick={() => setTab('jobs')}
                 className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition text-left ${
                   tab === 'jobs'
-                    ? 'text-white bg-white/10 font-bold'
-                    : 'text-slate-350 hover:text-white hover:bg-white/5'
+                    ? 'bg-[#FFA726] text-white font-bold shadow-md'
+                    : 'text-slate-500 hover:text-[#FFA726] hover:bg-[#FFA726]/5'
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -270,7 +270,7 @@ function AdminDashboard() {
                   <span>Jobs</span>
                 </div>
                 {unopenedJobsCount > 0 && (
-                  <span className="bg-red-500 text-white text-[9px] px-1.5 py-0.5 rounded-full font-bold">
+                  <span className="bg-[#FFA726] text-white text-[9px] px-1.5 py-0.5 rounded-full font-bold">
                     {unopenedJobsCount}
                   </span>
                 )}
@@ -280,8 +280,8 @@ function AdminDashboard() {
                 onClick={() => setTab('companies')}
                 className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition text-left ${
                   tab === 'companies'
-                    ? 'text-white bg-white/10 font-bold'
-                    : 'text-slate-350 hover:text-white hover:bg-white/5'
+                    ? 'bg-[#FFA726] text-white font-bold shadow-md'
+                    : 'text-slate-500 hover:text-[#FFA726] hover:bg-[#FFA726]/5'
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -289,7 +289,7 @@ function AdminDashboard() {
                   <span>Companies</span>
                 </div>
                 {unopenedCompaniesCount > 0 && (
-                  <span className="bg-red-500 text-white text-[9px] px-1.5 py-0.5 rounded-full font-bold">
+                  <span className="bg-[#FFA726] text-white text-[9px] px-1.5 py-0.5 rounded-full font-bold">
                     {unopenedCompaniesCount}
                   </span>
                 )}
@@ -299,8 +299,8 @@ function AdminDashboard() {
                 onClick={() => setTab('applications')}
                 className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition text-left ${
                   tab === 'applications'
-                    ? 'text-white bg-white/10 font-bold'
-                    : 'text-slate-355 hover:text-white hover:bg-white/5'
+                    ? 'bg-[#FFA726] text-white font-bold shadow-md'
+                    : 'text-slate-500 hover:text-[#FFA726] hover:bg-[#FFA726]/5'
                 }`}
               >
                 <div className="flex items-center gap-3">
@@ -308,7 +308,7 @@ function AdminDashboard() {
                   <span>Applications</span>
                 </div>
                 {unopenedApplicationsCount > 0 && (
-                  <span className="bg-red-500 text-white text-[9px] px-1.5 py-0.5 rounded-full font-bold">
+                  <span className="bg-[#FFA726] text-white text-[9px] px-1.5 py-0.5 rounded-full font-bold">
                     {unopenedApplicationsCount}
                   </span>
                 )}
@@ -318,8 +318,8 @@ function AdminDashboard() {
                 onClick={() => setTab('notifications')}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-left ${
                   tab === 'notifications'
-                    ? 'text-white bg-white/10 font-bold'
-                    : 'text-slate-355 hover:text-white hover:bg-white/5'
+                    ? 'bg-[#FFA726] text-white font-bold shadow-md'
+                    : 'text-slate-500 hover:text-[#FFA726] hover:bg-[#FFA726]/5'
                 }`}
               >
                 <Bell className="w-4 h-4" />
@@ -330,8 +330,8 @@ function AdminDashboard() {
                 onClick={() => setTab('settings')}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-left ${
                   tab === 'settings'
-                    ? 'text-white bg-white/10 font-bold'
-                    : 'text-slate-355 hover:text-white hover:bg-white/5'
+                    ? 'bg-[#FFA726] text-white font-bold shadow-md'
+                    : 'text-slate-500 hover:text-[#FFA726] hover:bg-[#FFA726]/5'
                 }`}
               >
                 <Settings className="w-4 h-4" />
@@ -343,7 +343,7 @@ function AdminDashboard() {
           {/* Logout Button */}
           <button
             onClick={handleLogout}
-            className="w-full bg-[#134074] hover:bg-[#1D3557] text-white font-bold text-xs py-3 rounded-xl shadow-md transition uppercase tracking-wider mt-6"
+            className="w-full bg-[#FFA726] hover:bg-[#FB8C00] text-white font-bold text-xs py-3 rounded-xl shadow-md transition uppercase tracking-wider mt-6"
           >
             LOGOUT
           </button>
@@ -361,131 +361,131 @@ function AdminDashboard() {
                 <ChevronRight className="w-3 h-3 text-slate-400" />
                 <span>Admin</span>
                 <ChevronRight className="w-3 h-3 text-slate-400" />
-                <span className="text-slate-900 font-semibold uppercase tracking-wider">{tab}</span>
+                <span className="text-[#FFA726] font-semibold uppercase tracking-wider">{tab}</span>
               </div>
               <h1 className="text-xl font-bold text-slate-900 capitalize">{tab} Management</h1>
             </div>
 
             <button
               onClick={fetchData}
-              className="inline-flex items-center gap-1.5 bg-[#1D3557] hover:bg-[#0B2545] text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-sm transition"
+              className="inline-flex items-center gap-1.5 bg-[#FFA726] hover:bg-[#FB8C00] text-white text-xs font-bold px-5 py-2.5 rounded-full shadow-sm transition"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               <span>Refresh Data</span>
             </button>
           </div>
 
-          {/* STAT CARDS WITH DEEP STEEL BLUE FLOATING NEUTRAL ICON BADGES */}
+          {/* STAT CARDS WITH HONEY ORANGE ICON BADGES */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-2">
             
             {/* Card 1: Total Jobs */}
-            <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 flex items-center justify-between">
-              <div className="w-12 h-12 rounded-xl bg-[#1D3557] text-white flex items-center justify-center shadow-lg shrink-0">
+            <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 flex items-center justify-between">
+              <div className="w-12 h-12 rounded-2xl bg-[#FFA726] text-white flex items-center justify-center shadow-md shrink-0">
                 <Building2 className="w-6 h-6" />
               </div>
               <div className="text-right">
-                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Jobs</p>
-                <p className="text-2xl font-bold text-[#0B2545] mt-0.5">{jobs.length}</p>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Jobs</p>
+                <p className="text-2xl font-bold text-slate-900 mt-0.5">{jobs.length}</p>
               </div>
             </div>
 
             {/* Card 2: Applications */}
-            <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 flex items-center justify-between">
-              <div className="w-12 h-12 rounded-xl bg-[#134074] text-white flex items-center justify-center shadow-lg shrink-0">
+            <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 flex items-center justify-between">
+              <div className="w-12 h-12 rounded-2xl bg-[#FFA726] text-white flex items-center justify-center shadow-md shrink-0">
                 <FileText className="w-6 h-6" />
               </div>
               <div className="text-right">
-                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Applications</p>
-                <p className="text-2xl font-bold text-[#0B2545] mt-0.5">{applications.length}</p>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Applications</p>
+                <p className="text-2xl font-bold text-slate-900 mt-0.5">{applications.length}</p>
               </div>
             </div>
 
             {/* Card 3: Total Users */}
-            <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 flex items-center justify-between">
-              <div className="w-12 h-12 rounded-xl bg-[#0B2545] text-white flex items-center justify-center shadow-lg shrink-0">
+            <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 flex items-center justify-between">
+              <div className="w-12 h-12 rounded-2xl bg-[#FFA726] text-white flex items-center justify-center shadow-md shrink-0">
                 <Users className="w-6 h-6" />
               </div>
               <div className="text-right">
-                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Total Users</p>
-                <p className="text-2xl font-bold text-[#0B2545] mt-0.5">{users.length}</p>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Total Users</p>
+                <p className="text-2xl font-bold text-slate-900 mt-0.5">{users.length}</p>
               </div>
             </div>
 
             {/* Card 4: Companies */}
-            <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 flex items-center justify-between">
-              <div className="w-12 h-12 rounded-xl bg-slate-700 text-white flex items-center justify-center shadow-lg shrink-0">
+            <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 flex items-center justify-between">
+              <div className="w-12 h-12 rounded-2xl bg-[#FFA726] text-white flex items-center justify-center shadow-md shrink-0">
                 <Briefcase className="w-6 h-6" />
               </div>
               <div className="text-right">
-                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider">Companies</p>
-                <p className="text-2xl font-bold text-[#0B2545] mt-0.5">{companiesCount || 1}</p>
+                <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Companies</p>
+                <p className="text-2xl font-bold text-slate-900 mt-0.5">{companiesCount || 1}</p>
               </div>
             </div>
 
           </div>
 
           {/* MAIN MANAGEMENT DATA CARD */}
-          <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
+          <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-6 space-y-4">
             
             {/* Tab Controls - Redesigned to Capsule tabs matching the mockup */}
-            <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-              <div className="bg-slate-100 p-1 rounded-full flex gap-1 overflow-x-auto max-w-full">
+            <div className="flex items-center justify-between border-b border-slate-50 pb-4">
+              <div className="bg-slate-50 p-1 rounded-full flex gap-1 overflow-x-auto max-w-full">
                 <button
                   onClick={() => setTab('users')}
-                  className={`px-5 py-2 rounded-full text-xs font-bold transition shrink-0 ${
+                  className={`px-5 py-2.5 rounded-full text-xs font-bold transition shrink-0 ${
                     tab === 'users'
-                      ? 'bg-[#1D3557] text-white shadow-sm'
-                      : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200/50'
+                      ? 'bg-[#FFA726] text-white shadow-sm'
+                      : 'text-slate-500 hover:text-slate-950 hover:bg-slate-200/50'
                   }`}
                 >
                   Manage Users ({users.length})
                 </button>
                 <button
                   onClick={() => setTab('jobs')}
-                  className={`px-5 py-2 rounded-full text-xs font-bold transition shrink-0 ${
+                  className={`px-5 py-2.5 rounded-full text-xs font-bold transition shrink-0 ${
                     tab === 'jobs'
-                      ? 'bg-[#1D3557] text-white shadow-sm'
-                      : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200/50'
+                      ? 'bg-[#FFA726] text-white shadow-sm'
+                      : 'text-slate-500 hover:text-slate-950 hover:bg-slate-200/50'
                   }`}
                 >
                   Manage Jobs ({jobs.length})
                 </button>
                 <button
                   onClick={() => setTab('companies')}
-                  className={`px-5 py-2 rounded-full text-xs font-bold transition shrink-0 ${
+                  className={`px-5 py-2.5 rounded-full text-xs font-bold transition shrink-0 ${
                     tab === 'companies'
-                      ? 'bg-[#1D3557] text-white shadow-sm'
-                      : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200/50'
+                      ? 'bg-[#FFA726] text-white shadow-sm'
+                      : 'text-slate-500 hover:text-slate-950 hover:bg-slate-200/50'
                   }`}
                 >
                   Companies ({companiesCount})
                 </button>
                 <button
                   onClick={() => setTab('applications')}
-                  className={`px-5 py-2 rounded-full text-xs font-bold transition shrink-0 ${
+                  className={`px-5 py-2.5 rounded-full text-xs font-bold transition shrink-0 ${
                     tab === 'applications'
-                      ? 'bg-[#1D3557] text-white shadow-sm'
-                      : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200/50'
+                      ? 'bg-[#FFA726] text-white shadow-sm'
+                      : 'text-slate-500 hover:text-slate-950 hover:bg-slate-200/50'
                   }`}
                 >
                   Applications ({applications.length})
                 </button>
                 <button
                   onClick={() => setTab('notifications')}
-                  className={`px-5 py-2 rounded-full text-xs font-bold transition shrink-0 ${
+                  className={`px-5 py-2.5 rounded-full text-xs font-bold transition shrink-0 ${
                     tab === 'notifications'
-                      ? 'bg-[#1D3557] text-white shadow-sm'
-                      : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200/50'
+                      ? 'bg-[#FFA726] text-white shadow-sm'
+                      : 'text-slate-500 hover:text-slate-950 hover:bg-slate-200/50'
                   }`}
                 >
                   Notifications Logs
                 </button>
                 <button
                   onClick={() => setTab('settings')}
-                  className={`px-5 py-2 rounded-full text-xs font-bold transition shrink-0 ${
+                  className={`px-5 py-2.5 rounded-full text-xs font-bold transition shrink-0 ${
                     tab === 'settings'
-                      ? 'bg-[#1D3557] text-white shadow-sm'
-                      : 'text-slate-500 hover:text-slate-900 hover:bg-slate-200/50'
+                      ? 'bg-[#FFA726] text-white shadow-sm'
+                      : 'text-slate-500 hover:text-slate-950 hover:bg-slate-200/50'
                   }`}
                 >
                   Portal Settings
@@ -501,7 +501,7 @@ function AdminDashboard() {
                 ) : (
                   <table className="w-full text-left text-xs">
                     <thead>
-                      <tr className="border-b border-slate-200 text-slate-400 bg-slate-50">
+                      <tr className="border-b border-slate-100 text-slate-400 bg-slate-50">
                         <th className="p-3 font-semibold">User Name</th>
                         <th className="p-3 font-semibold">Email</th>
                         <th className="p-3 font-semibold">Role</th>
@@ -510,18 +510,18 @@ function AdminDashboard() {
                     </thead>
                     <tbody className="divide-y divide-slate-100">
                       {users.map((u) => (
-                        <tr key={u.id} className="hover:bg-slate-50 transition">
+                        <tr key={u.id} className="hover:bg-slate-50/50 transition">
                           <td className="p-3 font-bold text-slate-900">{u.name}</td>
                           <td className="p-3 text-slate-600">{u.email}</td>
                           <td className="p-3">
-                            <span className="bg-slate-100 text-slate-750 uppercase px-2 py-0.5 rounded text-[10px] font-bold border border-slate-200">
+                            <span className="bg-slate-100 text-slate-700 uppercase px-2 py-0.5 rounded text-[10px] font-bold border border-slate-200">
                               {u.role}
                             </span>
                           </td>
                           <td className="p-3 text-right">
                             <button
                               onClick={() => deleteUser(u.id)}
-                              className="inline-flex items-center gap-1 text-rose-600 hover:text-rose-700 text-xs font-bold bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-full border border-rose-200 transition"
+                              className="inline-flex items-center gap-1 text-rose-600 hover:text-rose-700 text-xs font-bold bg-rose-50 hover:bg-rose-100 px-3.5 py-2 rounded-full border border-rose-200 transition"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                               <span>Delete</span>
@@ -543,7 +543,7 @@ function AdminDashboard() {
                 ) : (
                   <table className="w-full text-left text-xs">
                     <thead>
-                      <tr className="border-b border-slate-200 text-slate-400 bg-slate-50">
+                      <tr className="border-b border-slate-100 text-slate-400 bg-slate-50">
                         <th className="p-3 font-semibold">Job Title</th>
                         <th className="p-3 font-semibold">Company</th>
                         <th className="p-3 font-semibold">Location</th>
@@ -552,14 +552,14 @@ function AdminDashboard() {
                     </thead>
                     <tbody className="divide-y divide-slate-100">
                       {jobs.map((job) => (
-                        <tr key={job.id} className="hover:bg-slate-50 transition">
+                        <tr key={job.id} className="hover:bg-slate-50/50 transition">
                           <td className="p-3 font-bold text-slate-900">{job.title}</td>
                           <td className="p-3 text-slate-600">{job.company_name || 'Demo Company'}</td>
                           <td className="p-3 text-slate-500">{job.location}</td>
                           <td className="p-3 text-right">
                             <button
                               onClick={() => deleteJob(job.id)}
-                              className="inline-flex items-center gap-1 text-rose-600 hover:text-rose-700 text-xs font-bold bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-full border border-rose-200 transition"
+                              className="inline-flex items-center gap-1 text-rose-600 hover:text-rose-700 text-xs font-bold bg-rose-50 hover:bg-rose-100 px-3.5 py-2 rounded-full border border-rose-200 transition"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                               <span>Delete</span>
@@ -581,7 +581,7 @@ function AdminDashboard() {
                 ) : (
                   <table className="w-full text-left text-xs">
                     <thead>
-                      <tr className="border-b border-slate-200 text-slate-400 bg-slate-50">
+                      <tr className="border-b border-slate-100 text-slate-400 bg-slate-50">
                         <th className="p-3 font-semibold">Company Name</th>
                         <th className="p-3 font-semibold">Primary Location</th>
                         <th className="p-3 font-semibold">Active Jobs</th>
@@ -590,18 +590,18 @@ function AdminDashboard() {
                     </thead>
                     <tbody className="divide-y divide-slate-100">
                       {companiesList.map((comp, idx) => (
-                        <tr key={idx} className="hover:bg-slate-50 transition">
+                        <tr key={idx} className="hover:bg-slate-50/50 transition">
                           <td className="p-3 font-bold text-slate-900">{comp.name}</td>
                           <td className="p-3 text-slate-600">{comp.location}</td>
                           <td className="p-3">
-                            <span className="bg-slate-100 text-slate-770 px-2 py-0.5 rounded text-[10px] font-bold border border-slate-200">
+                            <span className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[10px] font-bold border border-slate-200">
                               {comp.jobsCount} Openings
                             </span>
                           </td>
                           <td className="p-3 text-right">
                             <button
                               onClick={() => setTab('jobs')}
-                              className="inline-flex items-center gap-1 text-[#1D3557] hover:underline font-bold text-xs"
+                              className="inline-flex items-center gap-1 text-[#FFA726] hover:underline font-bold text-xs"
                             >
                               <span>View Jobs</span>
                             </button>
@@ -622,7 +622,7 @@ function AdminDashboard() {
                 ) : (
                   <table className="w-full text-left text-xs">
                     <thead>
-                      <tr className="border-b border-slate-200 text-slate-400 bg-slate-50">
+                      <tr className="border-b border-slate-100 text-slate-400 bg-slate-50">
                         <th className="p-3 font-semibold">Candidate</th>
                         <th className="p-3 font-semibold">Job Title</th>
                         <th className="p-3 font-semibold">ATS Score</th>
@@ -633,12 +633,12 @@ function AdminDashboard() {
                     </thead>
                     <tbody className="divide-y divide-slate-100">
                       {applications.map((app) => (
-                        <tr key={app.id} className="hover:bg-slate-50 transition">
+                        <tr key={app.id} className="hover:bg-slate-50/50 transition">
                           <td className="p-3">
                             <div className="font-bold text-slate-900">{app.candidate_name || 'Anonymous'}</div>
                             <div className="text-slate-400 text-[10px]">{app.candidate_email}</div>
                           </td>
-                          <td className="p-3 font-medium text-slate-700">{app.job_title}</td>
+                          <td className="p-3 font-medium text-slate-750">{app.job_title}</td>
                           <td className="p-3">
                             <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-lg bg-slate-100 border border-slate-200">
                               <Award className="w-3.5 h-3.5 text-slate-500" />
@@ -647,7 +647,7 @@ function AdminDashboard() {
                           </td>
                           <td className="p-3">
                             <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-lg ${
-                              app.status === 'Shortlisted' ? 'bg-[#1D3557] text-white' : 'bg-slate-100 text-slate-700 border border-slate-200'
+                              app.status === 'Shortlisted' ? 'bg-[#FFA726] text-white shadow-sm' : 'bg-slate-100 text-slate-700 border border-slate-200'
                             }`}>
                               {app.status || 'Pending'}
                             </span>
@@ -656,7 +656,7 @@ function AdminDashboard() {
                             {app.resume_url ? (
                               <button
                                 onClick={() => setSelectedResumeUrl(app.resume_url)}
-                                className="inline-flex items-center gap-1 text-[#1D3557] hover:underline font-bold"
+                                className="inline-flex items-center gap-1 text-[#FFA726] hover:underline font-bold"
                               >
                                 <Link2 className="w-3.5 h-3.5" />
                                 <span>CV Link</span>
@@ -668,7 +668,7 @@ function AdminDashboard() {
                           <td className="p-3 text-right">
                             <button
                               onClick={() => deleteApplication(app.id)}
-                              className="inline-flex items-center gap-1 text-rose-600 hover:text-rose-700 text-xs font-bold bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-full border border-rose-200 transition"
+                              className="inline-flex items-center gap-1 text-rose-600 hover:text-rose-700 text-xs font-bold bg-rose-50 hover:bg-rose-100 px-3.5 py-2 rounded-full border border-rose-200 transition"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                               <span>Delete</span>
@@ -689,15 +689,15 @@ function AdminDashboard() {
                   <p className="text-center py-10 text-xs text-slate-500 font-semibold">No recent notification logs.</p>
                 ) : (
                   notificationLogs.map((log) => (
-                    <div key={log.id} className="p-4 rounded-xl border border-neutral-200 bg-white flex items-start gap-3 transition hover:shadow-sm">
-                      <div className="mt-0.5 w-7 h-7 rounded-lg bg-slate-50 border border-slate-200 flex items-center justify-center text-[#1D3557] shrink-0">
+                    <div key={log.id} className="p-4 rounded-3xl border border-slate-100 bg-white flex items-start gap-3 transition hover:shadow-sm">
+                      <div className="mt-0.5 w-7 h-7 rounded-full bg-amber-50 flex items-center justify-center text-[#FFA726] shrink-0">
                         {log.type === 'user' && <Users className="w-4 h-4" />}
                         {log.type === 'job' && <Briefcase className="w-4 h-4" />}
                         {log.type === 'application' && <FileText className="w-4 h-4" />}
                       </div>
                       <div className="space-y-1">
                         <h4 className="font-bold text-xs text-slate-900">{log.title}</h4>
-                        <p className="text-xs text-slate-650 leading-relaxed">{log.message}</p>
+                        <p className="text-xs text-slate-600 leading-relaxed">{log.message}</p>
                         <span className="block text-[10px] text-slate-400 font-medium">{log.time}</span>
                       </div>
                     </div>
@@ -718,7 +718,7 @@ function AdminDashboard() {
                       max="100"
                       value={atsThreshold}
                       onChange={(e) => setAtsThreshold(e.target.value)}
-                      className="w-full bg-slate-50 border border-neutral-200 focus:border-[#1D3557] rounded-xl px-4 py-2.5 text-neutral-900 font-medium focus:outline-none transition"
+                      className="w-full bg-slate-50 border border-slate-200 focus:border-[#FFA726] rounded-full px-5 py-3 text-neutral-900 font-medium focus:outline-none transition"
                     />
                   </div>
 
@@ -728,7 +728,7 @@ function AdminDashboard() {
                       type="url"
                       value={apiServer}
                       onChange={(e) => setApiServer(e.target.value)}
-                      className="w-full bg-slate-50 border border-neutral-200 focus:border-[#1D3557] rounded-xl px-4 py-2.5 text-neutral-900 font-medium focus:outline-none transition"
+                      className="w-full bg-slate-50 border border-slate-200 focus:border-[#FFA726] rounded-full px-5 py-3 text-neutral-900 font-medium focus:outline-none transition"
                     />
                   </div>
 
@@ -738,14 +738,14 @@ function AdminDashboard() {
                       id="maintenance"
                       checked={maintenanceMode}
                       onChange={(e) => setMaintenanceMode(e.target.checked)}
-                      className="w-4 h-4 rounded border-neutral-300 focus:ring-[#1D3557] text-[#1D3557] accent-[#1D3557]"
+                      className="w-4 h-4 rounded border-neutral-350 focus:ring-[#FFA726] text-[#FFA726] accent-[#FFA726]"
                     />
                     <label htmlFor="maintenance" className="select-none cursor-pointer">Enable Portal Maintenance Mode</label>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full bg-[#1D3557] hover:bg-[#0B2545] text-white font-bold text-xs py-3 rounded-full shadow-md transition uppercase tracking-wider"
+                    className="w-full bg-[#FFA726] hover:bg-[#FB8C00] text-white font-bold text-xs py-3.5 rounded-full shadow-md transition uppercase tracking-wider"
                   >
                     Save Configuration
                   </button>
@@ -762,7 +762,7 @@ function AdminDashboard() {
       {/* INLINE RESUME VIEWER OVERLAY MODAL */}
       {selectedResumeUrl && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl w-full max-w-4xl h-[90vh] flex flex-col overflow-hidden shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
+          <div className="bg-white rounded-3xl w-full max-w-4xl h-[90vh] flex flex-col overflow-hidden shadow-2xl border border-slate-100 animate-in fade-in zoom-in-95 duration-200">
             <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
               <h3 className="font-bold text-slate-900 text-sm">Resume / CV Viewer</h3>
               <button
