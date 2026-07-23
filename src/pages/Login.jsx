@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, useRef } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import { Mail, Lock, LogIn, AlertCircle, Briefcase } from 'lucide-react'
@@ -10,6 +10,13 @@ function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  
+  const [googleRole, setGoogleRole] = useState('user')
+  const googleRoleRef = useRef('user')
+
+  useEffect(() => {
+    googleRoleRef.current = googleRole
+  }, [googleRole])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -46,7 +53,7 @@ function Login() {
   const handleCredentialResponse = async (response) => {
     setError('')
     try {
-      const res = await api.post('/auth/google-login', { token: response.credential })
+      const res = await api.post('/auth/google-login', { token: response.credential, role: googleRoleRef.current })
       const loggedInUser = res.data.user
       setUser(loggedInUser)
       localStorage.setItem('user', JSON.stringify(loggedInUser))
@@ -137,6 +144,19 @@ function Login() {
         <div className="relative my-2 max-w-md w-full">
           <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-200"></div></div>
           <div className="relative flex justify-center text-[10px]"><span className="bg-white px-2 text-slate-400 font-semibold uppercase tracking-wider">Or continue with</span></div>
+        </div>
+
+        {/* Google Role Selector */}
+        <div className="space-y-1.5 max-w-md w-full">
+          <label className="block text-[10px] font-bold text-neutral-500 uppercase tracking-wider">Select Role (Only for New Google Signups):</label>
+          <select
+            value={googleRole}
+            onChange={(e) => setGoogleRole(e.target.value)}
+            className="w-full bg-slate-50 border border-neutral-300 rounded-md px-3 py-2 text-xs text-black font-semibold cursor-pointer focus:outline-none focus:border-black"
+          >
+            <option value="user">Job Seeker (Candidate)</option>
+            <option value="manager">Company Manager (Recruiter)</option>
+          </select>
         </div>
 
         <div className="flex justify-center w-full max-w-md min-h-[44px]">

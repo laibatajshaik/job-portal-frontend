@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, useRef } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
 import PasswordStrengthMeter from '../components/password/PasswordStrengthMeter'
@@ -13,6 +13,11 @@ function Register() {
   const [password, setPassword] = useState('')
   const [role, setRole] = useState('user')
   const [error, setError] = useState('')
+
+  const roleRef = useRef('user')
+  useEffect(() => {
+    roleRef.current = role
+  }, [role])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -42,7 +47,7 @@ function Register() {
   const handleCredentialResponse = async (response) => {
     setError('')
     try {
-      const res = await api.post('/auth/google-login', { token: response.credential })
+      const res = await api.post('/auth/google-login', { token: response.credential, role: roleRef.current })
       const loggedInUser = res.data.user
       setUser(loggedInUser)
       localStorage.setItem('user', JSON.stringify(loggedInUser))
