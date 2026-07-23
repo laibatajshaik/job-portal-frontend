@@ -46,19 +46,7 @@ export function AuthProvider({ children }) {
       setLoading(false)
       return { success: true }
     } catch (err) {
-      console.warn("Backend auth failed, trying demo fallback:", err)
-      const existingUser = demoUsers.find(
-        (user) => user.email === email && user.password === password
-      )
-
-      if (existingUser) {
-        setUser(existingUser)
-        localStorage.setItem('user', JSON.stringify(existingUser))
-        localStorage.setItem('token', 'demo-token')
-        setLoading(false)
-        return { success: true }
-      }
-
+      console.warn("Backend auth failed:", err)
       setLoading(false)
       return {
         success: false,
@@ -79,33 +67,12 @@ export function AuthProvider({ children }) {
       setLoading(false)
       return { success: true }
     } catch (err) {
-      console.warn("Backend registration failed, trying demo fallback:", err)
-      const existingUser = demoUsers.find(
-        (user) => user.email === email
-      )
-
-      if (existingUser) {
-        setLoading(false)
-        return {
-          success: false,
-          message: 'Email already exists',
-        }
-      }
-
-      const newUser = {
-        name,
-        email,
-        password,
-        role,
-      }
-
-      demoUsers.push(newUser)
-
-      setUser(newUser)
-      localStorage.setItem('user', JSON.stringify(newUser))
-      localStorage.setItem('token', 'demo-token')
+      console.warn("Backend registration failed:", err)
       setLoading(false)
-      return { success: true }
+      return {
+        success: false,
+        message: err.response?.data?.detail || 'Registration failed. Please try again.',
+      }
     }
   }
 
@@ -116,16 +83,12 @@ export function AuthProvider({ children }) {
       setLoading(false)
       return { success: true }
     } catch (err) {
-      console.warn("Backend password reset failed, running demo fallback:", err)
-      const existingUser = demoUsers.find(
-        (user) => user.email.toLowerCase() === email.toLowerCase()
-      )
-
-      if (existingUser) {
-        existingUser.password = newPassword
-      }
+      console.warn("Backend password reset failed:", err)
       setLoading(false)
-      return { success: true }
+      return {
+        success: false,
+        message: err.response?.data?.detail || 'Password reset failed.',
+      }
     }
   }
 
