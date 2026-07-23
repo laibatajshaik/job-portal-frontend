@@ -84,13 +84,13 @@ function Login() {
 
         <form onSubmit={handleSubmit} className="space-y-5 max-w-md w-full">
           <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-neutral-600">User Name</label>
+            <label className="block text-xs font-semibold text-neutral-600">Email</label>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="User Name"
+              placeholder="Email"
               className="w-full bg-white border border-neutral-300 rounded-md px-3.5 py-2.5 text-xs text-black placeholder-neutral-400 focus:outline-none focus:border-black font-semibold"
             />
           </div>
