@@ -33,7 +33,7 @@ function JobApplication() {
       <div className="max-w-xl mx-auto space-y-6">
 
         {/* Back Link */}
-        <Link to={`/jobs/${id}`} className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-blue-600 transition">
+        <Link to={`/jobs/${id}`} className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-black transition">
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Job Details</span>
         </Link>
@@ -54,7 +54,7 @@ function JobApplication() {
           )}
 
           {success && (
-            <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs p-3 rounded-xl font-semibold">
+            <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-250 text-emerald-800 text-xs p-3 rounded-xl font-bold">
               <CheckCircle2 className="w-4 h-4 shrink-0" />
               <span>{success}</span>
             </div>
@@ -69,7 +69,7 @@ function JobApplication() {
                 value={resumeUrl}
                 onChange={(e) => setResumeUrl(e.target.value)}
                 placeholder="https://drive.google.com/your-resume.pdf"
-                className="w-full bg-slate-50 border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 rounded-xl px-4 py-2.5 text-xs text-slate-900 font-medium transition focus:outline-none"
+                className="w-full bg-slate-50 border border-slate-200 focus:border-black rounded-xl px-4 py-2.5 text-xs text-slate-900 font-medium transition focus:outline-none"
                 required
               />
             </div>
@@ -81,13 +81,13 @@ function JobApplication() {
                 onChange={(e) => setCoverLetter(e.target.value)}
                 rows="5"
                 placeholder="Introduce yourself and explain why you're a great fit for this position..."
-                className="w-full bg-slate-50 border border-slate-200 focus:border-blue-600 focus:ring-2 focus:ring-blue-100 rounded-xl px-4 py-2.5 text-xs text-slate-900 font-medium transition focus:outline-none"
+                className="w-full bg-slate-50 border border-slate-200 focus:border-black rounded-xl px-4 py-2.5 text-xs text-slate-900 font-medium transition focus:outline-none"
               ></textarea>
             </div>
 
             <button
               type="submit"
-              className="w-full flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-3 rounded-xl shadow-md transition mt-2"
+              className="w-full flex items-center justify-center gap-2 bg-black hover:bg-neutral-800 text-white font-bold text-xs py-3 rounded-xl shadow-md transition mt-2"
             >
               <Send className="w-4 h-4" />
               <span>Submit Application</span>

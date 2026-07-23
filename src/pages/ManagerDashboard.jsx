@@ -21,6 +21,7 @@ function ManagerDashboard() {
   const { logout } = useContext(AuthContext)
   const navigate = useNavigate()
   const [jobs, setJobs] = useState([])
+  const [applicantsCount, setApplicantsCount] = useState(0)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -33,6 +34,10 @@ function ManagerDashboard() {
       const res = await api.get('/jobs/')
       if (Array.isArray(res.data)) {
         setJobs(res.data)
+      }
+      const appRes = await api.get('/manager/applicants')
+      if (appRes.data && Array.isArray(appRes.data.applicants)) {
+        setApplicantsCount(appRes.data.applicants.length)
       }
     } catch (err) {
       console.log(err)
@@ -57,7 +62,7 @@ function ManagerDashboard() {
   if (loading) return <Loader />
 
   return (
-    <div className="min-h-screen bg-[#f3f4f6] text-slate-800 p-4 sm:p-6 lg:p-8 font-sans">
+    <div className="min-h-screen bg-slate-50 text-slate-800 p-4 sm:p-6 lg:p-8 font-sans">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
 
         {/* FLOATING DARK SIDEBAR (Matching reference photo) */}
@@ -66,7 +71,7 @@ function ManagerDashboard() {
           <div className="space-y-6">
             {/* Sidebar Title */}
             <div className="flex items-center gap-2.5 px-3 py-2 text-base font-bold tracking-tight">
-              <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md">
+              <div className="w-8 h-8 rounded-xl bg-white flex items-center justify-center text-black shadow-md">
                 <Building2 className="w-4 h-4" />
               </div>
               <span>Manager Portal</span>
@@ -76,7 +81,7 @@ function ManagerDashboard() {
             <nav className="space-y-1.5 text-xs font-semibold">
               <Link
                 to="/manager/dashboard"
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-blue-600 text-white font-bold shadow-md shadow-blue-500/20 transition"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-white text-black font-bold shadow-md transition"
               >
                 <LayoutDashboard className="w-4 h-4" />
                 <span>Dashboard</span>
@@ -98,12 +103,18 @@ function ManagerDashboard() {
                 <span>Company Profile</span>
               </Link>
 
-              <div className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 cursor-not-allowed">
+              <Link
+                to="/manager/applicants/all"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition"
+              >
                 <Users className="w-4 h-4" />
                 <span>Applicants</span>
-              </div>
+              </Link>
 
-              <div className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 cursor-not-allowed">
+              <div 
+                onClick={() => alert("No new notifications for manager.")}
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-450 hover:text-white hover:bg-white/5 transition cursor-pointer"
+              >
                 <Bell className="w-4 h-4" />
                 <span>Notifications</span>
               </div>
@@ -113,7 +124,7 @@ function ManagerDashboard() {
           {/* Logout Button */}
           <button
             onClick={handleLogout}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-3 rounded-xl shadow-md transition uppercase tracking-wider mt-6"
+            className="w-full bg-white hover:bg-neutral-200 text-black font-bold text-xs py-3 rounded-xl shadow-md transition uppercase tracking-wider mt-6"
           >
             LOGOUT
           </button>
@@ -138,19 +149,19 @@ function ManagerDashboard() {
 
             <Link
               to="/manager/post-job"
-              className="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition"
+              className="inline-flex items-center gap-1.5 bg-black hover:bg-neutral-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition"
             >
               <PlusCircle className="w-4 h-4" />
               <span>Post New Job</span>
             </Link>
           </div>
 
-          {/* STAT CARDS WITH FLOATING COLORED ICON BADGES (Matching reference photo) */}
+          {/* STAT CARDS WITH FLOATING NEUTRAL ICON BADGES */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pt-2">
             
             {/* Card 1: Black/Dark Badge */}
             <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 flex items-center justify-between">
-              <div className="w-12 h-12 rounded-xl bg-[#181824] text-white flex items-center justify-center shadow-lg shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-black text-white flex items-center justify-center shadow-lg shrink-0">
                 <Briefcase className="w-6 h-6" />
               </div>
               <div className="text-right">
@@ -159,20 +170,20 @@ function ManagerDashboard() {
               </div>
             </div>
 
-            {/* Card 2: Bright Blue Badge */}
+            {/* Card 2: Neutral Dark Badge */}
             <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 flex items-center justify-between">
-              <div className="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-lg shadow-blue-500/20 shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-neutral-900 text-white flex items-center justify-center shadow-lg shrink-0">
                 <Users className="w-6 h-6" />
               </div>
               <div className="text-right">
                 <p className="text-xs font-medium text-slate-400 uppercase tracking-wider">Applicants</p>
-                <p className="text-2xl font-bold text-slate-900 mt-0.5">18</p>
+                <p className="text-2xl font-bold text-slate-900 mt-0.5">{applicantsCount}</p>
               </div>
             </div>
 
-            {/* Card 3: Emerald Green Badge */}
+            {/* Card 3: Neutral Mid Badge */}
             <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 flex items-center justify-between">
-              <div className="w-12 h-12 rounded-xl bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-500/20 shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-neutral-800 text-white flex items-center justify-center shadow-lg shrink-0">
                 <FileText className="w-6 h-6" />
               </div>
               <div className="text-right">
@@ -181,9 +192,9 @@ function ManagerDashboard() {
               </div>
             </div>
 
-            {/* Card 4: Pink/Magenta Badge */}
+            {/* Card 4: Light Gray Badge */}
             <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 flex items-center justify-between">
-              <div className="w-12 h-12 rounded-xl bg-pink-600 text-white flex items-center justify-center shadow-lg shadow-pink-500/20 shrink-0">
+              <div className="w-12 h-12 rounded-xl bg-neutral-700 text-white flex items-center justify-center shadow-lg shrink-0">
                 <Building2 className="w-6 h-6" />
               </div>
               <div className="text-right">
@@ -204,7 +215,7 @@ function ManagerDashboard() {
                 <p className="text-xs text-slate-500 font-medium">You haven't posted any jobs yet.</p>
                 <Link
                   to="/manager/post-job"
-                  className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:underline"
+                  className="inline-flex items-center gap-1 text-xs font-bold text-black hover:underline"
                 >
                   <span>Post a job opening now</span>
                 </Link>
@@ -226,7 +237,7 @@ function ManagerDashboard() {
                       <tr key={index} className="hover:bg-slate-50 transition">
                         <td className="p-3 font-bold text-slate-900">{job.title}</td>
                         <td className="p-3 text-slate-600">{job.location}</td>
-                        <td className="p-3 font-bold text-emerald-600">{formatSalary(job.salary)}</td>
+                        <td className="p-3 font-bold text-slate-900">{formatSalary(job.salary)}</td>
                         <td className="p-3">
                           <span className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[11px] font-semibold border border-slate-200">
                             {job.job_type || 'Full Time'}
@@ -234,8 +245,8 @@ function ManagerDashboard() {
                         </td>
                         <td className="p-3 text-right">
                           <Link
-                            to={`/manager/applicants/${index}`}
-                            className="inline-flex items-center gap-1 bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 px-3 py-1 rounded-lg text-xs font-bold transition"
+                            to={`/manager/applicants/${job.id ?? index}`}
+                            className="inline-flex items-center gap-1 bg-black hover:bg-neutral-800 text-white border border-black px-3 py-1 rounded-lg text-xs font-bold transition"
                           >
                             <Users className="w-3.5 h-3.5" />
                             <span>View Candidates</span>

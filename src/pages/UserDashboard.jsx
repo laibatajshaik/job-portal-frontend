@@ -86,7 +86,7 @@ function UserDashboard() {
   if (loading) return <Loader />
 
   return (
-    <div className="min-h-screen bg-[#f3f4f6] text-slate-800 p-4 sm:p-6 lg:p-8 font-sans">
+    <div className="min-h-screen bg-slate-50 text-slate-800 p-4 sm:p-6 lg:p-8 font-sans">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
 
         {/* FLOATING DARK SIDEBAR */}
@@ -95,7 +95,7 @@ function UserDashboard() {
           <div className="space-y-6">
             {/* Sidebar Title */}
             <div className="flex items-center gap-2.5 px-3 py-2 text-base font-bold tracking-tight">
-              <div className="w-8 h-8 rounded-xl bg-blue-600 flex items-center justify-center text-white shadow-md">
+              <div className="w-8 h-8 rounded-xl bg-white flex items-center justify-center text-black shadow-md">
                 <User className="w-4 h-4" />
               </div>
               <span>Candidate Portal</span>
@@ -107,7 +107,7 @@ function UserDashboard() {
                 onClick={() => setActiveTab('dashboard')}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-left ${
                   activeTab === 'dashboard'
-                    ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-500/20'
+                    ? 'bg-white text-black font-bold shadow-md'
                     : 'text-slate-400 hover:text-white hover:bg-white/5'
                 }`}
               >
@@ -127,7 +127,7 @@ function UserDashboard() {
                 onClick={() => setActiveTab('applications')}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-left ${
                   activeTab === 'applications'
-                    ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-500/20'
+                    ? 'bg-white text-black font-bold shadow-md'
                     : 'text-slate-400 hover:text-white hover:bg-white/5'
                 }`}
               >
@@ -139,7 +139,7 @@ function UserDashboard() {
                 onClick={() => setActiveTab('notifications')}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-left ${
                   activeTab === 'notifications'
-                    ? 'bg-blue-600 text-white font-bold shadow-md shadow-blue-500/20'
+                    ? 'bg-white text-black font-bold shadow-md'
                     : 'text-slate-400 hover:text-white hover:bg-white/5'
                 }`}
               >
@@ -152,7 +152,7 @@ function UserDashboard() {
           {/* Logout Button */}
           <button
             onClick={handleLogout}
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-3 rounded-xl shadow-md transition uppercase tracking-wider mt-6"
+            className="w-full bg-white hover:bg-neutral-200 text-black font-bold text-xs py-3 rounded-xl shadow-md transition uppercase tracking-wider mt-6"
           >
             LOGOUT
           </button>
@@ -185,7 +185,7 @@ function UserDashboard() {
 
             <Link
               to="/jobs"
-              className="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition"
+              className="inline-flex items-center gap-1.5 bg-black hover:bg-neutral-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition"
             >
               <Briefcase className="w-4 h-4" />
               <span>Explore Jobs</span>
@@ -199,7 +199,7 @@ function UserDashboard() {
                 
                 {/* Card 1: Applied Jobs */}
                 <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-xl bg-[#181824] text-white flex items-center justify-center shadow-lg shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-black text-white flex items-center justify-center shadow-lg shrink-0">
                     <FileText className="w-6 h-6" />
                   </div>
                   <div className="text-right">
@@ -210,7 +210,7 @@ function UserDashboard() {
 
                 {/* Card 2: Under Review */}
                 <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-lg shadow-blue-500/20 shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-neutral-900 text-white flex items-center justify-center shadow-lg shrink-0">
                     <Clock className="w-6 h-6" />
                   </div>
                   <div className="text-right">
@@ -223,7 +223,7 @@ function UserDashboard() {
 
                 {/* Card 3: Shortlisted */}
                 <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-xl bg-emerald-500 text-white flex items-center justify-center shadow-lg shadow-emerald-500/20 shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-neutral-800 text-white flex items-center justify-center shadow-lg shrink-0">
                     <CheckCircle2 className="w-6 h-6" />
                   </div>
                   <div className="text-right">
@@ -234,7 +234,7 @@ function UserDashboard() {
 
                 {/* Card 4: Active */}
                 <div className="bg-white rounded-2xl p-5 shadow-sm border border-slate-200/80 flex items-center justify-between">
-                  <div className="w-12 h-12 rounded-xl bg-pink-600 text-white flex items-center justify-center shadow-lg shadow-pink-500/20 shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-neutral-700 text-white flex items-center justify-center shadow-lg shrink-0">
                     <Briefcase className="w-6 h-6" />
                   </div>
                   <div className="text-right">
@@ -255,7 +255,7 @@ function UserDashboard() {
                     <p className="text-xs text-slate-500 font-medium">You haven't submitted any job applications yet.</p>
                     <Link
                       to="/jobs"
-                      className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:underline"
+                      className="inline-flex items-center gap-1 text-xs font-bold text-black hover:underline"
                     >
                       <span>Browse jobs to apply</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -281,10 +281,10 @@ function UserDashboard() {
                             <td className="p-3">
                               <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${
                                 (app.status || '').toLowerCase().includes('shortlist') || (app.status || '').toLowerCase().includes('approve') || (app.status || '').toLowerCase().includes('accept')
-                                  ? 'bg-emerald-50 text-emerald-700 border-emerald-100'
+                                  ? 'bg-black text-white border-black font-bold'
                                   : (app.status || '').toLowerCase().includes('reject') || (app.status || '').toLowerCase().includes('decline')
                                   ? 'bg-rose-50 text-rose-700 border-rose-100'
-                                  : 'bg-blue-50 text-blue-700 border-blue-100'
+                                  : 'bg-neutral-100 text-neutral-700 border-neutral-200'
                               }`}>
                                 <Clock className="w-3 h-3" />
                                 {app.status || 'Applied'}
@@ -309,7 +309,7 @@ function UserDashboard() {
                   <p className="text-xs text-slate-500 font-medium">You haven't submitted any job applications yet.</p>
                   <Link
                     to="/jobs"
-                    className="inline-flex items-center gap-1 text-xs font-bold text-blue-600 hover:underline"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-black hover:underline"
                   >
                     <span>Browse jobs to apply</span>
                     <ArrowRight className="w-3.5 h-3.5" />
@@ -335,10 +335,10 @@ function UserDashboard() {
                           <td className="p-3">
                             <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-semibold border ${
                               (app.status || '').toLowerCase().includes('shortlist') || (app.status || '').toLowerCase().includes('approve') || (app.status || '').toLowerCase().includes('accept')
-                                ? 'bg-emerald-50 text-emerald-700 border-emerald-100'
+                                ? 'bg-black text-white border-black font-bold'
                                 : (app.status || '').toLowerCase().includes('reject') || (app.status || '').toLowerCase().includes('decline')
                                 ? 'bg-rose-50 text-rose-700 border-rose-100'
-                                : 'bg-blue-50 text-blue-700 border-blue-100'
+                                : 'bg-neutral-100 text-neutral-700 border-neutral-200'
                             }`}>
                               <Clock className="w-3 h-3" />
                               {app.status || 'Applied'}
@@ -369,21 +369,21 @@ function UserDashboard() {
                       key={notif.id}
                       className={`p-4 rounded-xl border flex items-start gap-3 transition hover:shadow-sm ${
                         notif.type === 'success'
-                          ? 'bg-emerald-50 border-emerald-250 text-emerald-900'
+                          ? 'bg-neutral-900 border-neutral-800 text-white shadow-md'
                           : notif.type === 'error'
                           ? 'bg-rose-50 border-rose-250 text-rose-900'
-                          : 'bg-blue-50 border-blue-250 text-blue-900'
+                          : 'bg-slate-50 border-slate-200 text-slate-800'
                       }`}
                     >
                       <div className="mt-0.5">
-                        {notif.type === 'success' && <CheckCircle2 className="w-4 h-4 text-emerald-600" />}
+                        {notif.type === 'success' && <CheckCircle2 className="w-4 h-4 text-white" />}
                         {notif.type === 'error' && <AlertCircle className="w-4 h-4 text-rose-600" />}
-                        {notif.type === 'info' && <Clock className="w-4 h-4 text-blue-600" />}
+                        {notif.type === 'info' && <Clock className="w-4 h-4 text-slate-500" />}
                       </div>
                       <div className="space-y-1">
                         <h4 className="font-bold text-xs">{notif.title}</h4>
-                        <p className="text-xs text-slate-600 leading-relaxed">{notif.message}</p>
-                        <span className="block text-[10px] text-slate-400 font-medium">{notif.time}</span>
+                        <p className={`text-xs leading-relaxed ${notif.type === 'success' ? 'text-slate-300' : 'text-slate-600'}`}>{notif.message}</p>
+                        <span className={`block text-[10px] ${notif.type === 'success' ? 'text-slate-450' : 'text-slate-400'} font-medium`}>{notif.time}</span>
                       </div>
                     </div>
                   ))}

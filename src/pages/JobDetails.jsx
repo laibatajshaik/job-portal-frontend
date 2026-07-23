@@ -88,7 +88,7 @@ function JobDetails() {
       <div className="max-w-3xl mx-auto space-y-6">
 
         {/* Back Link */}
-        <Link to="/jobs" className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-blue-600 transition">
+        <Link to="/jobs" className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-black transition">
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Job Listings</span>
         </Link>
@@ -108,7 +108,7 @@ function JobDetails() {
               </div>
             </div>
 
-            <span className="self-start px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold">
+            <span className="self-start px-3 py-1 rounded-full bg-black text-white text-xs font-bold">
               {job.job_type || 'Full Time'}
             </span>
           </div>
@@ -117,7 +117,7 @@ function JobDetails() {
           <div className="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
             <div>
               <p className="text-[11px] text-slate-500 font-semibold uppercase">Offered Salary</p>
-              <p className="text-sm font-bold text-emerald-700 mt-0.5">{formatSalary(job.salary)}</p>
+              <p className="text-sm font-bold text-slate-900 mt-0.5">{formatSalary(job.salary)}</p>
             </div>
             <div>
               <p className="text-[11px] text-slate-500 font-semibold uppercase">Job Type</p>
@@ -138,15 +138,15 @@ function JobDetails() {
             {user && user.role === 'user' ? (
               <Link
                 to={`/apply/${job.id}`}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-6 py-3 rounded-xl shadow-md transition"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-black hover:bg-neutral-800 text-white font-bold text-xs px-6 py-3 rounded-xl shadow-md transition"
               >
                 <CheckCircle2 className="w-4 h-4" />
                 <span>Apply for this Position</span>
               </Link>
             ) : !user ? (
-              <div className="bg-slate-100 p-4 rounded-xl text-center text-xs text-slate-600">
+              <div className="bg-slate-100 p-4 rounded-xl text-center text-xs text-slate-600 font-medium">
                 Please{' '}
-                <Link to="/login" className="text-blue-600 font-bold hover:underline">
+                <Link to="/login" className="text-black font-extrabold hover:underline">
                   Sign In
                 </Link>{' '}
                 to apply for this position.

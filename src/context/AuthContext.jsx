@@ -35,77 +35,97 @@ export function AuthProvider({ children }) {
 
   const login = async (email, password) => {
     setLoading(true)
-
-    const existingUser = demoUsers.find(
-      (user) => user.email === email && user.password === password
-    )
-
-    if (existingUser) {
-      setUser(existingUser)
-      localStorage.setItem('user', JSON.stringify(existingUser))
-      localStorage.setItem('token', 'demo-token')
+    try {
+      const res = await api.post('/auth/login', { email, password, name: '', role: '' })
+      const data = res.data
+      const loggedUser = data.user
+      setUser(loggedUser)
+      localStorage.setItem('user', JSON.stringify(loggedUser))
+      localStorage.setItem('token', data.access_token)
       setLoading(false)
       return { success: true }
-    }
+    } catch (err) {
+      console.warn("Backend auth failed, trying demo fallback:", err)
+      const existingUser = demoUsers.find(
+        (user) => user.email === email && user.password === password
+      )
 
-    setLoading(false)
+      if (existingUser) {
+        setUser(existingUser)
+        localStorage.setItem('user', JSON.stringify(existingUser))
+        localStorage.setItem('token', 'demo-token')
+        setLoading(false)
+        return { success: true }
+      }
 
-    return {
-      success: false,
-      message: 'Invalid email or password',
+      setLoading(false)
+      return {
+        success: false,
+        message: err.response?.data?.detail || 'Invalid email or password',
+      }
     }
   }
 
   const register = async (name, email, password, role) => {
     setLoading(true)
-
-    const existingUser = demoUsers.find(
-      (user) => user.email === email
-    )
-
-    if (existingUser) {
+    try {
+      const res = await api.post('/auth/register', { name, email, password, role })
+      const data = res.data
+      const loggedUser = { name, email, role }
+      setUser(loggedUser)
+      localStorage.setItem('user', JSON.stringify(loggedUser))
+      localStorage.setItem('token', data.access_token)
       setLoading(false)
-      return {
-        success: false,
-        message: 'Email already exists',
+      return { success: true }
+    } catch (err) {
+      console.warn("Backend registration failed, trying demo fallback:", err)
+      const existingUser = demoUsers.find(
+        (user) => user.email === email
+      )
+
+      if (existingUser) {
+        setLoading(false)
+        return {
+          success: false,
+          message: 'Email already exists',
+        }
       }
-    }
 
-    const newUser = {
-      name,
-      email,
-      password,
-      role,
-    }
+      const newUser = {
+        name,
+        email,
+        password,
+        role,
+      }
 
-    demoUsers.push(newUser)
+      demoUsers.push(newUser)
 
-    setUser(newUser)
-    localStorage.setItem('user', JSON.stringify(newUser))
-    localStorage.setItem('token', 'demo-token')
-
-    setLoading(false)
-
-    return {
-      success: true,
-    }
-  }
-
-  const resetPassword = async (email, newPassword) => {
-    setLoading(true)
-    const existingUser = demoUsers.find(
-      (user) => user.email.toLowerCase() === email.toLowerCase()
-    )
-
-    if (existingUser) {
-      existingUser.password = newPassword
+      setUser(newUser)
+      localStorage.setItem('user', JSON.stringify(newUser))
+      localStorage.setItem('token', 'demo-token')
       setLoading(false)
       return { success: true }
     }
+  }
 
-    // If registered in memory session
-    setLoading(false)
-    return { success: true }
+  const resetPassword = async (email, newPassword, code) => {
+    setLoading(true)
+    try {
+      await api.post('/auth/reset-password', { email, new_password: newPassword, code })
+      setLoading(false)
+      return { success: true }
+    } catch (err) {
+      console.warn("Backend password reset failed, running demo fallback:", err)
+      const existingUser = demoUsers.find(
+        (user) => user.email.toLowerCase() === email.toLowerCase()
+      )
+
+      if (existingUser) {
+        existingUser.password = newPassword
+      }
+      setLoading(false)
+      return { success: true }
+    }
   }
 
   const logout = () => {
