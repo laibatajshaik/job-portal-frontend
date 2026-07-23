@@ -28,6 +28,11 @@ function AdminDashboard() {
   const [loading, setLoading] = useState(true)
   const [tab, setTab] = useState('users')
 
+  // Settings state
+  const [atsThreshold, setAtsThreshold] = useState(80)
+  const [maintenanceMode, setMaintenanceMode] = useState(false)
+  const [apiServer, setApiServer] = useState('https://job-portal-backend-1f0h.onrender.com')
+
   useEffect(() => {
     fetchData()
   }, [])
@@ -86,12 +91,71 @@ function AdminDashboard() {
     navigate('/admin/login')
   }
 
-  // Calculate unique companies from jobs
-  const companiesCount = jobs.reduce((acc, job) => {
-    const comp = (job.company_name || 'Demo Company').trim().toLowerCase()
-    if (!acc.includes(comp)) acc.push(comp)
-    return acc
-  }, []).length
+  const handleSaveSettings = (e) => {
+    e.preventDefault()
+    alert("Admin Portal system settings saved successfully!")
+  }
+
+  // Get unique companies list
+  const getCompaniesList = () => {
+    const companyMap = {}
+    jobs.forEach(job => {
+      const name = job.company_name || 'Demo Company'
+      const key = name.trim().toLowerCase()
+      if (!companyMap[key]) {
+        companyMap[key] = {
+          name,
+          location: job.location || 'Remote',
+          jobsCount: 0
+        }
+      }
+      companyMap[key].jobsCount += 1
+    })
+    return Object.values(companyMap)
+  }
+  const companiesList = getCompaniesList()
+  const companiesCount = companiesList.length
+
+  // Generate logs dynamically
+  const generateNotificationLogs = () => {
+    const logs = []
+    
+    // Users logs
+    users.forEach((u, index) => {
+      logs.push({
+        id: `user-${index}`,
+        title: "New User Registration",
+        message: `User "${u.name}" (${u.email}) registered successfully as role "${u.role}".`,
+        time: "Just now",
+        type: "user"
+      })
+    })
+
+    // Jobs logs
+    jobs.forEach((job, index) => {
+      logs.push({
+        id: `job-${index}`,
+        title: "New Job Opening",
+        message: `Job position "${job.title}" at "${job.company_name || 'Demo Company'}" was published.`,
+        time: "Recent",
+        type: "job"
+      })
+    })
+
+    // Applications logs
+    applications.forEach((app, index) => {
+      logs.push({
+        id: `app-${index}`,
+        title: "Job Application",
+        message: `Candidate "${app.candidate_name}" applied for "${app.job_title}" (ATS Score: ${app.ats_score}%).`,
+        time: app.applied_at || "Recent",
+        type: "application"
+      })
+    })
+
+    return logs.sort((a, b) => b.id.localeCompare(a.id))
+  }
+  const notificationLogs = generateNotificationLogs()
 
   if (loading) return <Loader />
 
@@ -150,6 +214,18 @@ function AdminDashboard() {
               </button>
 
               <button
+                onClick={() => setTab('companies')}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-left ${
+                  tab === 'companies'
+                    ? 'text-white bg-white/10 font-bold'
+                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                <Building2 className="w-4 h-4" />
+                <span>Companies ({companiesCount})</span>
+              </button>
+
+              <button
                 onClick={() => setTab('applications')}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-left ${
                   tab === 'applications'
@@ -161,13 +237,29 @@ function AdminDashboard() {
                 <span>Applications ({applications.length})</span>
               </button>
 
-              <div 
-                onClick={() => alert("No system configurations or notifications available.")}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-450 hover:text-white hover:bg-white/5 transition cursor-pointer"
+              <button
+                onClick={() => setTab('notifications')}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-left ${
+                  tab === 'notifications'
+                    ? 'text-white bg-white/10 font-bold'
+                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                }`}
               >
                 <Bell className="w-4 h-4" />
                 <span>Notifications</span>
-              </div>
+              </button>
+
+              <button
+                onClick={() => setTab('settings')}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition text-left ${
+                  tab === 'settings'
+                    ? 'text-white bg-white/10 font-bold'
+                    : 'text-slate-400 hover:text-white hover:bg-white/5'
+                }`}
+              >
+                <Settings className="w-4 h-4" />
+                <span>Settings</span>
+              </button>
             </nav>
           </div>
 
@@ -191,9 +283,9 @@ function AdminDashboard() {
               <ChevronRight className="w-3 h-3 text-slate-400" />
               <span>Admin</span>
               <ChevronRight className="w-3 h-3 text-slate-400" />
-              <span className="text-slate-900 font-semibold">Dashboard</span>
+              <span className="text-slate-900 font-semibold uppercase tracking-wider">{tab}</span>
             </div>
-            <h1 className="text-xl font-bold text-slate-900">Dashboard</h1>
+            <h1 className="text-xl font-bold text-slate-900 capitalize">{tab} Management</h1>
           </div>
 
           {/* STAT CARDS WITH FLOATING NEUTRAL ICON BADGES */}
@@ -250,36 +342,66 @@ function AdminDashboard() {
             
             {/* Tab Controls */}
             <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 overflow-x-auto py-1">
                 <button
                   onClick={() => setTab('users')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition shrink-0 ${
                     tab === 'users'
                       ? 'bg-black text-white shadow-sm'
-                      : 'bg-slate-100 text-slate-650 hover:bg-slate-200 text-slate-700'
+                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
                   }`}
                 >
                   Manage Users ({users.length})
                 </button>
                 <button
                   onClick={() => setTab('jobs')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition shrink-0 ${
                     tab === 'jobs'
                       ? 'bg-black text-white shadow-sm'
-                      : 'bg-slate-100 text-slate-650 hover:bg-slate-200 text-slate-700'
+                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
                   }`}
                 >
                   Manage Jobs ({jobs.length})
                 </button>
                 <button
-                  onClick={() => setTab('applications')}
-                  className={`px-4 py-2 rounded-xl text-xs font-bold transition ${
-                    tab === 'applications'
+                  onClick={() => setTab('companies')}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition shrink-0 ${
+                    tab === 'companies'
                       ? 'bg-black text-white shadow-sm'
-                      : 'bg-slate-100 text-slate-650 hover:bg-slate-200 text-slate-700'
+                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
                   }`}
                 >
-                  Manage Applications ({applications.length})
+                  Companies ({companiesCount})
+                </button>
+                <button
+                  onClick={() => setTab('applications')}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition shrink-0 ${
+                    tab === 'applications'
+                      ? 'bg-black text-white shadow-sm'
+                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                  }`}
+                >
+                  Applications ({applications.length})
+                </button>
+                <button
+                  onClick={() => setTab('notifications')}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition shrink-0 ${
+                    tab === 'notifications'
+                      ? 'bg-black text-white shadow-sm'
+                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                  }`}
+                >
+                  Notifications Logs
+                </button>
+                <button
+                  onClick={() => setTab('settings')}
+                  className={`px-4 py-2 rounded-xl text-xs font-bold transition shrink-0 ${
+                    tab === 'settings'
+                      ? 'bg-black text-white shadow-sm'
+                      : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                  }`}
+                >
+                  Portal Settings
                 </button>
               </div>
             </div>
@@ -364,6 +486,47 @@ function AdminDashboard() {
               </div>
             )}
 
+            {/* Companies Table */}
+            {tab === 'companies' && (
+              <div className="overflow-x-auto">
+                {companiesList.length === 0 ? (
+                  <p className="text-center py-10 text-xs text-slate-500 font-semibold">No company records calculated.</p>
+                ) : (
+                  <table className="w-full text-left text-xs">
+                    <thead>
+                      <tr className="border-b border-slate-200 text-slate-400 bg-slate-50">
+                        <th className="p-3 font-semibold">Company Name</th>
+                        <th className="p-3 font-semibold">Primary Location</th>
+                        <th className="p-3 font-semibold">Active Jobs</th>
+                        <th className="p-3 font-semibold text-right">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-slate-100">
+                      {companiesList.map((comp, idx) => (
+                        <tr key={idx} className="hover:bg-slate-50 transition">
+                          <td className="p-3 font-bold text-slate-900">{comp.name}</td>
+                          <td className="p-3 text-slate-600">{comp.location}</td>
+                          <td className="p-3">
+                            <span className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[10px] font-bold border border-slate-200">
+                              {comp.jobsCount} Openings
+                            </span>
+                          </td>
+                          <td className="p-3 text-right">
+                            <button
+                              onClick={() => setTab('jobs')}
+                              className="inline-flex items-center gap-1 text-black hover:underline font-bold text-xs"
+                            >
+                              <span>View Jobs</span>
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                )}
+              </div>
+            )}
+
             {/* Applications Table */}
             {tab === 'applications' && (
               <div className="overflow-x-auto">
@@ -431,6 +594,77 @@ function AdminDashboard() {
                     </tbody>
                   </table>
                 )}
+              </div>
+            )}
+
+            {/* Notifications Logs Tab */}
+            {tab === 'notifications' && (
+              <div className="space-y-3.5 py-2">
+                {notificationLogs.length === 0 ? (
+                  <p className="text-center py-10 text-xs text-slate-500 font-semibold">No recent notification logs.</p>
+                ) : (
+                  notificationLogs.map((log) => (
+                    <div key={log.id} className="p-4 rounded-xl border border-neutral-200 bg-white flex items-start gap-3 transition hover:shadow-sm">
+                      <div className="mt-0.5 w-7 h-7 rounded-lg bg-slate-50 border border-slate-250 flex items-center justify-center text-slate-650 shrink-0">
+                        {log.type === 'user' && <Users className="w-4 h-4" />}
+                        {log.type === 'job' && <Briefcase className="w-4 h-4" />}
+                        {log.type === 'application' && <FileText className="w-4 h-4" />}
+                      </div>
+                      <div className="space-y-1">
+                        <h4 className="font-bold text-xs text-slate-900">{log.title}</h4>
+                        <p className="text-xs text-slate-600 leading-relaxed">{log.message}</p>
+                        <span className="block text-[10px] text-slate-400 font-medium">{log.time}</span>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            )}
+
+            {/* Settings Tab */}
+            {tab === 'settings' && (
+              <div className="max-w-xl py-2">
+                <form onSubmit={handleSaveSettings} className="space-y-4 text-xs font-semibold text-neutral-700">
+                  <div>
+                    <label className="block mb-1.5">ATS Auto-Shortlist Threshold (%)</label>
+                    <input
+                      type="number"
+                      min="50"
+                      max="100"
+                      value={atsThreshold}
+                      onChange={(e) => setAtsThreshold(e.target.value)}
+                      className="w-full bg-slate-50 border border-neutral-200 focus:border-black rounded-xl px-4 py-2.5 text-neutral-900 font-medium focus:outline-none transition"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block mb-1.5">API Server URL</label>
+                    <input
+                      type="url"
+                      value={apiServer}
+                      onChange={(e) => setApiServer(e.target.value)}
+                      className="w-full bg-slate-50 border border-neutral-200 focus:border-black rounded-xl px-4 py-2.5 text-neutral-900 font-medium focus:outline-none transition"
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-2 py-2">
+                    <input
+                      type="checkbox"
+                      id="maintenance"
+                      checked={maintenanceMode}
+                      onChange={(e) => setMaintenanceMode(e.target.checked)}
+                      className="w-4 h-4 rounded border-neutral-300 focus:ring-black text-black accent-black"
+                    />
+                    <label htmlFor="maintenance" className="select-none cursor-pointer">Enable Portal Maintenance Mode</label>
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full bg-black hover:bg-neutral-800 text-white font-bold text-xs py-3 rounded-xl shadow-md transition uppercase tracking-wider"
+                  >
+                    Save Configuration
+                  </button>
+                </form>
               </div>
             )}
 
