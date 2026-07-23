@@ -75,16 +75,16 @@ function CompanyProfile() {
   if (loading) return <Loader />
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 p-4 sm:p-6 lg:p-8 font-sans">
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-800 p-4 sm:p-6 lg:p-8 font-sans">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
 
-        {/* FLOATING DARK SIDEBAR (Matching reference photo) */}
-        <aside className="w-full lg:w-64 bg-[#181824] rounded-3xl p-5 text-white flex flex-col justify-between shadow-xl shrink-0 min-h-[620px]">
+        {/* BRIGHT WHITE SIDEBAR WITH HONEY ORANGE ACTIONS (Recruiter/Manager Portal) */}
+        <aside className="w-full lg:w-64 bg-white rounded-3xl p-5 text-slate-700 flex flex-col justify-between shadow-sm border border-slate-100 shrink-0 min-h-[620px]">
           
           <div className="space-y-6">
             {/* Sidebar Title */}
-            <div className="flex items-center gap-2.5 px-3 py-2 text-base font-bold tracking-tight">
-              <div className="w-8 h-8 rounded-xl bg-white flex items-center justify-center text-black shadow-md">
+            <div className="flex items-center gap-2.5 px-3 py-2 text-base font-bold tracking-tight text-slate-900">
+              <div className="w-8 h-8 rounded-xl bg-[#FFA726] flex items-center justify-center text-white shadow-sm">
                 <Building2 className="w-4 h-4" />
               </div>
               <span>Manager Portal</span>
@@ -94,7 +94,7 @@ function CompanyProfile() {
             <nav className="space-y-1.5 text-xs font-semibold">
               <Link
                 to="/manager/dashboard"
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-[#FFA726] hover:bg-[#FFA726]/5 transition"
               >
                 <LayoutDashboard className="w-4 h-4" />
                 <span>Dashboard</span>
@@ -102,7 +102,7 @@ function CompanyProfile() {
 
               <Link
                 to="/manager/post-job"
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-[#FFA726] hover:bg-[#FFA726]/5 transition"
               >
                 <PlusCircle className="w-4 h-4" />
                 <span>Post New Job</span>
@@ -110,7 +110,7 @@ function CompanyProfile() {
 
               <Link
                 to="/manager/company-profile"
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-white text-black font-bold shadow-md transition"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-[#FFA726] text-white font-bold shadow-md transition"
               >
                 <Building2 className="w-4 h-4" />
                 <span>Company Profile</span>
@@ -118,7 +118,7 @@ function CompanyProfile() {
 
               <Link
                 to="/manager/applicants/all"
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-[#FFA726] hover:bg-[#FFA726]/5 transition"
               >
                 <Users className="w-4 h-4" />
                 <span>Applicants</span>
@@ -126,7 +126,7 @@ function CompanyProfile() {
 
               <div 
                 onClick={() => alert("No new notifications for manager.")}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-450 hover:text-white hover:bg-white/5 transition cursor-pointer"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-[#FFA726] hover:bg-[#FFA726]/5 transition cursor-pointer"
               >
                 <Bell className="w-4 h-4" />
                 <span>Notifications</span>
@@ -137,7 +137,7 @@ function CompanyProfile() {
           {/* Logout Button */}
           <button
             onClick={handleLogout}
-            className="w-full bg-white hover:bg-neutral-200 text-black font-bold text-xs py-3 rounded-xl shadow-md transition uppercase tracking-wider mt-6"
+            className="w-full bg-[#FFA726] hover:bg-[#FB8C00] text-white font-bold text-xs py-3 rounded-xl shadow-md transition uppercase tracking-wider mt-6"
           >
             LOGOUT
           </button>
@@ -155,14 +155,14 @@ function CompanyProfile() {
                 <ChevronRight className="w-3 h-3 text-slate-400" />
                 <span>Manager</span>
                 <ChevronRight className="w-3 h-3 text-slate-400" />
-                <span className="text-slate-900 font-semibold">Company Profile</span>
+                <span className="text-[#FFA726] font-semibold uppercase tracking-wider">Company Profile</span>
               </div>
               <h1 className="text-xl font-bold text-slate-900">Company Profile</h1>
             </div>
 
             <Link
               to="/manager/dashboard"
-              className="inline-flex items-center gap-1.5 bg-black hover:bg-neutral-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition"
+              className="inline-flex items-center gap-1.5 bg-[#FFA726] hover:bg-[#FB8C00] text-white text-xs font-bold px-5 py-2.5 rounded-full shadow-sm transition"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back to Dashboard</span>
@@ -170,58 +170,58 @@ function CompanyProfile() {
           </div>
 
           {/* Form Card */}
-          <div className="bg-white border border-neutral-200/80 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6 max-w-2xl">
+          <div className="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6 max-w-2xl">
             
-            <div className="border-b border-neutral-100 pb-4">
+            <div className="border-b border-slate-50 pb-4">
               <h2 className="text-lg font-bold text-slate-900">Company Details</h2>
               <p className="text-xs text-slate-500 mt-1">Configure profile information for your company profile page.</p>
             </div>
 
             {message && (
-              <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-250 text-emerald-800 text-xs p-3.5 rounded-xl font-bold">
+              <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-250 text-emerald-800 text-xs p-3.5 rounded-2xl font-bold">
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
                 <span>{message}</span>
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-4 text-xs font-semibold text-neutral-700">
+            <form onSubmit={handleSubmit} className="space-y-4 text-xs font-semibold text-slate-700">
               
-              <div>
-                <label className="block mb-1.5">Company Name</label>
+              <div className="space-y-1.5">
+                <label className="block">Company Name</label>
                 <input
                   type="text"
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
-                  className="w-full bg-white border border-neutral-200 focus:border-black rounded-xl px-4 py-2.5 text-neutral-900 font-medium transition focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-150 focus:border-[#FFA726] rounded-full px-5 py-3.5 text-slate-900 font-medium transition focus:outline-none"
                   required
                 />
               </div>
 
-              <div>
-                <label className="block mb-1.5">Website</label>
+              <div className="space-y-1.5">
+                <label className="block">Website</label>
                 <input
                   type="url"
                   value={website}
                   onChange={(e) => setWebsite(e.target.value)}
                   placeholder="https://yourcompany.com"
-                  className="w-full bg-white border border-neutral-200 focus:border-black rounded-xl px-4 py-2.5 text-neutral-900 font-medium transition focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-150 focus:border-[#FFA726] rounded-full px-5 py-3.5 text-slate-900 font-medium transition focus:outline-none"
                 />
               </div>
 
-              <div>
-                <label className="block mb-1.5">Description</label>
+              <div className="space-y-1.5">
+                <label className="block">Description</label>
                 <textarea
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
                   rows="5"
                   placeholder="Describe your company services, core values, or tech stack..."
-                  className="w-full bg-white border border-neutral-200 focus:border-black rounded-xl px-4 py-2.5 text-neutral-900 font-medium transition focus:outline-none"
+                  className="w-full bg-slate-50 border border-slate-155 focus:border-[#FFA726] rounded-3xl px-5 py-3.5 text-slate-900 font-medium transition focus:outline-none"
                 />
               </div>
 
               <button
                 type="submit"
-                className="w-full bg-black hover:bg-neutral-800 text-white font-bold text-xs py-3 rounded-xl shadow-md transition mt-2 uppercase tracking-wider"
+                className="w-full bg-[#FFA726] hover:bg-[#FB8C00] text-white font-bold text-xs py-3.5 rounded-full shadow-md transition mt-2 uppercase tracking-wider"
               >
                 Save Profile Details
               </button>
