@@ -16,7 +16,8 @@ import {
   Home,
   ChevronRight,
   Award,
-  Link2
+  Link2,
+  RefreshCw
 } from 'lucide-react'
 
 function AdminDashboard() {
@@ -277,15 +278,25 @@ function AdminDashboard() {
         <main className="flex-1 space-y-6">
 
           {/* Breadcrumb Header */}
-          <div className="space-y-1">
-            <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
-              <Home className="w-3.5 h-3.5" />
-              <ChevronRight className="w-3 h-3 text-slate-400" />
-              <span>Admin</span>
-              <ChevronRight className="w-3 h-3 text-slate-400" />
-              <span className="text-slate-900 font-semibold uppercase tracking-wider">{tab}</span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="space-y-1">
+              <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+                <Home className="w-3.5 h-3.5" />
+                <ChevronRight className="w-3 h-3 text-slate-400" />
+                <span>Admin</span>
+                <ChevronRight className="w-3 h-3 text-slate-400" />
+                <span className="text-slate-900 font-semibold uppercase tracking-wider">{tab}</span>
+              </div>
+              <h1 className="text-xl font-bold text-slate-900 capitalize">{tab} Management</h1>
             </div>
-            <h1 className="text-xl font-bold text-slate-900 capitalize">{tab} Management</h1>
+
+            <button
+              onClick={fetchData}
+              className="inline-flex items-center gap-1.5 bg-black hover:bg-neutral-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+              <span>Refresh Data</span>
+            </button>
           </div>
 
           {/* STAT CARDS WITH FLOATING NEUTRAL ICON BADGES */}
