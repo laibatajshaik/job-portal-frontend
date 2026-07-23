@@ -72,16 +72,16 @@ function ApplicantManagement() {
   if (loading) return <Loader />
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-800 p-4 sm:p-6 lg:p-8 font-sans">
+    <div className="min-h-screen bg-slate-50 text-slate-800 p-4 sm:p-6 lg:p-8 font-sans">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
 
-        {/* BRIGHT WHITE SIDEBAR WITH HONEY ORANGE ACTIONS (Recruiter Portal) */}
-        <aside className="w-full lg:w-64 bg-white rounded-3xl p-5 text-slate-700 flex flex-col justify-between shadow-sm border border-slate-100 shrink-0 min-h-[620px]">
+        {/* FLOATING DARK SIDEBAR (Matching reference photo) */}
+        <aside className="w-full lg:w-64 bg-[#181824] rounded-3xl p-5 text-white flex flex-col justify-between shadow-xl shrink-0 min-h-[620px]">
           
           <div className="space-y-6">
             {/* Sidebar Title */}
-            <div className="flex items-center gap-2.5 px-3 py-2 text-base font-bold tracking-tight text-slate-900">
-              <div className="w-8 h-8 rounded-xl bg-[#FFA726] flex items-center justify-center text-white shadow-sm">
+            <div className="flex items-center gap-2.5 px-3 py-2 text-base font-bold tracking-tight">
+              <div className="w-8 h-8 rounded-xl bg-white flex items-center justify-center text-black shadow-md">
                 <Building2 className="w-4 h-4" />
               </div>
               <span>Manager Portal</span>
@@ -91,7 +91,7 @@ function ApplicantManagement() {
             <nav className="space-y-1.5 text-xs font-semibold">
               <Link
                 to="/manager/dashboard"
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-[#FFA726] hover:bg-[#FFA726]/5 transition"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition"
               >
                 <LayoutDashboard className="w-4 h-4" />
                 <span>Dashboard</span>
@@ -99,7 +99,7 @@ function ApplicantManagement() {
 
               <Link
                 to="/manager/post-job"
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-[#FFA726] hover:bg-[#FFA726]/5 transition"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition"
               >
                 <PlusCircle className="w-4 h-4" />
                 <span>Post New Job</span>
@@ -107,7 +107,7 @@ function ApplicantManagement() {
 
               <Link
                 to="/manager/company-profile"
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-[#FFA726] hover:bg-[#FFA726]/5 transition"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition"
               >
                 <Building2 className="w-4 h-4" />
                 <span>Company Profile</span>
@@ -115,7 +115,7 @@ function ApplicantManagement() {
 
               <Link
                 to="/manager/applicants/all"
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-[#FFA726] text-white font-bold shadow-md transition"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-white text-black font-bold shadow-md transition"
               >
                 <Users className="w-4 h-4" />
                 <span>Applicants</span>
@@ -123,7 +123,7 @@ function ApplicantManagement() {
 
               <div 
                 onClick={() => alert("No new notifications for manager.")}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-500 hover:text-[#FFA726] hover:bg-[#FFA726]/5 transition cursor-pointer"
+                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-450 hover:text-white hover:bg-white/5 transition cursor-pointer"
               >
                 <Bell className="w-4 h-4" />
                 <span>Notifications</span>
@@ -134,7 +134,7 @@ function ApplicantManagement() {
           {/* Logout Button */}
           <button
             onClick={handleLogout}
-            className="w-full bg-[#FFA726] hover:bg-[#FB8C00] text-white font-bold text-xs py-3 rounded-xl shadow-md transition uppercase tracking-wider mt-6"
+            className="w-full bg-white hover:bg-neutral-200 text-black font-bold text-xs py-3 rounded-xl shadow-md transition uppercase tracking-wider mt-6"
           >
             LOGOUT
           </button>
@@ -152,7 +152,7 @@ function ApplicantManagement() {
                 <ChevronRight className="w-3 h-3 text-slate-400" />
                 <span>Manager</span>
                 <ChevronRight className="w-3 h-3 text-slate-400" />
-                <span className="text-[#FFA726] font-semibold uppercase tracking-wider">Applicants</span>
+                <span className="text-slate-900 font-semibold">Applicants</span>
               </div>
               <h1 className="text-xl font-bold text-slate-900">
                 {jobId === 'all' ? 'All Applicants' : 'Job Applicants'}
@@ -161,7 +161,7 @@ function ApplicantManagement() {
 
             <Link
               to="/manager/dashboard"
-              className="inline-flex items-center gap-1.5 bg-[#FFA726] hover:bg-[#FB8C00] text-white text-xs font-bold px-5 py-2.5 rounded-full shadow-sm transition"
+              className="inline-flex items-center gap-1.5 bg-black hover:bg-neutral-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Back to Dashboard</span>
@@ -169,19 +169,19 @@ function ApplicantManagement() {
           </div>
 
           {/* APPLICANTS DETAILS CARD */}
-          <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-6 space-y-4">
+          <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6 space-y-4">
             <h2 className="text-base font-bold text-slate-900">Manage Job Applications</h2>
 
             {applicants.length === 0 ? (
               <div className="text-center py-12 space-y-3">
-                <Users className="w-10 h-10 text-slate-305 mx-auto" />
-                <p className="text-xs text-slate-500 font-medium">No candidates have applied to this position yet.</p>
+                <Users className="w-10 h-10 text-slate-300 mx-auto" />
+                <p className="text-xs text-slate-505 font-medium">No candidates have applied to this position yet.</p>
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
                   <thead>
-                    <tr className="border-b border-slate-100 text-slate-400 bg-slate-50">
+                    <tr className="border-b border-slate-200 text-slate-400 bg-slate-50">
                       <th className="p-3 font-semibold">Name</th>
                       <th className="p-3 font-semibold">Email</th>
                       <th className="p-3 font-semibold">Job Reference</th>
@@ -217,7 +217,7 @@ function ApplicantManagement() {
                             <span 
                               className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg ${
                                 app.status === 'Shortlisted'
-                                  ? 'bg-[#FFA726] text-white shadow-sm'
+                                  ? 'bg-black text-white'
                                   : app.status === 'Rejected'
                                   ? 'bg-rose-50 text-rose-700 border border-rose-100'
                                   : 'bg-slate-100 text-slate-700 border border-slate-200'
@@ -230,7 +230,7 @@ function ApplicantManagement() {
                             {app.resume_url ? (
                               <button
                                 onClick={() => setSelectedResumeUrl(app.resume_url)}
-                                className="inline-flex items-center gap-1.5 text-[#FFA726] hover:underline font-bold"
+                                className="inline-flex items-center gap-1.5 text-black hover:underline font-bold"
                               >
                                 <FileText className="w-3.5 h-3.5" />
                                 <span>View CV</span>
@@ -244,10 +244,10 @@ function ApplicantManagement() {
                               <button
                                 onClick={() => handleStatusChange(app.id ?? (index + 1), 'shortlist')}
                                 disabled={app.status === 'Shortlisted'}
-                                className={`inline-flex items-center gap-1 px-4 py-2 rounded-full text-xs font-bold transition border ${
+                                className={`inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold transition border ${
                                   app.status === 'Shortlisted'
-                                    ? 'bg-slate-50 text-slate-400 border-slate-200 cursor-not-allowed'
-                                    : 'bg-[#FFA726] hover:bg-[#FB8C00] text-white border-none'
+                                    ? 'bg-slate-50 text-slate-455 border-slate-202 cursor-not-allowed'
+                                    : 'bg-black text-white hover:bg-neutral-800 border-black'
                                 }`}
                               >
                                 <CheckCircle2 className="w-3.5 h-3.5" />
@@ -256,10 +256,10 @@ function ApplicantManagement() {
                               <button
                                 onClick={() => handleStatusChange(app.id ?? (index + 1), 'reject')}
                                 disabled={app.status === 'Rejected'}
-                                className={`inline-flex items-center gap-1 px-4 py-2 rounded-full text-xs font-bold transition border ${
+                                className={`inline-flex items-center gap-1 px-3 py-1 rounded-lg text-xs font-bold transition border ${
                                   app.status === 'Rejected'
-                                    ? 'bg-slate-50 text-slate-400 border-slate-200 cursor-not-allowed'
-                                    : 'bg-white hover:bg-rose-50 text-rose-600 hover:text-rose-700 border-slate-250 hover:border-rose-350'
+                                    ? 'bg-slate-50 text-slate-455 border-slate-202 cursor-not-allowed'
+                                    : 'bg-white hover:bg-rose-50 text-rose-600 hover:text-rose-700 border-neutral-250 hover:border-rose-300'
                                 }`}
                               >
                                 <XCircle className="w-3.5 h-3.5" />
@@ -288,7 +288,7 @@ function ApplicantManagement() {
               <h3 className="font-bold text-slate-900 text-sm">Resume / CV Viewer</h3>
               <button
                 onClick={() => setSelectedResumeUrl(null)}
-                className="px-4 py-2 rounded-full bg-slate-200 hover:bg-slate-350 text-slate-700 text-xs font-bold transition flex items-center gap-1"
+                className="px-4 py-2 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold transition flex items-center gap-1"
               >
                 <X className="w-3.5 h-3.5" />
                 <span>Close Viewer</span>
