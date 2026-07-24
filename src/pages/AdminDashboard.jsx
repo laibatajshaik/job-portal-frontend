@@ -52,6 +52,32 @@ function AdminDashboard() {
   // Selected PDF resume URL for the inline modal viewer
   const [selectedResumeUrl, setSelectedResumeUrl] = useState(null)
 
+  const getEmbeddableUrl = (url) => {
+    if (!url) return '';
+    let cleanUrl = url.trim();
+
+    // 1. Google Drive conversion
+    if (cleanUrl.includes('drive.google.com/file/d/')) {
+      const match = cleanUrl.match(/\/file\/d\/([a-zA-Z0-9_-]+)/);
+      if (match && match[1]) {
+        return `https://drive.google.com/file/d/${match[1]}/preview`;
+      }
+    }
+
+    // 2. Dropbox conversion
+    if (cleanUrl.includes('dropbox.com')) {
+      return cleanUrl.replace('?dl=0', '?raw=1').replace('&dl=0', '&raw=1');
+    }
+
+    // 3. For office documents (doc, docx, pptx, xlsx, etc.) and fallback, we can use google docs viewer:
+    const isOfficeDoc = /\.(docx|doc|xlsx|xls|pptx|ppt)$/i.test(cleanUrl.split('?')[0]);
+    if (isOfficeDoc) {
+      return `https://docs.google.com/gview?url=${encodeURIComponent(cleanUrl)}&embedded=true`;
+    }
+
+    return cleanUrl;
+  }
+
   useEffect(() => {
     fetchData()
   }, [])
@@ -765,17 +791,27 @@ function AdminDashboard() {
           <div className="bg-white rounded-3xl w-full max-w-4xl h-[90vh] flex flex-col overflow-hidden shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
             <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
               <h3 className="font-bold text-slate-900 text-sm">Resume / CV Viewer</h3>
-              <button
-                onClick={() => setSelectedResumeUrl(null)}
-                className="px-4 py-2 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold transition flex items-center gap-1"
-              >
-                <X className="w-3.5 h-3.5" />
-                <span>Close Viewer</span>
-              </button>
+              <div className="flex items-center gap-2">
+                <a
+                  href={selectedResumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 rounded-full bg-black text-white hover:bg-neutral-800 text-xs font-bold transition flex items-center"
+                >
+                  Open in New Tab
+                </a>
+                <button
+                  onClick={() => setSelectedResumeUrl(null)}
+                  className="px-4 py-2 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold transition flex items-center gap-1"
+                >
+                  <X className="w-3.5 h-3.5" />
+                  <span>Close Viewer</span>
+                </button>
+              </div>
             </div>
             <div className="flex-1 bg-slate-100 relative">
               <iframe
-                src={selectedResumeUrl}
+                src={getEmbeddableUrl(selectedResumeUrl)}
                 title="Resume PDF Viewer"
                 className="w-full h-full border-none"
               />
