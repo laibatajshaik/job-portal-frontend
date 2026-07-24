@@ -84,51 +84,51 @@ function JobDetails() {
   if (!job) return <p className="text-center mt-10">Job not found</p>
 
   return (
-    <div className="min-h-screen bg-slate-50 py-10 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#F7F5F0] py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto space-y-6">
 
         {/* Back Link */}
-        <Link to="/jobs" className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-black transition">
+        <Link to="/jobs" className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 hover:text-[#E87552] transition">
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Job Listings</span>
         </Link>
 
         {/* Main Job Detail Card */}
-        <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
+        <div className="bg-white border border-[#E87552]/20 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
           
           <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-slate-100 pb-6">
             <div>
-              <h1 className="text-2xl font-bold text-slate-900">{job.title}</h1>
+              <h1 className="text-2xl font-bold text-[#3B2525]">{job.title}</h1>
               <div className="flex items-center gap-2 text-xs text-slate-500 mt-1">
-                <Building className="w-4 h-4 text-slate-400" />
-                <span className="font-semibold text-slate-700">{job.company_name || 'Demo Company'}</span>
+                <Building className="w-4 h-4 text-[#E87552]" />
+                <span className="font-bold text-slate-700">{job.company_name || 'Demo Company'}</span>
                 <span>•</span>
                 <MapPin className="w-4 h-4 text-slate-400" />
-                <span>{job.location || 'Remote'}</span>
+                <span className="font-semibold">{job.location || 'Remote'}</span>
               </div>
             </div>
 
-            <span className="self-start px-3 py-1 rounded-full bg-black text-white text-xs font-bold">
+            <span className="self-start px-3 py-1 rounded-full bg-[#3B2525] text-white text-xs font-bold shadow-sm">
               {job.job_type || 'Full Time'}
             </span>
           </div>
 
           {/* Key Details Grid */}
-          <div className="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
+          <div className="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-[#E87552]/15">
             <div>
-              <p className="text-[11px] text-slate-500 font-semibold uppercase">Offered Salary</p>
-              <p className="text-sm font-bold text-slate-900 mt-0.5">{formatSalary(job.salary)}</p>
+              <p className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Offered Salary</p>
+              <p className="text-sm font-black text-[#3B2525] mt-0.5">{formatSalary(job.salary)}</p>
             </div>
             <div>
-              <p className="text-[11px] text-slate-500 font-semibold uppercase">Job Type</p>
-              <p className="text-sm font-bold text-slate-800 mt-0.5">{job.job_type || 'Full Time'}</p>
+              <p className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Job Type</p>
+              <p className="text-sm font-black text-slate-800 mt-0.5">{job.job_type || 'Full Time'}</p>
             </div>
           </div>
 
           {/* Description */}
           <div className="space-y-2">
-            <h3 className="text-sm font-bold text-slate-900">Job Description</h3>
-            <p className="text-xs text-slate-600 leading-relaxed whitespace-pre-line">
+            <h3 className="text-sm font-bold text-[#3B2525]">Job Description</h3>
+            <p className="text-xs text-slate-600 leading-relaxed whitespace-pre-line font-medium">
               {job.description}
             </p>
           </div>
@@ -138,21 +138,21 @@ function JobDetails() {
             {user && user.role === 'user' ? (
               <Link
                 to={`/apply/${job.id}`}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-black hover:bg-neutral-800 text-white font-bold text-xs px-6 py-3 rounded-xl shadow-md transition"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#3B2525] hover:bg-[#2e1d1d] text-white font-extrabold text-xs px-6 py-3.5 rounded-xl shadow-md transition uppercase tracking-wider"
               >
-                <CheckCircle2 className="w-4 h-4" />
+                <CheckCircle2 className="w-4 h-4 text-[#E87552]" />
                 <span>Apply for this Position</span>
               </Link>
             ) : !user ? (
-              <div className="bg-slate-100 p-4 rounded-xl text-center text-xs text-slate-600 font-medium">
+              <div className="bg-slate-100 p-4 rounded-xl text-center text-xs text-slate-650 font-semibold">
                 Please{' '}
-                <Link to="/login" className="text-black font-extrabold hover:underline">
+                <Link to="/login" className="text-[#E87552] font-black hover:underline">
                   Sign In
                 </Link>{' '}
                 to apply for this position.
               </div>
             ) : (
-              <p className="text-xs text-slate-500 italic">
+              <p className="text-xs text-slate-450 font-bold italic">
                 Logged in as Manager/Admin. Candidate applications are submitted by Job Seekers.
               </p>
             )}

@@ -75,164 +75,155 @@ function CompanyProfile() {
   if (loading) return <Loader />
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 p-4 sm:p-6 lg:p-8 font-sans">
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
-
-        {/* FLOATING DARK SIDEBAR (Matching reference photo) */}
-        <aside className="w-full lg:w-64 bg-[#181824] rounded-3xl p-5 text-white flex flex-col justify-between shadow-xl shrink-0 min-h-[620px]">
+    <div className="min-h-screen bg-[#F7F5F0] text-slate-800 font-sans pb-12">
+      
+      {/* MOCKUP HORIZONTAL TOP HEADER NAVIGATION BAR (Espresso Background) */}
+      <header className="bg-[#3B2525] text-white sticky top-0 z-40 shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between min-h-[64px] py-3 md:py-0 gap-4">
           
-          <div className="space-y-6">
-            {/* Sidebar Title */}
-            <div className="flex items-center gap-2.5 px-3 py-2 text-base font-bold tracking-tight">
-              <div className="w-8 h-8 rounded-xl bg-white flex items-center justify-center text-black shadow-md">
-                <Building2 className="w-4 h-4" />
-              </div>
-              <span>Manager Portal</span>
+          {/* Logo */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-[#E87552] flex items-center justify-center text-white font-bold shadow">
+              <Building2 className="w-4 h-4" />
             </div>
-
-            {/* Sidebar Navigation */}
-            <nav className="space-y-1.5 text-xs font-semibold">
-              <Link
-                to="/manager/dashboard"
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition"
-              >
-                <LayoutDashboard className="w-4 h-4" />
-                <span>Dashboard</span>
-              </Link>
-
-              <Link
-                to="/manager/post-job"
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition"
-              >
-                <PlusCircle className="w-4 h-4" />
-                <span>Post New Job</span>
-              </Link>
-
-              <Link
-                to="/manager/company-profile"
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-white text-black font-bold shadow-md transition"
-              >
-                <Building2 className="w-4 h-4" />
-                <span>Company Profile</span>
-              </Link>
-
-              <Link
-                to="/manager/applicants/all"
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition"
-              >
-                <Users className="w-4 h-4" />
-                <span>Applicants</span>
-              </Link>
-
-              <div 
-                onClick={() => alert("No new notifications for manager.")}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-450 hover:text-white hover:bg-white/5 transition cursor-pointer"
-              >
-                <Bell className="w-4 h-4" />
-                <span>Notifications</span>
-              </div>
-            </nav>
+            <span className="font-extrabold text-sm tracking-tight text-white">Manager Portal</span>
           </div>
 
-          {/* Logout Button */}
-          <button
-            onClick={handleLogout}
-            className="w-full bg-white hover:bg-neutral-200 text-black font-bold text-xs py-3 rounded-xl shadow-md transition uppercase tracking-wider mt-6"
-          >
-            LOGOUT
-          </button>
-
-        </aside>
-
-        {/* MAIN CONTENT AREA */}
-        <main className="flex-1 space-y-6">
-
-          {/* Breadcrumb Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="space-y-1">
-              <div className="flex items-center gap-1.5 text-xs text-slate-500 font-medium">
-                <Home className="w-3.5 h-3.5" />
-                <ChevronRight className="w-3 h-3 text-slate-400" />
-                <span>Manager</span>
-                <ChevronRight className="w-3 h-3 text-slate-400" />
-                <span className="text-slate-900 font-semibold">Company Profile</span>
-              </div>
-              <h1 className="text-xl font-bold text-slate-900">Company Profile</h1>
-            </div>
-
+          {/* Navigation Links */}
+          <nav className="flex items-center flex-wrap justify-center gap-1.5 text-xs font-bold">
             <Link
               to="/manager/dashboard"
-              className="inline-flex items-center gap-1.5 bg-black hover:bg-neutral-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition"
+              className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition"
             >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back to Dashboard</span>
+              <LayoutDashboard className="w-3.5 h-3.5" />
+              <span>Dashboard</span>
             </Link>
+
+            <Link
+              to="/manager/post-job"
+              className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition"
+            >
+              <PlusCircle className="w-3.5 h-3.5" />
+              <span>Post New Job</span>
+            </Link>
+
+            <Link
+              to="/manager/company-profile"
+              className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-[#E87552] text-white font-black shadow-sm"
+            >
+              <Building2 className="w-3.5 h-3.5" />
+              <span>Company Profile</span>
+            </Link>
+
+            <Link
+              to="/manager/applicants/all"
+              className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition"
+            >
+              <Users className="w-3.5 h-3.5" />
+              <span>Applicants</span>
+            </Link>
+          </nav>
+
+          {/* Logout Action */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleLogout}
+              className="bg-[#E87552] hover:bg-[#d15f3e] text-white text-xs font-extrabold px-4 py-2 rounded-lg transition shadow"
+            >
+              LOGOUT
+            </button>
           </div>
 
-          {/* Form Card */}
-          <div className="bg-white border border-neutral-200/80 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6 max-w-2xl">
+        </div>
+      </header>
+
+      {/* MAIN CONTAINER */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 space-y-6">
+
+        {/* Section Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-1 text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+              <Home className="w-3.5 h-3.5" />
+              <ChevronRight className="w-3 h-3 text-slate-300" />
+              <span>Manager Console</span>
+              <ChevronRight className="w-3 h-3 text-slate-300" />
+              <span className="text-[#3B2525]">Company Profile</span>
+            </div>
+            <h1 className="text-xl font-bold text-[#3B2525]">Edit Company Profile</h1>
+          </div>
+
+          <Link
+            to="/manager/dashboard"
+            className="inline-flex items-center gap-1.5 bg-[#3B2525] hover:bg-[#2e1d1d] text-white text-xs font-bold px-4 py-2.5 rounded-lg shadow-sm transition"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Back to Dashboard</span>
+          </Link>
+        </div>
+
+        {/* Form Card */}
+        <div className="bg-white border border-[#E87552]/35 rounded-xl p-6 sm:p-8 shadow-sm space-y-6 max-w-2xl">
+          
+          <div className="border-b border-slate-100 pb-4">
+            <h2 className="text-sm font-bold text-[#3B2525]">Company Profile Details</h2>
+            <p className="text-xs text-slate-500 mt-1 font-semibold">Configure details that job seekers will see when viewing your positions.</p>
+          </div>
+
+          {message && (
+            <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-250 text-emerald-800 text-xs p-3.5 rounded-xl font-bold">
+              <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+              <span>{message}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4 text-xs font-bold text-slate-600">
             
-            <div className="border-b border-neutral-100 pb-4">
-              <h2 className="text-lg font-bold text-slate-900">Company Details</h2>
-              <p className="text-xs text-slate-500 mt-1">Configure profile information for your company profile page.</p>
+            <div>
+              <label className="block mb-1.5">Company Name</label>
+              <input
+                type="text"
+                value={companyName}
+                onChange={(e) => setCompanyName(e.target.value)}
+                className="w-full bg-[#F7F5F0]/50 border border-[#E87552]/25 focus:border-[#E87552] rounded-xl px-4 py-2.5 text-slate-900 font-bold outline-none transition"
+                required
+              />
             </div>
 
-            {message && (
-              <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-250 text-emerald-800 text-xs p-3.5 rounded-xl font-bold">
-                <CheckCircle2 className="w-4 h-4 shrink-0" />
-                <span>{message}</span>
-              </div>
-            )}
+            <div>
+              <label className="block mb-1.5">Website</label>
+              <input
+                type="url"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
+                placeholder="https://yourcompany.com"
+                className="w-full bg-[#F7F5F0]/50 border border-[#E87552]/25 focus:border-[#E87552] rounded-xl px-4 py-2.5 text-slate-900 font-bold outline-none transition"
+              />
+            </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4 text-xs font-semibold text-neutral-700">
-              
-              <div>
-                <label className="block mb-1.5">Company Name</label>
-                <input
-                  type="text"
-                  value={companyName}
-                  onChange={(e) => setCompanyName(e.target.value)}
-                  className="w-full bg-white border border-neutral-200 focus:border-black rounded-xl px-4 py-2.5 text-neutral-900 font-medium transition focus:outline-none"
-                  required
-                />
-              </div>
+            <div>
+              <label className="block mb-1.5">Description</label>
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                rows="5"
+                placeholder="Describe your company services, core values, or tech stack..."
+                className="w-full bg-[#F7F5F0]/50 border border-[#E87552]/25 focus:border-[#E87552] rounded-xl px-4 py-2.5 text-slate-900 font-bold outline-none transition"
+              />
+            </div>
 
-              <div>
-                <label className="block mb-1.5">Website</label>
-                <input
-                  type="url"
-                  value={website}
-                  onChange={(e) => setWebsite(e.target.value)}
-                  placeholder="https://yourcompany.com"
-                  className="w-full bg-white border border-neutral-200 focus:border-black rounded-xl px-4 py-2.5 text-neutral-900 font-medium transition focus:outline-none"
-                />
-              </div>
+            <button
+              type="submit"
+              className="w-full bg-[#3B2525] hover:bg-[#2e1d1d] text-white font-extrabold text-xs py-3.5 rounded-xl shadow-md transition mt-2 uppercase tracking-wider"
+            >
+              Save Profile Details
+            </button>
 
-              <div>
-                <label className="block mb-1.5">Description</label>
-                <textarea
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  rows="5"
-                  placeholder="Describe your company services, core values, or tech stack..."
-                  className="w-full bg-white border border-neutral-200 focus:border-black rounded-xl px-4 py-2.5 text-neutral-900 font-medium transition focus:outline-none"
-                />
-              </div>
+          </form>
 
-              <button
-                type="submit"
-                className="w-full bg-black hover:bg-neutral-800 text-white font-bold text-xs py-3 rounded-xl shadow-md transition mt-2 uppercase tracking-wider"
-              >
-                Save Profile Details
-              </button>
+        </div>
 
-            </form>
-
-          </div>
-
-        </main>
-
-      </div>
+      </main>
     </div>
   )
 }

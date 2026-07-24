@@ -82,7 +82,7 @@ function JobListing() {
   })
 
   const formatSalary = (salary) => {
-    if (!salary) return '₹90,000'
+    if (!salary) return '₹9,00,005'
     if (typeof salary === 'number') return `₹${salary.toLocaleString('en-IN')}`
     const strSal = String(salary).trim()
     if (strSal.startsWith('₹')) return strSal
@@ -91,52 +91,52 @@ function JobListing() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 py-10 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#F7F5F0] text-slate-855 py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto space-y-6">
 
         {/* Page Header */}
         <div className="space-y-1 text-center sm:text-left">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#3B2525]">
             Available Openings
           </h1>
-          <p className="text-slate-600 text-xs">
+          <p className="text-slate-500 text-xs font-semibold">
             Discover roles matching your expertise and career goals.
           </p>
         </div>
 
         {/* Search & Filter Controls Card */}
-        <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm space-y-3">
+        <div className="bg-white p-4 rounded-xl border border-[#E87552]/20 shadow-sm space-y-3">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-3">
             
             {/* Title Search */}
-            <div className="md:col-span-5 flex items-center gap-2.5 bg-slate-50 border border-slate-200 focus-within:border-blue-500 rounded-lg px-3.5 py-2.5 transition">
-              <Search className="w-4 h-4 text-blue-600" />
+            <div className="md:col-span-5 flex items-center gap-2.5 bg-[#F7F5F0]/50 border border-[#E87552]/15 focus-within:border-[#E87552] rounded-lg px-3.5 py-2.5 transition">
+              <Search className="w-4 h-4 text-[#E87552]" />
               <input
                 type="text"
                 placeholder="Search job title or keyword..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-full"
+                className="bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-full font-bold"
               />
               {search && (
-                <button onClick={() => setSearch('')} className="text-slate-400 hover:text-slate-600">
+                <button onClick={() => setSearch('')} className="text-slate-400 hover:text-slate-650">
                   <X className="w-3.5 h-3.5" />
                 </button>
               )}
             </div>
 
             {/* Location Search */}
-            <div className="md:col-span-5 flex items-center gap-2.5 bg-slate-50 border border-slate-200 focus-within:border-blue-500 rounded-lg px-3.5 py-2.5 transition">
+            <div className="md:col-span-5 flex items-center gap-2.5 bg-[#F7F5F0]/50 border border-[#E87552]/15 focus-within:border-[#E87552] rounded-lg px-3.5 py-2.5 transition">
               <MapPin className="w-4 h-4 text-slate-400" />
               <input
                 type="text"
                 placeholder="Filter by city, state, or remote..."
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                className="bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-full"
+                className="bg-transparent text-xs text-slate-900 placeholder-slate-400 focus:outline-none w-full font-bold"
               />
               {location && (
-                <button onClick={() => setLocation('')} className="text-slate-400 hover:text-slate-600">
+                <button onClick={() => setLocation('')} className="text-slate-400 hover:text-slate-650">
                   <X className="w-3.5 h-3.5" />
                 </button>
               )}
@@ -147,7 +147,7 @@ function JobListing() {
               <button
                 onClick={clearFilters}
                 disabled={!search && !location}
-                className="w-full h-full flex items-center justify-center gap-1.5 bg-slate-100 hover:bg-slate-200 disabled:opacity-40 disabled:cursor-not-allowed text-slate-700 px-3 py-2.5 rounded-lg text-xs font-semibold border border-slate-200 transition"
+                className="w-full h-full flex items-center justify-center gap-1.5 bg-[#F7F5F0]/70 hover:bg-[#F7F5F0] disabled:opacity-40 disabled:cursor-not-allowed text-[#3B2525] px-3 py-2.5 rounded-lg text-xs font-bold border border-[#E87552]/20 transition"
               >
                 <Filter className="w-3.5 h-3.5" />
                 <span>Reset</span>
@@ -158,9 +158,9 @@ function JobListing() {
         </div>
 
         {/* Results Counter Bar */}
-        <div className="flex items-center justify-between text-xs font-medium text-slate-500 px-1">
+        <div className="flex items-center justify-between text-xs font-bold text-slate-400 px-1 uppercase tracking-wider">
           <span>
-            Showing <strong className="text-slate-900 font-bold">{filteredJobs.length}</strong> {filteredJobs.length === 1 ? 'Job' : 'Jobs'}
+            Showing <strong className="text-[#3B2525] font-black">{filteredJobs.length}</strong> {filteredJobs.length === 1 ? 'Job' : 'Jobs'}
           </span>
         </div>
 
@@ -168,7 +168,7 @@ function JobListing() {
         {loading ? (
           <Loader />
         ) : filteredJobs.length === 0 ? (
-          <div className="bg-white p-10 text-center rounded-xl border border-slate-200 space-y-3 max-w-md mx-auto shadow-sm">
+          <div className="bg-white p-10 text-center rounded-xl border border-[#E87552]/20 space-y-3 max-w-md mx-auto shadow-sm">
             <div className="w-10 h-10 rounded-lg bg-slate-100 text-slate-500 flex items-center justify-center mx-auto">
               <Briefcase className="w-5 h-5" />
             </div>
@@ -178,7 +178,7 @@ function JobListing() {
             </p>
             <button
               onClick={clearFilters}
-              className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition shadow-sm"
+              className="bg-[#3B2525] hover:bg-[#2e1d1d] text-white text-xs font-bold px-4 py-2 rounded-lg transition shadow-sm"
             >
               Clear All Filters
             </button>
@@ -189,7 +189,7 @@ function JobListing() {
               <JobCard
                 key={index}
                 job={{
-                  id: index,
+                  id: job.id ?? index,
                   title: job.title,
                   description: job.description,
                   location: job.location,
