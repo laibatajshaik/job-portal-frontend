@@ -98,6 +98,26 @@ function ApplicantManagement() {
     return cleanUrl;
   }
 
+  const getDirectDownloadUrl = (url) => {
+    if (!url) return '';
+    let cleanUrl = url.trim();
+
+    // Google Drive conversion
+    if (cleanUrl.includes('drive.google.com')) {
+      const match = cleanUrl.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || cleanUrl.match(/id=([a-zA-Z0-9_-]+)/);
+      if (match && match[1]) {
+        return `https://drive.google.com/uc?export=download&id=${match[1]}`;
+      }
+    }
+
+    // Dropbox conversion
+    if (cleanUrl.includes('dropbox.com')) {
+      return cleanUrl.replace('?dl=0', '?dl=1').replace('&dl=0', '&dl=1');
+    }
+
+    return cleanUrl;
+  }
+
   if (loading) return <Loader />
 
   return (
@@ -308,7 +328,7 @@ function ApplicantManagement() {
               <h3 className="font-bold text-[#3B2525] text-sm">Resume / CV Viewer</h3>
               <div className="flex items-center gap-2">
                 <a
-                  href={selectedResumeUrl}
+                  href={getDirectDownloadUrl(selectedResumeUrl)}
                   download
                   target="_blank"
                   rel="noopener noreferrer"
