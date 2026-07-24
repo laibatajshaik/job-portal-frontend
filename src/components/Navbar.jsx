@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
-import { Briefcase, User, LogOut, ShieldCheck, LogIn, PlusCircle } from 'lucide-react'
+import { Briefcase, User, LogOut, ShieldCheck, PlusCircle } from 'lucide-react'
 
 function Navbar() {
   const { user, logout } = useContext(AuthContext)
@@ -23,6 +23,18 @@ function Navbar() {
     }
   }
 
+  // Smooth scroll handler for anchor links
+  const handleScrollTo = (id) => {
+    if (location.pathname !== '/') {
+      navigate(`/#${id}`)
+    } else {
+      const el = document.getElementById(id)
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
+  }
+
   return (
     <header className="bg-white/80 backdrop-blur-md border-b border-slate-200/50 sticky top-0 z-50 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -35,8 +47,36 @@ function Navbar() {
           <span className="text-[#3B2525] font-black tracking-tight">JobPortal</span>
         </Link>
 
-        {/* Nav Links */}
+        {/* Home, Services, About, Contact, Find Jobs Links */}
         <div className="flex items-center gap-4 sm:gap-6">
+          <button
+            onClick={() => handleScrollTo('home')}
+            className="text-xs font-bold tracking-wide uppercase text-slate-555 hover:text-[#E87552] transition cursor-pointer"
+          >
+            Home
+          </button>
+          
+          <button
+            onClick={() => handleScrollTo('services')}
+            className="text-xs font-bold tracking-wide uppercase text-slate-555 hover:text-[#E87552] transition cursor-pointer"
+          >
+            Services
+          </button>
+
+          <button
+            onClick={() => handleScrollTo('about')}
+            className="text-xs font-bold tracking-wide uppercase text-slate-555 hover:text-[#E87552] transition cursor-pointer"
+          >
+            About
+          </button>
+
+          <button
+            onClick={() => handleScrollTo('contact')}
+            className="text-xs font-bold tracking-wide uppercase text-slate-555 hover:text-[#E87552] transition cursor-pointer"
+          >
+            Contact
+          </button>
+
           <Link
             to="/jobs"
             className={`text-xs font-bold tracking-wide uppercase transition ${
@@ -51,7 +91,7 @@ function Navbar() {
           {user && user.role === 'manager' && (
             <Link
               to="/manager/post-job"
-              className="hidden sm:flex items-center gap-1.5 text-xs font-bold tracking-wide uppercase text-slate-555 hover:text-[#E87552] transition"
+              className="hidden lg:flex items-center gap-1.5 text-xs font-bold tracking-wide uppercase text-slate-555 hover:text-[#E87552] transition"
             >
               <PlusCircle className="w-4 h-4 text-[#E87552]" />
               <span>Post a Job</span>
