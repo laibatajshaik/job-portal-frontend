@@ -19,7 +19,9 @@ import {
   Award,
   ArrowLeft,
   X,
-  Download
+  Download,
+  Calendar,
+  Filter
 } from 'lucide-react'
 
 function ApplicantManagement() {
@@ -99,227 +101,218 @@ function ApplicantManagement() {
   if (loading) return <Loader />
 
   return (
-    <div className="min-h-screen bg-[#F4F7FC] text-slate-800 p-4 sm:p-6 lg:p-8 font-sans">
-      <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
-
-        {/* ROYAL BLUE GRADIENT SIDEBAR */}
-        <aside className="w-full lg:w-64 bg-gradient-to-br from-[#0066FF] to-[#003366] rounded-3xl p-5 text-white flex flex-col justify-between shadow-xl shrink-0 min-h-[620px]">
+    <div className="min-h-screen bg-[#F7F5F0] text-slate-800 font-sans pb-12">
+      
+      {/* MOCKUP HORIZONTAL TOP HEADER NAVIGATION BAR */}
+      <header className="bg-[#4D3A2F] text-white sticky top-0 z-40 shadow-md">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between min-h-[64px] py-3 md:py-0 gap-4">
           
-          <div className="space-y-6">
-            {/* Sidebar Title */}
-            <div className="flex items-center gap-2.5 px-3 py-2 text-base font-bold tracking-tight">
-              <div className="w-8 h-8 rounded-xl bg-white flex items-center justify-center text-[#0066FF] shadow-md">
-                <Building2 className="w-4 h-4" />
-              </div>
-              <span>Manager Portal</span>
+          {/* Logo & Title */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-[#DDB892] flex items-center justify-center text-[#4D3A2F] font-bold shadow">
+              <Building2 className="w-4 h-4" />
             </div>
-
-            {/* Sidebar Navigation */}
-            <nav className="space-y-1.5 text-xs font-semibold">
-              <Link
-                to="/manager/dashboard"
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition"
-              >
-                <LayoutDashboard className="w-4 h-4" />
-                <span>Dashboard</span>
-              </Link>
-
-              <Link
-                to="/manager/post-job"
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition"
-              >
-                <PlusCircle className="w-4 h-4" />
-                <span>Post New Job</span>
-              </Link>
-
-              <Link
-                to="/manager/company-profile"
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition"
-              >
-                <Building2 className="w-4 h-4" />
-                <span>Company Profile</span>
-              </Link>
-
-              <Link
-                to="/manager/applicants/all"
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-white text-[#003366] font-bold shadow-md transition"
-              >
-                <Users className="w-4 h-4" />
-                <span>Applicants</span>
-              </Link>
-
-              <div 
-                onClick={() => alert("No new notifications for manager.")}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-white/80 hover:text-white hover:bg-white/10 transition cursor-pointer"
-              >
-                <Bell className="w-4 h-4" />
-                <span>Notifications</span>
-              </div>
-            </nav>
+            <span className="font-extrabold text-sm tracking-tight">Manager Portal</span>
           </div>
 
-          {/* Logout Button */}
-          <button
-            onClick={handleLogout}
-            className="w-full bg-white hover:bg-neutral-100 text-[#003366] font-bold text-xs py-3 rounded-xl shadow-md transition uppercase tracking-wider mt-6"
-          >
-            LOGOUT
-          </button>
-
-        </aside>
-
-        {/* MAIN CONTENT AREA */}
-        <main className="flex-1 space-y-6">
-
-          {/* Breadcrumb Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="space-y-1">
-              <div className="flex items-center gap-1.5 text-xs text-slate-500 font-semibold">
-                <Home className="w-3.5 h-3.5" />
-                <ChevronRight className="w-3 h-3 text-slate-400" />
-                <span>Manager</span>
-                <ChevronRight className="w-3 h-3 text-slate-400" />
-                <span className="text-[#0066FF] font-semibold">Applicants</span>
-              </div>
-              <h1 className="text-xl font-bold text-[#003366]">
-                {jobId === 'all' ? 'All Applicants' : 'Job Applicants'}
-              </h1>
-            </div>
-
+          {/* Navigation Links (horizontal navigation header) */}
+          <nav className="flex items-center flex-wrap justify-center gap-1.5 text-xs font-bold">
             <Link
               to="/manager/dashboard"
-              className="inline-flex items-center gap-1.5 bg-[#0066FF] hover:bg-[#0052CC] text-white text-xs font-bold px-5 py-2.5 rounded-full shadow-sm transition"
+              className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition"
             >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back to Dashboard</span>
+              <LayoutDashboard className="w-3.5 h-3.5" />
+              <span>Dashboard</span>
             </Link>
+
+            <Link
+              to="/manager/post-job"
+              className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition"
+            >
+              <PlusCircle className="w-3.5 h-3.5" />
+              <span>Post New Job</span>
+            </Link>
+
+            <Link
+              to="/manager/company-profile"
+              className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition"
+            >
+              <Building2 className="w-3.5 h-3.5" />
+              <span>Company Profile</span>
+            </Link>
+
+            <Link
+              to="/manager/applicants/all"
+              className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-[#DDB892] text-[#4D3A2F] font-black shadow-sm"
+            >
+              <Users className="w-3.5 h-3.5" />
+              <span>Applicants</span>
+            </Link>
+          </nav>
+
+          {/* Logout Action */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleLogout}
+              className="bg-[#DDB892] hover:bg-[#B58463] text-[#4D3A2F] text-xs font-extrabold px-4 py-2 rounded-lg transition shadow"
+            >
+              LOGOUT
+            </button>
           </div>
 
-          {/* APPLICANTS DETAILS CARD */}
-          <div className="bg-white rounded-3xl border border-slate-100 shadow-sm p-6 space-y-4">
-            <h2 className="text-base font-bold text-[#003366]">Manage Job Applications</h2>
+        </div>
+      </header>
 
-            {applicants.length === 0 ? (
-              <div className="text-center py-12 space-y-3">
-                <Users className="w-10 h-10 text-[#0066FF]/40 mx-auto" />
-                <p className="text-xs text-slate-500 font-semibold">No candidates have applied to this position yet.</p>
-              </div>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
-                  <thead>
-                    <tr className="border-b border-slate-100 text-slate-400 bg-slate-50">
-                      <th className="p-3 font-semibold">Name</th>
-                      <th className="p-3 font-semibold">Email</th>
-                      <th className="p-3 font-semibold">Job Reference</th>
-                      <th className="p-3 font-semibold">ATS Score</th>
-                      <th className="p-3 font-semibold">Status</th>
-                      <th className="p-3 font-semibold">Resume Link</th>
-                      <th className="p-3 font-semibold text-right">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100">
-                    {applicants.map((app, index) => {
-                      const score = app.ats_score || 70
-                      const isShortlisted = score >= 80
+      {/* MAIN CONTAINER */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 space-y-6">
 
-                      return (
-                        <tr key={index} className="hover:bg-slate-50/50 transition">
-                          <td className="p-3 font-bold text-slate-900">{app.candidate_name || app.name || 'Anonymous'}</td>
-                          <td className="p-3 text-slate-500 font-semibold">{app.candidate_email || app.email}</td>
-                          <td className="p-3 text-slate-700 font-semibold">{app.job_title || `Job #${app.job_id}`}</td>
-                          <td className="p-3">
-                            <span 
-                              className={`inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${
-                                isShortlisted
-                                  ? 'bg-emerald-50 text-emerald-800 border-emerald-100/50'
-                                  : 'bg-neutral-50 text-neutral-800 border-neutral-100'
-                              }`}
+        {/* Section Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <div className="flex items-center gap-1 text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+              <Home className="w-3.5 h-3.5" />
+              <ChevronRight className="w-3 h-3 text-slate-300" />
+              <span>Manager Console</span>
+              <ChevronRight className="w-3 h-3 text-slate-300" />
+              <span className="text-[#4D3A2F]">Applicants</span>
+            </div>
+            <h1 className="text-xl font-bold text-[#4D3A2F]">
+              {jobId === 'all' ? 'All Applicants' : 'Job Applicants'}
+            </h1>
+          </div>
+
+          <Link
+            to="/manager/dashboard"
+            className="inline-flex items-center gap-1.5 bg-[#4D3A2F] hover:bg-[#3d2e25] text-[#DDB892] text-xs font-bold px-4 py-2.5 rounded-lg shadow-sm transition"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            <span>Back to Dashboard</span>
+          </Link>
+        </div>
+
+        {/* APPLICANTS DETAILS CARD */}
+        <div className="bg-white rounded-xl border border-[#DDB892]/35 shadow-sm p-6 space-y-4">
+          <h2 className="text-sm font-bold text-[#4D3A2F]">Manage Job Applications</h2>
+
+          {applicants.length === 0 ? (
+            <div className="text-center py-12 space-y-3">
+              <Users className="w-10 h-10 text-[#DDB892]/30 mx-auto" />
+              <p className="text-xs text-slate-500 font-semibold">No candidates have applied to this position yet.</p>
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead>
+                  <tr className="border-b border-[#DDB892]/20 text-[#4D3A2F] bg-slate-50 font-bold">
+                    <th className="p-3">Name</th>
+                    <th className="p-3">Email</th>
+                    <th className="p-3">Job Reference</th>
+                    <th className="p-3">ATS Score</th>
+                    <th className="p-3">Status</th>
+                    <th className="p-3">Resume Link</th>
+                    <th className="p-3 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 font-semibold">
+                  {applicants.map((app, index) => {
+                    const score = app.ats_score || 70
+                    const isShortlisted = score >= 80
+
+                    return (
+                      <tr key={index} className="hover:bg-slate-50/50 transition">
+                        <td className="p-3 font-bold text-slate-900">{app.candidate_name || app.name || 'Anonymous'}</td>
+                        <td className="p-3 text-slate-500 font-semibold">{app.candidate_email || app.email}</td>
+                        <td className="p-3 text-slate-700 font-semibold">{app.job_title || `Job #${app.job_id}`}</td>
+                        <td className="p-3">
+                          <span 
+                            className={`inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-0.5 rounded-full border ${
+                              isShortlisted
+                                ? 'bg-emerald-50 text-emerald-800 border-emerald-100/50'
+                                : 'bg-neutral-50 text-neutral-800 border-neutral-100'
+                            }`}
+                          >
+                            <Award className="w-3.5 h-3.5" />
+                            <span>{score}%</span>
+                          </span>
+                        </td>
+                        <td className="p-3 font-semibold">
+                          <span 
+                            className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
+                              app.status === 'Shortlisted'
+                                ? 'bg-[#DDB892] text-[#4D3A2F] shadow-sm'
+                                : app.status === 'Rejected'
+                                ? 'bg-rose-50 text-rose-700 border border-rose-100'
+                                : 'bg-slate-100 text-slate-700 border border-slate-200'
+                            }`}
+                          >
+                            {app.status || 'Pending'}
+                          </span>
+                        </td>
+                        <td className="p-3">
+                          {app.resume_url ? (
+                            <button
+                              onClick={() => setSelectedResumeUrl(app.resume_url)}
+                              className="inline-flex items-center gap-1.5 text-[#B58463] hover:underline font-bold"
                             >
-                              <Award className="w-3.5 h-3.5" />
-                              <span>{score}%</span>
-                            </span>
-                          </td>
-                          <td className="p-3 font-semibold">
-                            <span 
-                              className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
+                              <FileText className="w-3.5 h-3.5" />
+                              <span>View CV</span>
+                            </button>
+                          ) : (
+                            <span className="text-slate-400">Not Provided</span>
+                          )}
+                        </td>
+                        <td className="p-3 text-right">
+                          <div className="inline-flex items-center gap-1.5">
+                            <button
+                              onClick={() => handleStatusChange(app.id ?? (index + 1), 'shortlist')}
+                              disabled={app.status === 'Shortlisted'}
+                              className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold transition border ${
                                 app.status === 'Shortlisted'
-                                  ? 'bg-[#003366] text-white shadow-sm'
-                                  : app.status === 'Rejected'
-                                  ? 'bg-rose-50 text-rose-700 border border-rose-100'
-                                  : 'bg-slate-100 text-slate-700 border border-slate-200'
+                                  ? 'bg-slate-50 text-slate-400 border-slate-200 cursor-not-allowed'
+                                  : 'bg-[#4D3A2F] text-[#DDB892] border-transparent shadow'
                               }`}
                             >
-                              {app.status || 'Pending'}
-                            </span>
-                          </td>
-                          <td className="p-3">
-                            {app.resume_url ? (
-                              <button
-                                onClick={() => setSelectedResumeUrl(app.resume_url)}
-                                className="inline-flex items-center gap-1.5 text-[#0066FF] hover:underline font-bold"
-                              >
-                                <FileText className="w-3.5 h-3.5" />
-                                <span>View CV</span>
-                              </button>
-                            ) : (
-                              <span className="text-slate-400">Not Provided</span>
-                            )}
-                          </td>
-                          <td className="p-3 text-right">
-                            <div className="inline-flex items-center gap-1.5">
-                              <button
-                                onClick={() => handleStatusChange(app.id ?? (index + 1), 'shortlist')}
-                                disabled={app.status === 'Shortlisted'}
-                                className={`inline-flex items-center gap-1 px-4 py-2 rounded-full text-xs font-bold transition border ${
-                                  app.status === 'Shortlisted'
-                                    ? 'bg-slate-50 text-slate-400 border-slate-200 cursor-not-allowed'
-                                    : 'bg-[#003366] text-white hover:bg-[#002244] border-transparent shadow-sm'
-                                }`}
-                              >
-                                <CheckCircle2 className="w-3.5 h-3.5" />
-                                <span>Shortlist</span>
-                              </button>
-                              <button
-                                onClick={() => handleStatusChange(app.id ?? (index + 1), 'reject')}
-                                disabled={app.status === 'Rejected'}
-                                className={`inline-flex items-center gap-1 px-4 py-2 rounded-full text-xs font-bold transition border ${
-                                  app.status === 'Rejected'
-                                    ? 'bg-slate-50 text-slate-400 border-slate-200 cursor-not-allowed'
-                                    : 'bg-white hover:bg-rose-50 text-rose-605 border-slate-200 hover:border-rose-300'
-                                }`}
-                              >
-                                <XCircle className="w-3.5 h-3.5" />
-                                <span>Reject</span>
-                              </button>
-                            </div>
-                          </td>
-                        </tr>
-                      )
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
+                              <CheckCircle2 className="w-3.5 h-3.5" />
+                              <span>Shortlist</span>
+                            </button>
+                            <button
+                              onClick={() => handleStatusChange(app.id ?? (index + 1), 'reject')}
+                              disabled={app.status === 'Rejected'}
+                              className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold transition border ${
+                                app.status === 'Rejected'
+                                  ? 'bg-slate-50 text-slate-400 border-slate-200 cursor-not-allowed'
+                                  : 'bg-white text-rose-600 hover:bg-rose-50 border-slate-200 hover:border-rose-300'
+                              }`}
+                            >
+                              <XCircle className="w-3.5 h-3.5" />
+                              <span>Reject</span>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
 
-        </main>
-
-      </div>
+      </main>
 
       {/* INLINE RESUME VIEWER OVERLAY MODAL */}
       {selectedResumeUrl && (
-        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl w-full max-w-4xl h-[90vh] flex flex-col overflow-hidden shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 bg-[#4D3A2F]/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl w-full max-w-4xl h-[90vh] flex flex-col overflow-hidden shadow-2xl border border-[#DDB892]/40 animate-in fade-in zoom-in-95 duration-200">
             <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-              <h3 className="font-bold text-slate-900 text-sm">Resume / CV Viewer</h3>
+              <h3 className="font-bold text-[#4D3A2F] text-sm">Resume / CV Viewer</h3>
               <div className="flex items-center gap-2">
                 <a
                   href={selectedResumeUrl}
                   download
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-full bg-[#0066FF] hover:bg-[#0052CC] text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
+                  className="px-4 py-2 rounded-lg bg-[#DDB892] hover:bg-[#B58463] text-[#4D3A2F] text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
                 >
                   <Download className="w-3.5 h-3.5" />
                   <span>Download CV</span>
@@ -328,13 +321,13 @@ function ApplicantManagement() {
                   href={selectedResumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-full bg-slate-900 hover:bg-black text-white text-xs font-bold transition flex items-center"
+                  className="px-4 py-2 rounded-lg bg-[#4D3A2F] hover:bg-[#3d2e25] text-white text-xs font-bold transition flex items-center shadow-sm"
                 >
                   Open in New Tab
                 </a>
                 <button
                   onClick={() => setSelectedResumeUrl(null)}
-                  className="px-4 py-2 rounded-full bg-slate-200 hover:bg-slate-300 text-slate-700 text-xs font-bold transition flex items-center gap-1"
+                  className="px-4 py-2 rounded-lg bg-slate-200 hover:bg-slate-350 text-slate-700 text-xs font-bold transition flex items-center gap-1"
                 >
                   <X className="w-3.5 h-3.5" />
                   <span>Close Viewer</span>
