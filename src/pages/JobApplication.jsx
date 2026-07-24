@@ -72,6 +72,11 @@ function JobApplication() {
                 className="w-full bg-[#F7F5F0]/50 border border-[#E87552]/25 focus:border-[#E87552] rounded-xl px-4 py-2.5 text-xs text-slate-900 font-bold outline-none transition"
                 required
               />
+              {resumeUrl.includes('drive.google.com') && (
+                <p className="mt-1.5 text-[10px] text-amber-600 bg-amber-50 border border-amber-250 p-2.5 rounded-lg font-bold leading-normal">
+                  ⚠️ Google Drive Link Detected: Please make sure you have set the sharing settings of this file to <strong>"Anyone with the link can view"</strong> so recruiters can open your CV.
+                </p>
+              )}
             </div>
 
             <div>

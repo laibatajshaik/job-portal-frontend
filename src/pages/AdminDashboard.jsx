@@ -820,6 +820,11 @@ function AdminDashboard() {
                 </button>
               </div>
             </div>
+            {selectedResumeUrl.includes('drive.google.com') && (
+              <div className="bg-amber-50 border-b border-amber-200/50 px-4 py-2 text-[10px] text-amber-700 font-bold">
+                💡 Tip: If you see a "You need access" screen inside the viewer, it means the candidate's link is set to private. Click "Open in New Tab" or "Download CV" to request access or view it.
+              </div>
+            )}
             <div className="flex-1 bg-slate-100 relative">
               <iframe
                 src={getEmbeddableUrl(selectedResumeUrl)}
