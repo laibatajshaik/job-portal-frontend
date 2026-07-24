@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { MapPin, Building } from 'lucide-react'
+import { MapPin, Building, ArrowUpRight } from 'lucide-react'
 
 function JobCard({ job }) {
   if (!job) return null
@@ -7,25 +7,25 @@ function JobCard({ job }) {
   const isFullTime = (job.job_type || '').toLowerCase().includes('full')
 
   return (
-    <div className="bg-white border border-slate-250/50 hover:border-indigo-400/80 rounded-2xl p-5 sm:p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-indigo-900/5 flex flex-col justify-between">
+    <div className="bg-white border border-slate-100 hover:border-[#0066FF]/40 rounded-3xl p-6 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl flex flex-col justify-between h-full">
       <div className="space-y-4">
         {/* Title & Type */}
         <div className="flex items-start justify-between gap-3">
-          <div className="space-y-1">
-            <h3 className="text-base sm:text-lg font-bold text-slate-900 leading-snug line-clamp-1">
+          <div className="space-y-1.5">
+            <h3 className="text-base sm:text-lg font-black text-[#003366] leading-snug line-clamp-1">
               {job.title || 'Job Opening'}
             </h3>
             <div className="flex items-center gap-1.5 text-xs text-slate-500 font-semibold">
-              <Building className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+              <Building className="w-3.5 h-3.5 text-[#0066FF]" />
               <span>{companyName}</span>
             </div>
           </div>
 
           <span
-            className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg shrink-0 ${
+            className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shrink-0 shadow-sm ${
               isFullTime
-                ? 'bg-black text-white'
-                : 'bg-slate-100 text-slate-750 border border-slate-200/60'
+                ? 'bg-[#003366] text-white'
+                : 'bg-[#0066FF]/10 text-[#0066FF] border border-[#0066FF]/20'
             }`}
           >
             {job.job_type || 'Full Time'}
@@ -46,19 +46,19 @@ function JobCard({ job }) {
             <span>{job.location || 'Remote'}</span>
           </div>
 
-          <div className="text-slate-900 font-bold bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200/60">
+          <div className="text-[#0066FF] font-extrabold bg-[#0066FF]/10 px-3 py-1 rounded-full border border-[#0066FF]/20">
             <span>{job.salary || '₹9,00,000'}</span>
           </div>
         </div>
       </div>
 
-      {/* View Details Button */}
-      <div className="mt-5">
+      <div className="pt-4 mt-auto">
         <Link
-          to={`/jobs/${job.id ?? 0}`}
-          className="w-full block text-center bg-black hover:bg-neutral-800 text-white font-bold text-xs py-3 rounded-xl shadow-sm transition duration-150 uppercase tracking-wider"
+          to={`/jobs/${job.id}`}
+          className="w-full inline-flex items-center justify-center gap-1 bg-[#003366] hover:bg-[#002244] text-white text-xs font-bold py-3 px-5 rounded-2xl shadow-sm hover:shadow transition"
         >
-          View Job Details
+          <span>View Details</span>
+          <ArrowUpRight className="w-3.5 h-3.5" />
         </Link>
       </div>
     </div>
@@ -66,4 +66,3 @@ function JobCard({ job }) {
 }
 
 export default JobCard
-

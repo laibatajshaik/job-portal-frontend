@@ -36,68 +36,103 @@ function AdminLogin() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-white">
-      {/* Left side: Black column */}
-      <div className="md:w-2/5 bg-black text-white flex flex-col justify-center px-12 py-12 space-y-4">
-        <h1 className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight">
-          Application <br />
-          Login Page
-        </h1>
-        <p className="text-neutral-450 text-sm leading-relaxed max-w-xs font-semibold">
-          Login or register from here to access.
-        </p>
-      </div>
+    <div className="min-h-screen flex items-center justify-center bg-[#0066FF] p-4 sm:p-6 lg:p-8 font-sans">
+      <div className="w-full max-w-5xl bg-white rounded-[32px] overflow-hidden shadow-2xl flex flex-col md:flex-row relative">
+        
+        {/* Left side: Premium Royal Blue Gradient welcome card */}
+        <div className="md:w-1/2 bg-gradient-to-br from-[#0066FF] to-[#003366] text-white flex flex-col justify-center px-10 py-16 relative overflow-hidden shrink-0">
+          {/* Abstract circles matching mockup */}
+          <div className="absolute w-80 h-80 rounded-full bg-white/5 -top-20 -right-20 pointer-events-none" />
+          <div className="absolute w-60 h-60 rounded-full bg-white/5 -bottom-10 -left-10 pointer-events-none" />
+          <div className="absolute w-48 h-48 rounded-full bg-white/10 bottom-20 right-10 pointer-events-none" />
 
-      {/* Right side: Form column */}
-      <div className="md:w-3/5 flex flex-col justify-center px-12 sm:px-20 py-12 space-y-6">
-        {error && (
-          <div className="flex items-center gap-2.5 border border-red-200 bg-red-50 text-red-700 text-xs px-4 py-3 rounded-lg max-w-md font-semibold">
-            <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
-            <span>{error}</span>
+          <div className="relative z-10 space-y-6">
+            <span className="text-[11px] uppercase tracking-widest bg-white/10 px-3 py-1 rounded-full font-bold inline-flex items-center gap-1">
+              <ShieldCheck className="w-3.5 h-3.5" />
+              Secure Console
+            </span>
+            <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-none uppercase">
+              ADMIN <br />
+              <span className="text-[#0066FF] bg-white px-2 py-0.5 rounded mt-2 inline-block font-black text-2xl sm:text-3xl">
+                SYSTEM LOGIN
+              </span>
+            </h1>
+            <p className="text-white/70 text-xs leading-relaxed max-w-xs font-semibold">
+              Authorized personnel only. Access system configuration and audit logs.
+            </p>
           </div>
-        )}
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5 max-w-md w-full">
-          <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-neutral-600">Admin Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Admin Email"
-              className="w-full bg-white border border-neutral-300 rounded-md px-3.5 py-2.5 text-xs text-black placeholder-neutral-400 focus:outline-none focus:border-black font-semibold"
-              required
-            />
-          </div>
-
-          <div className="space-y-1.5">
-            <label className="block text-xs font-semibold text-neutral-600">Admin Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Admin Password"
-              className="w-full bg-white border border-neutral-300 rounded-md px-3.5 py-2.5 text-xs text-black placeholder-neutral-400 focus:outline-none focus:border-black font-semibold"
-              required
-            />
+        {/* Right side: Modern Form */}
+        <div className="md:w-1/2 flex flex-col justify-center px-8 sm:px-14 py-12 space-y-6">
+          
+          <div className="space-y-1">
+            <h2 className="text-2xl font-black text-[#003366] tracking-tight">System Sign in</h2>
+            <p className="text-[11px] text-slate-400 font-semibold">
+              Enter system administrative credentials.
+            </p>
           </div>
 
-          <div className="flex items-center gap-3 pt-2">
-            <button
-              type="submit"
-              className="bg-black hover:bg-neutral-800 text-white font-bold text-xs px-6 py-2.5 rounded-md transition duration-150"
-            >
-              Login as Administrator
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate('/login')}
-              className="bg-slate-600 hover:bg-slate-700 text-white font-bold text-xs px-6 py-2.5 rounded-md transition duration-150"
-            >
-              User Login
-            </button>
-          </div>
-        </form>
+          {error && (
+            <div className="flex items-center gap-2 border border-rose-100 bg-rose-50 text-rose-700 text-xs px-4 py-3 rounded-2xl font-bold animate-pulse">
+              <AlertCircle className="w-4 h-4 shrink-0 text-rose-500" />
+              <span>{error}</span>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            
+            {/* Email Input */}
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                <Mail className="w-4 h-4" />
+              </div>
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Admin Email"
+                className="w-full bg-[#F4F7FC] border-none focus:ring-2 focus:ring-[#0066FF] rounded-2xl pl-11 pr-4 py-3.5 text-xs text-slate-900 placeholder-slate-400 font-bold outline-none transition"
+              />
+            </div>
+
+            {/* Password Input */}
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                <Lock className="w-4 h-4" />
+              </div>
+              <input
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Admin Password"
+                className="w-full bg-[#F4F7FC] border-none focus:ring-2 focus:ring-[#0066FF] rounded-2xl pl-11 pr-4 py-3.5 text-xs text-slate-900 placeholder-slate-400 font-bold outline-none transition"
+              />
+            </div>
+
+            {/* Submit Buttons */}
+            <div className="pt-4 flex flex-col sm:flex-row gap-3">
+              <button
+                type="submit"
+                className="flex-1 bg-[#003366] hover:bg-[#002244] text-white font-extrabold text-xs py-4 rounded-2xl shadow-md hover:shadow-lg transition uppercase tracking-wider"
+              >
+                Login
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate('/login')}
+                className="flex-1 bg-[#F4F7FC] hover:bg-slate-200/50 text-[#003366] font-extrabold text-xs py-4 rounded-2xl transition uppercase tracking-wider border border-slate-200"
+              >
+                Candidate Sign in
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+
       </div>
     </div>
   )
