@@ -62,12 +62,12 @@ function Register() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#0066FF] p-4 sm:p-6 lg:p-8 font-sans">
+    <div className="min-h-screen flex items-center justify-center bg-[#E87552] p-4 sm:p-6 lg:p-8 font-sans">
       <div className="w-full max-w-5xl bg-white rounded-[32px] overflow-hidden shadow-2xl flex flex-col md:flex-row relative">
         
-        {/* Left side: Premium Royal Blue Gradient welcome card */}
-        <div className="md:w-1/2 bg-gradient-to-br from-[#0066FF] to-[#003366] text-white flex flex-col justify-center px-10 py-16 relative overflow-hidden shrink-0">
-          {/* Abstract circles matching mockup */}
+        {/* Left side: Premium Espresso & Terracotta Gradient welcome card */}
+        <div className="md:w-1/2 bg-gradient-to-br from-[#E87552] to-[#3B2525] text-white flex flex-col justify-center px-10 py-16 relative overflow-hidden shrink-0">
+          {/* Abstract circles */}
           <div className="absolute w-80 h-80 rounded-full bg-white/5 -top-20 -right-20 pointer-events-none" />
           <div className="absolute w-60 h-60 rounded-full bg-white/5 -bottom-10 -left-10 pointer-events-none" />
           <div className="absolute w-48 h-48 rounded-full bg-white/10 bottom-20 right-10 pointer-events-none" />
@@ -78,7 +78,7 @@ function Register() {
             </span>
             <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight leading-none uppercase">
               CREATE <br />
-              <span className="text-[#0066FF] bg-white px-2 py-0.5 rounded mt-2 inline-block font-black text-2xl sm:text-3xl">
+              <span className="text-[#3B2525] bg-white px-2 py-0.5 rounded mt-2 inline-block font-black text-2xl sm:text-3xl">
                 NEW ACCOUNT
               </span>
             </h1>
@@ -92,7 +92,7 @@ function Register() {
         <div className="md:w-1/2 flex flex-col justify-center px-8 sm:px-14 py-12 space-y-6">
           
           <div className="space-y-1">
-            <h2 className="text-2xl font-black text-[#003366] tracking-tight">Register</h2>
+            <h2 className="text-2xl font-black text-[#3B2525] tracking-tight">Register</h2>
             <p className="text-[11px] text-slate-400 font-semibold">
               Fill in the details to create your secure profile.
             </p>
@@ -118,7 +118,7 @@ function Register() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Full Name"
-                className="w-full bg-[#F4F7FC] border-none focus:ring-2 focus:ring-[#0066FF] rounded-2xl pl-11 pr-4 py-3.5 text-xs text-slate-900 placeholder-slate-400 font-bold outline-none transition"
+                className="w-full bg-[#F4F7FC] border-none focus:ring-2 focus:ring-[#E87552] rounded-2xl pl-11 pr-4 py-3.5 text-xs text-slate-900 placeholder-slate-400 font-bold outline-none transition"
               />
             </div>
 
@@ -133,7 +133,7 @@ function Register() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="User Email"
-                className="w-full bg-[#F4F7FC] border-none focus:ring-2 focus:ring-[#0066FF] rounded-2xl pl-11 pr-4 py-3.5 text-xs text-slate-900 placeholder-slate-400 font-bold outline-none transition"
+                className="w-full bg-[#F4F7FC] border-none focus:ring-2 focus:ring-[#E87552] rounded-2xl pl-11 pr-4 py-3.5 text-xs text-slate-900 placeholder-slate-400 font-bold outline-none transition"
               />
             </div>
 
@@ -148,12 +148,12 @@ function Register() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
-                className="w-full bg-[#F4F7FC] border-none focus:ring-2 focus:ring-[#0066FF] rounded-2xl pl-11 pr-12 py-3.5 text-xs text-slate-900 placeholder-slate-400 font-bold outline-none transition"
+                className="w-full bg-[#F4F7FC] border-none focus:ring-2 focus:ring-[#E87552] rounded-2xl pl-11 pr-12 py-3.5 text-xs text-slate-900 placeholder-slate-400 font-bold outline-none transition"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute inset-y-0 right-0 pr-4 flex items-center text-xs font-bold text-[#0066FF] hover:underline"
+                className="absolute inset-y-0 right-0 pr-4 flex items-center text-xs font-bold text-[#E87552] hover:underline"
               >
                 {showPassword ? <EyeOff className="w-4 h-4 text-slate-400" /> : "SHOW"}
               </button>
@@ -170,7 +170,7 @@ function Register() {
               <select
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
-                className="w-full bg-[#F4F7FC] border-none rounded-2xl px-4 py-3 text-xs text-slate-700 font-bold cursor-pointer focus:ring-2 focus:ring-[#0066FF] outline-none"
+                className="w-full bg-[#F4F7FC] border-none rounded-2xl px-4 py-3 text-xs text-slate-700 font-bold cursor-pointer focus:ring-2 focus:ring-[#E87552] outline-none"
               >
                 <option value="user">Candidate (Job Seeker)</option>
                 <option value="manager">Recruiter (Company Manager)</option>
@@ -181,7 +181,7 @@ function Register() {
             <div className="pt-2">
               <button
                 type="submit"
-                className="w-full bg-[#003366] hover:bg-[#002244] text-white font-extrabold text-xs py-4 rounded-2xl shadow-md hover:shadow-lg transition uppercase tracking-wider"
+                className="w-full bg-[#3B2525] hover:bg-[#2e1d1d] text-white font-extrabold text-xs py-4 rounded-2xl shadow-md hover:shadow-lg transition uppercase tracking-wider"
               >
                 Register
               </button>
@@ -205,7 +205,7 @@ function Register() {
           <div className="text-center pt-2">
             <p className="text-[11px] font-bold text-slate-500">
               Already have an account?{" "}
-              <Link to="/login" className="text-[#0066FF] hover:underline">
+              <Link to="/login" className="text-[#E87552] hover:underline">
                 Sign In
               </Link>
             </p>

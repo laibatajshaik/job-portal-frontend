@@ -7,16 +7,16 @@ function JobCard({ job }) {
   const isFullTime = (job.job_type || '').toLowerCase().includes('full')
 
   return (
-    <div className="bg-white border border-[#DDB892]/20 hover:border-[#B58463]/50 rounded-xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between h-full">
+    <div className="bg-white border border-[#E87552]/20 hover:border-[#E87552]/50 rounded-xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between h-full">
       <div className="space-y-4">
         {/* Title & Type */}
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-1.5">
-            <h3 className="text-base sm:text-lg font-bold text-[#4D3A2F] leading-snug line-clamp-1">
+            <h3 className="text-base sm:text-lg font-bold text-[#3B2525] leading-snug line-clamp-1">
               {job.title || 'Job Opening'}
             </h3>
             <div className="flex items-center gap-1.5 text-xs text-slate-500 font-semibold">
-              <Building className="w-3.5 h-3.5 text-[#B58463]" />
+              <Building className="w-3.5 h-3.5 text-[#E87552]" />
               <span>{companyName}</span>
             </div>
           </div>
@@ -24,8 +24,8 @@ function JobCard({ job }) {
           <span
             className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded shrink-0 shadow-sm ${
               isFullTime
-                ? 'bg-[#4D3A2F] text-[#DDB892]'
-                : 'bg-[#DDB892]/20 text-[#4D3A2F] border border-[#DDB892]/30'
+                ? 'bg-[#3B2525] text-white'
+                : 'bg-[#E87552]/10 text-[#3B2525] border border-[#E87552]/30'
             }`}
           >
             {job.job_type || 'Full Time'}
@@ -46,7 +46,7 @@ function JobCard({ job }) {
             <span>{job.location || 'Remote'}</span>
           </div>
 
-          <div className="text-[#4D3A2F] font-extrabold bg-[#DDB892]/20 px-3 py-1 rounded border border-[#DDB892]/30">
+          <div className="text-[#3B2525] font-extrabold bg-[#E87552]/10 px-3 py-1 rounded border border-[#E87552]/35">
             <span>{job.salary || '₹9,00,000'}</span>
           </div>
         </div>
@@ -55,7 +55,7 @@ function JobCard({ job }) {
       <div className="pt-4 mt-auto">
         <Link
           to={`/jobs/${job.id}`}
-          className="w-full inline-flex items-center justify-center gap-1 bg-[#4D3A2F] hover:bg-[#3d2e25] text-[#DDB892] text-xs font-bold py-3 px-5 rounded-lg shadow transition"
+          className="w-full inline-flex items-center justify-center gap-1 bg-[#3B2525] hover:bg-[#2e1d1d] text-white text-xs font-bold py-3 px-5 rounded-lg shadow transition"
         >
           <span>View Details</span>
           <ArrowUpRight className="w-3.5 h-3.5" />

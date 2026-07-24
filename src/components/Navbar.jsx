@@ -29,10 +29,10 @@ function Navbar() {
         
         {/* Brand Logo */}
         <Link to="/" className="flex items-center gap-2.5 text-slate-900 font-extrabold text-base tracking-tight hover:opacity-90 transition">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#4D3A2F] to-[#B58463] flex items-center justify-center text-white shadow-md">
+          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#3B2525] to-[#E87552] flex items-center justify-center text-white shadow-md">
             <Briefcase className="w-4.5 h-4.5" />
           </div>
-          <span className="text-[#4D3A2F] font-black tracking-tight">JobPortal</span>
+          <span className="text-[#3B2525] font-black tracking-tight">JobPortal</span>
         </Link>
 
         {/* Nav Links */}
@@ -41,8 +41,8 @@ function Navbar() {
             to="/jobs"
             className={`text-xs font-bold tracking-wide uppercase transition ${
               location.pathname === '/jobs'
-                ? 'text-[#B58463] font-black border-b-2 border-[#B58463] pb-1'
-                : 'text-slate-550 hover:text-[#B58463]'
+                ? 'text-[#E87552] font-black border-b-2 border-[#E87552] pb-1'
+                : 'text-slate-555 hover:text-[#E87552]'
             }`}
           >
             Find Jobs
@@ -51,9 +51,9 @@ function Navbar() {
           {user && user.role === 'manager' && (
             <Link
               to="/manager/post-job"
-              className="hidden sm:flex items-center gap-1.5 text-xs font-bold tracking-wide uppercase text-slate-555 hover:text-[#B58463] transition"
+              className="hidden sm:flex items-center gap-1.5 text-xs font-bold tracking-wide uppercase text-slate-555 hover:text-[#E87552] transition"
             >
-              <PlusCircle className="w-4 h-4 text-[#B58463]" />
+              <PlusCircle className="w-4 h-4 text-[#E87552]" />
               <span>Post a Job</span>
             </Link>
           )}
@@ -62,7 +62,7 @@ function Navbar() {
             <div className="flex items-center gap-3.5 pl-4 border-l border-slate-200">
               <button
                 onClick={goToDashboard}
-                className="flex items-center gap-2 bg-[#4D3A2F] hover:bg-[#3d2e25] text-white text-xs font-bold px-4 py-2 rounded-full shadow-md transition duration-150"
+                className="flex items-center gap-2 bg-[#3B2525] hover:bg-[#2e1d1d] text-white text-xs font-bold px-4 py-2 rounded-full shadow-md transition duration-150"
               >
                 <User className="w-3.5 h-3.5" />
                 <span>Dashboard</span>
@@ -70,7 +70,7 @@ function Navbar() {
 
               <div className="hidden md:flex items-center gap-2 text-xs text-slate-600 font-bold">
                 <span>{user.name}</span>
-                <span className="uppercase text-[9px] bg-[#4D3A2F]/10 text-[#4D3A2F] font-bold px-2.5 py-0.5 rounded-full border border-[#4D3A2F]/20 tracking-wider">
+                <span className="uppercase text-[9px] bg-[#3B2525]/10 text-[#3B2525] font-bold px-2.5 py-0.5 rounded-full border border-[#3B2525]/20 tracking-wider">
                   {user.role}
                 </span>
               </div>
@@ -87,14 +87,14 @@ function Navbar() {
             <div className="flex items-center gap-2 pl-3 border-l border-slate-200">
               <Link
                 to="/login"
-                className="text-xs font-bold text-slate-700 hover:text-[#B58463] px-4 py-2 rounded-full transition"
+                className="text-xs font-bold text-slate-700 hover:text-[#E87552] px-4 py-2 rounded-full transition"
               >
                 Sign In
               </Link>
 
               <Link
                 to="/register"
-                className="bg-[#4D3A2F] hover:bg-[#3d2e25] text-white text-xs font-bold px-5 py-2.5 rounded-full shadow-sm transition"
+                className="bg-[#3B2525] hover:bg-[#2e1d1d] text-white text-xs font-bold px-5 py-2.5 rounded-full shadow-sm transition"
               >
                 Register
               </Link>
@@ -106,7 +106,7 @@ function Navbar() {
             <Link
               to="/admin/login"
               title="Secure Admin System Access"
-              className="p-2 rounded-full text-slate-400 hover:text-[#B58463] hover:bg-slate-50 transition"
+              className="p-2 rounded-full text-slate-400 hover:text-[#E87552] hover:bg-slate-50 transition"
             >
               <ShieldCheck className="w-4.5 h-4.5" />
             </Link>

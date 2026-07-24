@@ -88,16 +88,16 @@ function UserDashboard() {
   return (
     <div className="min-h-screen bg-[#F7F5F0] text-slate-800 font-sans pb-12">
       
-      {/* MOCKUP HORIZONTAL TOP HEADER NAVIGATION BAR */}
-      <header className="bg-[#4D3A2F] text-white sticky top-0 z-40 shadow-md">
+      {/* MOCKUP HORIZONTAL TOP HEADER NAVIGATION BAR (Espresso Background) */}
+      <header className="bg-[#3B2525] text-white sticky top-0 z-40 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between min-h-[64px] py-3 md:py-0 gap-4">
           
           {/* Logo */}
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#DDB892] flex items-center justify-center text-[#4D3A2F] font-bold shadow">
+            <div className="w-8 h-8 rounded-lg bg-[#E87552] flex items-center justify-center text-white font-bold shadow">
               <User className="w-4 h-4" />
             </div>
-            <span className="font-extrabold text-sm tracking-tight">Candidate Portal</span>
+            <span className="font-extrabold text-sm tracking-tight text-white">Candidate Portal</span>
           </div>
 
           {/* Navigation Links */}
@@ -106,7 +106,7 @@ function UserDashboard() {
               onClick={() => setActiveTab('dashboard')}
               className={`flex items-center gap-1.5 px-4 py-2.5 rounded-lg transition ${
                 activeTab === 'dashboard'
-                  ? 'bg-[#DDB892] text-[#4D3A2F] font-black shadow-sm'
+                  ? 'bg-[#E87552] text-white font-black shadow-sm'
                   : 'text-white/80 hover:bg-white/10 hover:text-white'
               }`}
             >
@@ -126,7 +126,7 @@ function UserDashboard() {
               onClick={() => setActiveTab('applications')}
               className={`flex items-center gap-1.5 px-4 py-2.5 rounded-lg transition relative ${
                 activeTab === 'applications'
-                  ? 'bg-[#DDB892] text-[#4D3A2F] font-black shadow-sm'
+                  ? 'bg-[#E87552] text-white font-black shadow-sm'
                   : 'text-white/80 hover:bg-white/10 hover:text-white'
               }`}
             >
@@ -138,7 +138,7 @@ function UserDashboard() {
               onClick={() => setActiveTab('notifications')}
               className={`flex items-center gap-1.5 px-4 py-2.5 rounded-lg transition relative ${
                 activeTab === 'notifications'
-                  ? 'bg-[#DDB892] text-[#4D3A2F] font-black shadow-sm'
+                  ? 'bg-[#E87552] text-white font-black shadow-sm'
                   : 'text-white/80 hover:bg-white/10 hover:text-white'
               }`}
             >
@@ -151,7 +151,7 @@ function UserDashboard() {
           <div className="flex items-center gap-2">
             <button
               onClick={handleLogout}
-              className="bg-[#DDB892] hover:bg-[#B58463] text-[#4D3A2F] text-xs font-extrabold px-4 py-2 rounded-lg transition shadow"
+              className="bg-[#E87552] hover:bg-[#d15f3e] text-white text-xs font-extrabold px-4 py-2 rounded-lg transition shadow"
             >
               LOGOUT
             </button>
@@ -171,9 +171,9 @@ function UserDashboard() {
               <ChevronRight className="w-3 h-3 text-slate-300" />
               <span>Candidate Console</span>
               <ChevronRight className="w-3 h-3 text-slate-300" />
-              <span className="text-[#4D3A2F] capitalize">{activeTab}</span>
+              <span className="text-[#3B2525] capitalize">{activeTab}</span>
             </div>
-            <h1 className="text-xl font-bold text-[#4D3A2F]">
+            <h1 className="text-xl font-bold text-[#3B2525]">
               {activeTab === 'dashboard' && 'Dashboard Overview'}
               {activeTab === 'applications' && 'My Applications History'}
               {activeTab === 'notifications' && 'My Inbox Notifications'}
@@ -182,7 +182,7 @@ function UserDashboard() {
 
           <Link
             to="/jobs"
-            className="inline-flex items-center gap-1.5 bg-[#4D3A2F] hover:bg-[#3d2e25] text-[#DDB892] text-xs font-bold px-5 py-2.5 rounded-lg shadow-sm transition"
+            className="inline-flex items-center gap-1.5 bg-[#3B2525] hover:bg-[#2e1d1d] text-white text-xs font-bold px-5 py-2.5 rounded-lg shadow-sm transition"
           >
             <Briefcase className="w-4 h-4" />
             <span>Explore Jobs</span>
@@ -195,48 +195,48 @@ function UserDashboard() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               
               {/* Card 1 */}
-              <div className="bg-white rounded-lg p-4 border border-[#DDB892]/20 shadow-sm flex items-center gap-3">
-                <div className="w-10 h-10 rounded bg-[#F7F5F0] text-[#4D3A2F] flex items-center justify-center">
+              <div className="bg-white rounded-lg p-4 border border-[#E87552]/20 shadow-sm flex items-center gap-3">
+                <div className="w-10 h-10 rounded bg-[#F7F5F0] text-[#3B2525] flex items-center justify-center">
                   <FileText className="w-5 h-5" />
                 </div>
                 <div>
                   <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Applied</p>
-                  <p className="text-base font-black text-[#4D3A2F]">{applications.length}</p>
+                  <p className="text-base font-black text-[#3B2525]">{applications.length}</p>
                 </div>
               </div>
 
               {/* Card 2 */}
-              <div className="bg-white rounded-lg p-4 border border-[#DDB892]/20 shadow-sm flex items-center gap-3">
+              <div className="bg-white rounded-lg p-4 border border-[#E87552]/20 shadow-sm flex items-center gap-3">
                 <div className="w-10 h-10 rounded bg-[#F7F5F0] text-amber-600 flex items-center justify-center">
                   <Clock className="w-5 h-5" />
                 </div>
                 <div>
                   <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Under Review</p>
-                  <p className="text-base font-black text-[#4D3A2F]">
+                  <p className="text-base font-black text-[#3B2525]">
                     {applications.filter(app => !(app.status || '').toLowerCase().includes('reject') && !(app.status || '').toLowerCase().includes('shortlist') && !(app.status || '').toLowerCase().includes('approve')).length}
                   </p>
                 </div>
               </div>
 
               {/* Card 3 */}
-              <div className="bg-white rounded-lg p-4 border border-[#DDB892]/20 shadow-sm flex items-center gap-3">
-                <div className="w-10 h-10 rounded bg-[#F7F5F0] text-emerald-650 flex items-center justify-center">
+              <div className="bg-white rounded-lg p-4 border border-[#E87552]/20 shadow-sm flex items-center gap-3">
+                <div className="w-10 h-10 rounded bg-[#F7F5F0] text-emerald-600 flex items-center justify-center">
                   <CheckCircle2 className="w-5 h-5" />
                 </div>
                 <div>
                   <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Shortlisted</p>
-                  <p className="text-base font-black text-[#4D3A2F]">{shortlistedCount}</p>
+                  <p className="text-base font-black text-[#3B2525]">{shortlistedCount}</p>
                 </div>
               </div>
 
               {/* Card 4 */}
-              <div className="bg-white rounded-lg p-4 border border-[#DDB892]/20 shadow-sm flex items-center gap-3">
+              <div className="bg-white rounded-lg p-4 border border-[#E87552]/20 shadow-sm flex items-center gap-3">
                 <div className="w-10 h-10 rounded bg-[#F7F5F0] text-rose-600 flex items-center justify-center">
                   <AlertCircle className="w-5 h-5" />
                 </div>
                 <div>
                   <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Rejected</p>
-                  <p className="text-base font-black text-[#4D3A2F]">
+                  <p className="text-base font-black text-[#3B2525]">
                     {applications.filter(app => (app.status || '').toLowerCase().includes('reject')).length}
                   </p>
                 </div>
@@ -245,12 +245,12 @@ function UserDashboard() {
             </div>
 
             {/* RECENT APPLICATIONS */}
-            <div className="bg-white rounded-xl border border-[#DDB892]/35 shadow-sm p-6 space-y-4">
+            <div className="bg-white rounded-xl border border-[#E87552]/35 shadow-sm p-6 space-y-4">
               <div className="flex items-center justify-between">
-                <h2 className="text-sm font-bold text-[#4D3A2F]">Recent Applications Status</h2>
+                <h2 className="text-sm font-bold text-[#3B2525]">Recent Applications Status</h2>
                 <button 
                   onClick={() => setActiveTab('applications')}
-                  className="inline-flex items-center gap-1 text-[#B58463] hover:underline text-xs font-bold"
+                  className="inline-flex items-center gap-1 text-[#E87552] hover:underline text-xs font-bold"
                 >
                   <span>View All</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -259,7 +259,7 @@ function UserDashboard() {
 
               {applications.length === 0 ? (
                 <div className="text-center py-10 space-y-2">
-                  <Briefcase className="w-10 h-10 text-[#DDB892]/20 mx-auto" />
+                  <Briefcase className="w-10 h-10 text-[#E87552]/20 mx-auto" />
                   <p className="text-xs text-slate-500 font-semibold">You haven't submitted any job applications yet.</p>
                 </div>
               ) : (
@@ -267,14 +267,14 @@ function UserDashboard() {
                   {applications.slice(0, 4).map((app, index) => (
                     <div key={index} className="py-3.5 flex items-center justify-between hover:bg-slate-50/50 px-2 rounded-lg transition">
                       <div>
-                        <h4 className="font-bold text-[#4D3A2F]">{app.job_title}</h4>
+                        <h4 className="font-bold text-[#3B2525]">{app.job_title}</h4>
                         <p className="text-slate-400 text-[10px] mt-0.5">{app.company_name || 'Demo Company'}</p>
                       </div>
                       <div className="flex items-center gap-4">
                         <span className="text-slate-400 text-[10px] hidden sm:inline">{app.applied_at || 'Recent'}</span>
                         <span className={`px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${
                           (app.status || '').toLowerCase().includes('shortlist')
-                            ? 'bg-[#DDB892]/20 text-[#4D3A2F]'
+                            ? 'bg-[#E87552]/10 text-[#3B2525] border border-[#E87552]/20'
                             : (app.status || '').toLowerCase().includes('reject')
                             ? 'bg-rose-50 text-rose-700 border border-rose-100'
                             : 'bg-slate-100 text-slate-600'
@@ -292,18 +292,18 @@ function UserDashboard() {
 
         {/* MY APPLICATIONS TAB */}
         {activeTab === 'applications' && (
-          <div className="bg-white rounded-xl border border-[#DDB892]/35 shadow-sm p-6 space-y-4">
-            <h2 className="text-sm font-bold text-[#4D3A2F]">Applications History</h2>
+          <div className="bg-white rounded-xl border border-[#E87552]/35 shadow-sm p-6 space-y-4">
+            <h2 className="text-sm font-bold text-[#3B2525]">Applications History</h2>
             {applications.length === 0 ? (
               <div className="text-center py-12 space-y-3">
-                <FileText className="w-10 h-10 text-[#DDB892]/20 mx-auto" />
+                <FileText className="w-10 h-10 text-[#E87552]/20 mx-auto" />
                 <p className="text-xs text-slate-500 font-semibold">No applications found in your history.</p>
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
                   <thead>
-                    <tr className="border-b border-[#DDB892]/20 text-[#4D3A2F] bg-slate-50 font-bold">
+                    <tr className="border-b border-[#E87552]/20 text-[#3B2525] bg-slate-50 font-bold">
                       <th className="p-3">Job Title</th>
                       <th className="p-3">Company</th>
                       <th className="p-3">Applied On</th>
@@ -314,13 +314,13 @@ function UserDashboard() {
                   <tbody className="divide-y divide-slate-100 font-semibold">
                     {applications.map((app) => (
                       <tr key={app.id} className="hover:bg-slate-50/50 transition">
-                        <td className="p-3 font-bold text-[#4D3A2F]">{app.job_title}</td>
+                        <td className="p-3 font-bold text-[#3B2525]">{app.job_title}</td>
                         <td className="p-3 text-slate-655">{app.company_name || 'Demo Company'}</td>
                         <td className="p-3 text-slate-450">{app.applied_at || 'Recent'}</td>
                         <td className="p-3">
                           <span className={`px-2.5 py-1 rounded text-[10px] font-bold uppercase tracking-wider ${
                             (app.status || '').toLowerCase().includes('shortlist')
-                              ? 'bg-[#DDB892]/20 text-[#4D3A2F]'
+                              ? 'bg-[#E87552]/10 text-[#3B2525] border border-[#E87552]/20'
                               : (app.status || '').toLowerCase().includes('reject')
                               ? 'bg-rose-50 text-rose-700 border border-rose-100'
                               : 'bg-slate-100 text-slate-600'
@@ -334,7 +334,7 @@ function UserDashboard() {
                               href={app.resume_url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="text-[#B58463] hover:underline"
+                              className="text-[#E87552] hover:underline"
                             >
                               View Resume
                             </a>
@@ -355,19 +355,19 @@ function UserDashboard() {
         {activeTab === 'notifications' && (
           <div className="space-y-3.5">
             {notifications.length === 0 ? (
-              <div className="bg-white rounded-xl border border-[#DDB892]/35 shadow-sm p-8 text-center space-y-2">
-                <Bell className="w-10 h-10 text-[#DDB892]/20 mx-auto" />
+              <div className="bg-white rounded-xl border border-[#E87552]/35 shadow-sm p-8 text-center space-y-2">
+                <Bell className="w-10 h-10 text-[#E87552]/20 mx-auto" />
                 <p className="text-xs text-slate-550 font-semibold">No recent inbox notifications.</p>
               </div>
             ) : (
               notifications.map((notif) => (
-                <div key={notif.id} className="p-5 rounded-xl border border-[#DDB892]/30 bg-white flex items-start gap-3.5 shadow-sm hover:shadow transition">
+                <div key={notif.id} className="p-5 rounded-xl border border-[#E87552]/30 bg-white flex items-start gap-3.5 shadow-sm hover:shadow transition">
                   <div className={`mt-0.5 w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
                     notif.type === 'success'
-                      ? 'bg-emerald-50 text-emerald-650'
+                      ? 'bg-emerald-50 text-emerald-600'
                       : notif.type === 'error'
                       ? 'bg-rose-50 text-rose-600'
-                      : 'bg-slate-100 text-[#4D3A2F]'
+                      : 'bg-slate-100 text-[#3B2525]'
                   }`}>
                     <Bell className="w-4 h-4" />
                   </div>

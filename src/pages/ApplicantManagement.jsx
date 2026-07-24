@@ -103,19 +103,19 @@ function ApplicantManagement() {
   return (
     <div className="min-h-screen bg-[#F7F5F0] text-slate-800 font-sans pb-12">
       
-      {/* MOCKUP HORIZONTAL TOP HEADER NAVIGATION BAR */}
-      <header className="bg-[#4D3A2F] text-white sticky top-0 z-40 shadow-md">
+      {/* MOCKUP HORIZONTAL TOP HEADER NAVIGATION BAR (Espresso Background) */}
+      <header className="bg-[#3B2525] text-white sticky top-0 z-40 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between min-h-[64px] py-3 md:py-0 gap-4">
           
           {/* Logo & Title */}
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-[#DDB892] flex items-center justify-center text-[#4D3A2F] font-bold shadow">
+            <div className="w-8 h-8 rounded-lg bg-[#E87552] flex items-center justify-center text-white font-bold shadow">
               <Building2 className="w-4 h-4" />
             </div>
-            <span className="font-extrabold text-sm tracking-tight">Manager Portal</span>
+            <span className="font-extrabold text-sm tracking-tight text-white">Manager Portal</span>
           </div>
 
-          {/* Navigation Links (horizontal navigation header) */}
+          {/* Navigation Links (Terracotta active tab) */}
           <nav className="flex items-center flex-wrap justify-center gap-1.5 text-xs font-bold">
             <Link
               to="/manager/dashboard"
@@ -143,7 +143,7 @@ function ApplicantManagement() {
 
             <Link
               to="/manager/applicants/all"
-              className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-[#DDB892] text-[#4D3A2F] font-black shadow-sm"
+              className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg bg-[#E87552] text-white font-black shadow-sm"
             >
               <Users className="w-3.5 h-3.5" />
               <span>Applicants</span>
@@ -154,7 +154,7 @@ function ApplicantManagement() {
           <div className="flex items-center gap-2">
             <button
               onClick={handleLogout}
-              className="bg-[#DDB892] hover:bg-[#B58463] text-[#4D3A2F] text-xs font-extrabold px-4 py-2 rounded-lg transition shadow"
+              className="bg-[#E87552] hover:bg-[#d15f3e] text-white text-xs font-extrabold px-4 py-2 rounded-lg transition shadow"
             >
               LOGOUT
             </button>
@@ -174,16 +174,16 @@ function ApplicantManagement() {
               <ChevronRight className="w-3 h-3 text-slate-300" />
               <span>Manager Console</span>
               <ChevronRight className="w-3 h-3 text-slate-300" />
-              <span className="text-[#4D3A2F]">Applicants</span>
+              <span className="text-[#3B2525]">Applicants</span>
             </div>
-            <h1 className="text-xl font-bold text-[#4D3A2F]">
+            <h1 className="text-xl font-bold text-[#3B2525]">
               {jobId === 'all' ? 'All Applicants' : 'Job Applicants'}
             </h1>
           </div>
 
           <Link
             to="/manager/dashboard"
-            className="inline-flex items-center gap-1.5 bg-[#4D3A2F] hover:bg-[#3d2e25] text-[#DDB892] text-xs font-bold px-4 py-2.5 rounded-lg shadow-sm transition"
+            className="inline-flex items-center gap-1.5 bg-[#3B2525] hover:bg-[#2e1d1d] text-white text-xs font-bold px-4 py-2.5 rounded-lg shadow-sm transition"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Back to Dashboard</span>
@@ -191,19 +191,19 @@ function ApplicantManagement() {
         </div>
 
         {/* APPLICANTS DETAILS CARD */}
-        <div className="bg-white rounded-xl border border-[#DDB892]/35 shadow-sm p-6 space-y-4">
-          <h2 className="text-sm font-bold text-[#4D3A2F]">Manage Job Applications</h2>
+        <div className="bg-white rounded-xl border border-[#E87552]/35 shadow-sm p-6 space-y-4">
+          <h2 className="text-sm font-bold text-[#3B2525]">Manage Job Applications</h2>
 
           {applicants.length === 0 ? (
             <div className="text-center py-12 space-y-3">
-              <Users className="w-10 h-10 text-[#DDB892]/30 mx-auto" />
+              <Users className="w-10 h-10 text-[#E87552]/30 mx-auto" />
               <p className="text-xs text-slate-500 font-semibold">No candidates have applied to this position yet.</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-[#DDB892]/20 text-[#4D3A2F] bg-slate-50 font-bold">
+                  <tr className="border-b border-[#E87552]/20 text-[#3B2525] bg-slate-50 font-bold">
                     <th className="p-3">Name</th>
                     <th className="p-3">Email</th>
                     <th className="p-3">Job Reference</th>
@@ -221,7 +221,7 @@ function ApplicantManagement() {
                     return (
                       <tr key={index} className="hover:bg-slate-50/50 transition">
                         <td className="p-3 font-bold text-slate-900">{app.candidate_name || app.name || 'Anonymous'}</td>
-                        <td className="p-3 text-slate-500 font-semibold">{app.candidate_email || app.email}</td>
+                        <td className="p-3 text-slate-505 font-semibold">{app.candidate_email || app.email}</td>
                         <td className="p-3 text-slate-700 font-semibold">{app.job_title || `Job #${app.job_id}`}</td>
                         <td className="p-3">
                           <span 
@@ -239,7 +239,7 @@ function ApplicantManagement() {
                           <span 
                             className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${
                               app.status === 'Shortlisted'
-                                ? 'bg-[#DDB892] text-[#4D3A2F] shadow-sm'
+                                ? 'bg-[#E87552] text-white shadow-sm'
                                 : app.status === 'Rejected'
                                 ? 'bg-rose-50 text-rose-700 border border-rose-100'
                                 : 'bg-slate-100 text-slate-700 border border-slate-200'
@@ -252,7 +252,7 @@ function ApplicantManagement() {
                           {app.resume_url ? (
                             <button
                               onClick={() => setSelectedResumeUrl(app.resume_url)}
-                              className="inline-flex items-center gap-1.5 text-[#B58463] hover:underline font-bold"
+                              className="inline-flex items-center gap-1.5 text-[#E87552] hover:underline font-bold"
                             >
                               <FileText className="w-3.5 h-3.5" />
                               <span>View CV</span>
@@ -269,7 +269,7 @@ function ApplicantManagement() {
                               className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-bold transition border ${
                                 app.status === 'Shortlisted'
                                   ? 'bg-slate-50 text-slate-400 border-slate-200 cursor-not-allowed'
-                                  : 'bg-[#4D3A2F] text-[#DDB892] border-transparent shadow'
+                                  : 'bg-[#3B2525] text-white border-transparent shadow'
                               }`}
                             >
                               <CheckCircle2 className="w-3.5 h-3.5" />
@@ -302,17 +302,17 @@ function ApplicantManagement() {
 
       {/* INLINE RESUME VIEWER OVERLAY MODAL */}
       {selectedResumeUrl && (
-        <div className="fixed inset-0 bg-[#4D3A2F]/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl w-full max-w-4xl h-[90vh] flex flex-col overflow-hidden shadow-2xl border border-[#DDB892]/40 animate-in fade-in zoom-in-95 duration-200">
+        <div className="fixed inset-0 bg-[#3B2525]/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-xl w-full max-w-4xl h-[90vh] flex flex-col overflow-hidden shadow-2xl border border-[#E87552]/40 animate-in fade-in zoom-in-95 duration-200">
             <div className="p-4 border-b border-slate-100 flex items-center justify-between bg-slate-50">
-              <h3 className="font-bold text-[#4D3A2F] text-sm">Resume / CV Viewer</h3>
+              <h3 className="font-bold text-[#3B2525] text-sm">Resume / CV Viewer</h3>
               <div className="flex items-center gap-2">
                 <a
                   href={selectedResumeUrl}
                   download
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-lg bg-[#DDB892] hover:bg-[#B58463] text-[#4D3A2F] text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
+                  className="px-4 py-2 rounded-lg bg-[#E87552] hover:bg-[#d15f3e] text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm"
                 >
                   <Download className="w-3.5 h-3.5" />
                   <span>Download CV</span>
@@ -321,7 +321,7 @@ function ApplicantManagement() {
                   href={selectedResumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 rounded-lg bg-[#4D3A2F] hover:bg-[#3d2e25] text-white text-xs font-bold transition flex items-center shadow-sm"
+                  className="px-4 py-2 rounded-lg bg-[#3B2525] hover:bg-[#2e1d1d] text-white text-xs font-bold transition flex items-center shadow-sm"
                 >
                   Open in New Tab
                 </a>
