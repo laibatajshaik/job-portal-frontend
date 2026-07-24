@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../api/axios'
 import JobCard from '../components/JobCard'
-import { Search, MapPin, ArrowRight, Briefcase, Award, ShieldCheck, Heart, Sparkles, Mail, Phone, MapPin as MapPinIcon, Send } from 'lucide-react'
+import { Search, MapPin, ArrowRight, Briefcase, Award, ShieldCheck, Heart, Sparkles } from 'lucide-react'
 
 const defaultDemoJobs = [
   {
@@ -47,10 +47,6 @@ function Home() {
   const [jobs, setJobs] = useState(defaultDemoJobs)
   const [search, setSearch] = useState('')
   const [location, setLocation] = useState('')
-  const [contactName, setContactName] = useState('')
-  const [contactEmail, setContactEmail] = useState('')
-  const [contactMessage, setContactMessage] = useState('')
-  const [submitted, setSubmitted] = useState(false)
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -71,15 +67,6 @@ function Home() {
   const handleSearchSubmit = (e) => {
     e.preventDefault()
     navigate(`/jobs?search=${encodeURIComponent(search)}&location=${encodeURIComponent(location)}`)
-  }
-
-  const handleContactSubmit = (e) => {
-    e.preventDefault()
-    setSubmitted(true)
-    setContactName('')
-    setContactEmail('')
-    setContactMessage('')
-    setTimeout(() => setSubmitted(false), 3000)
   }
 
   const formatSalary = (salary) => {
@@ -269,108 +256,7 @@ function Home() {
 
         </section>
 
-        {/* SECTION 4: CONTACT SECTION */}
-        <section id="contact" className="grid grid-cols-1 lg:grid-cols-3 gap-8 bg-white rounded-3xl border border-[#E87552]/20 p-8 sm:p-12 shadow-sm scroll-mt-20">
-          
-          {/* Info panel */}
-          <div className="lg:col-span-1 space-y-6">
-            <span className="text-[#E87552] text-[10px] font-black uppercase tracking-widest bg-[#E87552]/10 px-4 py-1.5 rounded-full inline-block">
-              Get In Touch
-            </span>
-            <h2 className="text-2xl font-black text-[#3B2525] tracking-tight uppercase leading-tight">
-              Contact Our Support Team
-            </h2>
-            <p className="text-xs text-slate-500 font-semibold leading-relaxed">
-              Have questions about registration, posting active jobs, or matching candidates? Leave us a message.
-            </p>
-
-            <div className="space-y-4 pt-4 text-xs font-semibold text-slate-700">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#F7F5F0] text-[#E87552] flex items-center justify-center">
-                  <Mail className="w-4 h-4" />
-                </div>
-                <span>support@jobportal.com</span>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#F7F5F0] text-[#E87552] flex items-center justify-center">
-                  <Phone className="w-4 h-4" />
-                </div>
-                <span>+91 98765 43210</span>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#F7F5F0] text-[#E87552] flex items-center justify-center">
-                  <MapPin className="w-4 h-4" />
-                </div>
-                <span>Bengaluru, Karnataka, India</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Form panel */}
-          <div className="lg:col-span-2 bg-[#F7F5F0] rounded-2xl p-6 sm:p-8 border border-[#E87552]/10">
-            {submitted ? (
-              <div className="h-full flex flex-col items-center justify-center text-center space-y-2 py-12">
-                <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center border border-emerald-200">
-                  <CheckCircle2 className="w-6 h-6" />
-                </div>
-                <h4 className="font-extrabold text-sm text-[#3B2525]">Message Sent Successfully!</h4>
-                <p className="text-xs text-slate-500 font-semibold">Thank you. We will get back to you shortly.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleContactSubmit} className="space-y-4 text-xs font-bold text-slate-600">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block mb-1.5">Your Name</label>
-                    <input
-                      type="text"
-                      required
-                      value={contactName}
-                      onChange={(e) => setContactName(e.target.value)}
-                      placeholder="Enter name"
-                      className="w-full bg-white border border-[#E87552]/25 focus:border-[#E87552] rounded-xl px-4 py-2.5 text-slate-900 font-bold outline-none transition"
-                    />
-                  </div>
-                  <div>
-                    <label className="block mb-1.5">Your Email</label>
-                    <input
-                      type="email"
-                      required
-                      value={contactEmail}
-                      onChange={(e) => setContactEmail(e.target.value)}
-                      placeholder="Enter email"
-                      className="w-full bg-white border border-[#E87552]/25 focus:border-[#E87552] rounded-xl px-4 py-2.5 text-slate-900 font-bold outline-none transition"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block mb-1.5">Message Body</label>
-                  <textarea
-                    required
-                    value={contactMessage}
-                    onChange={(e) => setContactMessage(e.target.value)}
-                    rows="4"
-                    placeholder="Type your question or feedback..."
-                    className="w-full bg-white border border-[#E87552]/25 focus:border-[#E87552] rounded-xl px-4 py-2.5 text-slate-900 font-bold outline-none transition"
-                  ></textarea>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full flex items-center justify-center gap-2 bg-[#3B2525] hover:bg-[#2e1d1d] text-white font-extrabold text-xs py-3.5 rounded-xl shadow transition mt-2 uppercase tracking-wider"
-                >
-                  <Send className="w-4 h-4 text-[#E87552]" />
-                  <span>Send Message</span>
-                </button>
-              </form>
-            )}
-          </div>
-
-        </section>
-
-        {/* SECTION 5: DIRECT JOBS LISTING */}
+        {/* SECTION 4: DIRECT JOBS LISTING */}
         <section>
           <div className="flex items-center justify-between mb-8 border-b border-slate-200/50 pb-4">
             <div>

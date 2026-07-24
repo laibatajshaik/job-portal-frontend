@@ -70,12 +70,7 @@ function Navbar() {
             About
           </button>
 
-          <button
-            onClick={() => handleScrollTo('contact')}
-            className="text-xs font-bold tracking-wide uppercase text-slate-555 hover:text-[#E87552] transition cursor-pointer"
-          >
-            Contact
-          </button>
+
 
           <Link
             to="/jobs"
