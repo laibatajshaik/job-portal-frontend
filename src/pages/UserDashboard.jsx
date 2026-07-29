@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState, useContext, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../api/axios'
 import Loader from '../components/Loader'
@@ -18,7 +18,9 @@ import {
   ExternalLink,
   ChevronRight,
   TrendingUp,
-  Award
+  Award,
+  Upload,
+  Plus
 } from 'lucide-react'
 
 function UserDashboard() {
@@ -31,6 +33,10 @@ function UserDashboard() {
   const [activeTab, setActiveTab] = useState('pipeline')
 
   const [activeStepFilter, setActiveStepFilter] = useState('All')
+
+  const fileInputRef = useRef(null)
+  const [uploading, setUploading] = useState(false)
+  const [uploadError, setUploadError] = useState('')
 
   useEffect(() => {
     fetchApplications()
@@ -47,6 +53,52 @@ function UserDashboard() {
       console.log(err)
     }
     setLoading(false)
+  }
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0]
+    if (!file) return
+
+    setUploading(true)
+    setUploadError('')
+
+    const formData = new FormData()
+    formData.append('file', file)
+
+    try {
+      const uploadRes = await api.post('/applications/upload-cv', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+
+      const fileUrl = uploadRes.data.file_url
+
+      await api.post('/applications/', {
+        job_id: 0,
+        resume_url: fileUrl,
+        cover_letter: `Uploaded CV: ${file.name}`
+      })
+
+      alert('CV uploaded successfully to your archive!')
+      fetchApplications()
+    } catch (err) {
+      console.error(err)
+      setUploadError(err.response?.data?.detail || 'Failed to upload CV. Please try again.')
+    } finally {
+      setUploading(false)
+      if (fileInputRef.current) {
+        fileInputRef.current.value = ''
+      }
+    }
+  }
+
+  const getFullUrl = (url) => {
+    if (!url) return ''
+    if (url.startsWith('/uploads/')) {
+      return (api.defaults.baseURL || 'https://job-portal-backend-1f0h.onrender.com') + url
+    }
+    return url
   }
 
   const handleLogout = () => {
@@ -326,7 +378,40 @@ function UserDashboard() {
           {/* TAB 2: CV ARCHIVE */}
           {activeTab === 'database' && (
             <div className="space-y-4">
-              <h3 className="text-base font-black text-[#003366] uppercase">Uploaded CV Archive</h3>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-[#0066FF]/10 pb-3">
+                <div>
+                  <h3 className="text-base font-black text-[#003366] uppercase">Uploaded CV Archive</h3>
+                  <p className="text-[11px] text-slate-400 font-semibold mt-0.5">
+                    Manage and upload your physical CV files or track application documents.
+                  </p>
+                </div>
+                
+                <div>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileUpload}
+                    accept=".pdf,.doc,.docx"
+                    className="hidden"
+                  />
+                  <button
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploading}
+                    className="flex items-center gap-1.5 bg-[#0066FF] hover:bg-[#0055DD] text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-sm transition disabled:opacity-50"
+                  >
+                    <Upload className="w-3.5 h-3.5" />
+                    <span>{uploading ? 'Uploading...' : 'Upload New CV'}</span>
+                  </button>
+                </div>
+              </div>
+
+              {uploadError && (
+                <div className="flex items-center gap-2 border border-rose-100 bg-rose-50 text-rose-700 text-xs px-4 py-3 rounded-xl font-bold">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-rose-500" />
+                  <span>{uploadError}</span>
+                </div>
+              )}
+
               <p className="text-xs text-slate-555 font-semibold leading-relaxed">
                 Here are the links to files you have uploaded for your job applications. Ensure your Google Drive links are set to public sharing so recruiters can read them.
               </p>
@@ -347,7 +432,7 @@ function UserDashboard() {
                         </div>
                         {app.resume_url && (
                           <a
-                            href={app.resume_url}
+                            href={getFullUrl(app.resume_url)}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-[#0066FF] hover:underline flex items-center gap-1 shrink-0"
