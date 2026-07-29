@@ -57,13 +57,6 @@ function VerifyCodePage() {
             </p>
           </div>
 
-          {devCode && (
-            <div className="border border-blue-100 bg-blue-50 text-blue-800 text-xs px-4 py-3.5 rounded-2xl font-bold flex flex-col gap-1.5">
-              <span className="opacity-75">Demo Mode Helper (Verification Code):</span>
-              <span className="text-xl font-black tracking-widest text-[#003366] font-mono">{devCode}</span>
-            </div>
-          )}
-
           {error && (
             <div className="flex items-center gap-2.5 border border-rose-100 bg-rose-50 text-rose-700 text-xs px-4 py-3 rounded-2xl font-bold animate-pulse">
               <AlertCircle className="w-4 h-4 shrink-0 text-rose-500" />

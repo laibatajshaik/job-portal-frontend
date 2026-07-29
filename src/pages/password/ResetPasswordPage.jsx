@@ -22,7 +22,7 @@ function ResetPasswordPage() {
 
   useEffect(() => {
     if (!initialEmail || !initialCode) {
-      // Allow manual entry if state is missing
+      
     }
   }, [initialEmail, initialCode])
 
