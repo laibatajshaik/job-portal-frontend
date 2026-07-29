@@ -64,12 +64,6 @@ function VerifyCodePage() {
             </div>
           )}
 
-          {devCode && (
-            <div className="border border-indigo-100 bg-indigo-50 text-indigo-700 text-xs px-4 py-3 rounded-2xl font-bold">
-              <span>Developer mode code: <strong className="font-mono text-sm tracking-wider">{devCode}</strong></span>
-            </div>
-          )}
-
           <form onSubmit={handleVerify} className="space-y-4">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
