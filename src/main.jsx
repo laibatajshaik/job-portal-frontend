@@ -5,6 +5,14 @@ import App from './App.jsx'
 import { AuthProvider } from './context/AuthContext.jsx'
 import './index.css'
 
+// Redirect clean URL paths to hash router paths for static site hosting
+if (typeof window !== 'undefined' && window.location.pathname !== '/' && window.location.pathname !== '/index.html') {
+  const cleanPath = window.location.pathname
+  if (!cleanPath.includes('.') && !cleanPath.startsWith('/api')) {
+    window.location.replace('/#' + cleanPath + window.location.search + window.location.hash)
+  }
+}
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <HashRouter>
