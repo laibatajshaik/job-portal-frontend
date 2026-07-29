@@ -6,7 +6,6 @@ import api from '../../api/axios'
 import { ShieldCheck, Lock, AlertCircle, CheckCircle2, ArrowLeft, Mail } from 'lucide-react'
 
 function ResetPasswordPage() {
-  const { resetPassword } = useContext(AuthContext)
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -55,10 +54,6 @@ function ResetPasswordPage() {
     setLoading(true)
 
     try {
-      
-      if (resetPassword) {
-        await resetPassword(email, newPassword)
-      }
       
       await api.post('/auth/reset-password', {
         email,
