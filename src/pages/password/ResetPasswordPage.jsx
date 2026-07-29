@@ -22,7 +22,7 @@ function ResetPasswordPage() {
 
   useEffect(() => {
     if (!initialEmail || !initialCode) {
-      setError('Please verify your code first before resetting your password.')
+      // Allow manual entry if state is missing
     }
   }, [initialEmail, initialCode])
 
@@ -135,6 +135,21 @@ function ResetPasswordPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email Address"
+                  className="w-full bg-[#F4F7FC] border-none focus:ring-2 focus:ring-[#0066FF] rounded-2xl pl-11 pr-4 py-3.5 text-xs text-slate-900 placeholder-slate-400 font-bold outline-none transition"
+                />
+              </div>
+
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                  <ShieldCheck className="w-4 h-4" />
+                </div>
+                <input
+                  type="text"
+                  required
+                  value={resetCode}
+                  onChange={(e) => setResetCode(e.target.value)}
+                  placeholder="6-digit verification code"
+                  maxLength={6}
                   className="w-full bg-[#F4F7FC] border-none focus:ring-2 focus:ring-[#0066FF] rounded-2xl pl-11 pr-4 py-3.5 text-xs text-slate-900 placeholder-slate-400 font-bold outline-none transition"
                 />
               </div>
