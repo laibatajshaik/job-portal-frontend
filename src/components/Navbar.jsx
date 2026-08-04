@@ -57,7 +57,7 @@ function Navbar() {
           {user && (
             <button
               onClick={handleLogout}
-              className="text-xs font-bold text-rose-600 hover:text-rose-700 transition"
+              className="text-xs font-bold text-slate-700 hover:text-slate-900 transition"
             >
               Sign Out
             </button>
