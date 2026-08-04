@@ -39,7 +39,7 @@ function Navbar() {
     <header className="bg-white/80 backdrop-blur-md border-b border-slate-200/50 sticky top-0 z-50 transition-all duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
-        <Link to="/" className="flex items-center gap-2.5 text-slate-900 font-extrabold text-base tracking-tight hover:opacity-90 transition">
+        <Link to="/" aria-label="JobPortal Homepage" className="flex items-center gap-2.5 text-slate-900 font-extrabold text-base tracking-tight hover:opacity-90 transition">
           
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#0066FF] to-[#003366] flex items-center justify-center text-white shadow-md">
             <Briefcase className="w-4.5 h-4.5" />
@@ -83,6 +83,7 @@ function Navbar() {
 
           <button
             onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle navigation menu"
             className="text-slate-700"
           >
             {menuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -180,6 +181,7 @@ function Navbar() {
             <Link
               to="/admin/login"
               title="Secure Admin System Access"
+              aria-label="Secure Admin System Access"
               className="p-2 rounded-full text-slate-400 hover:text-[#0066FF] hover:bg-slate-50 transition"
             >
               <ShieldCheck className="w-4.5 h-4.5" />

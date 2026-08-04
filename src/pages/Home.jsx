@@ -115,6 +115,7 @@ function Home() {
                   <Search className="w-4 h-4 text-white/60 shrink-0" />
                   <input
                     type="text"
+                    aria-label="Job title, skill, or keyword search input"
                     placeholder="Job title, skill, or keyword..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
@@ -126,6 +127,7 @@ function Home() {
                   <MapPin className="w-4 h-4 text-white/60 shrink-0" />
                   <input
                     type="text"
+                    aria-label="City, state, or remote location search input"
                     placeholder="City, state, or remote..."
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
