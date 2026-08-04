@@ -46,39 +46,48 @@ function Navbar() {
           </div>
           <span className="text-[#003366] font-black tracking-tight">JobPortal</span>
         </Link>
-        <div className="md:hidden flex items-center gap-2">
-  <button
-    onClick={() => handleScrollTo('home')}
-    className="text-xs font-bold text-slate-700"
-  >
-    Home
-  </button>
+        <div className="md:hidden flex items-center gap-2.5">
+          <button
+            onClick={() => handleScrollTo('home')}
+            className="text-xs font-bold text-slate-700"
+          >
+            Home
+          </button>
 
-  {!user && (
-    <>
-      <Link
-        to="/login"
-        className="text-xs font-bold text-slate-700"
-      >
-        Sign In
-      </Link>
+          {user && (
+            <button
+              onClick={handleLogout}
+              className="text-xs font-bold text-rose-600 hover:text-rose-700 transition"
+            >
+              Sign Out
+            </button>
+          )}
 
-      <Link
-        to="/register"
-        className="bg-[#003366] text-white text-xs font-bold px-3 py-1.5 rounded-full"
-      >
-        Register
-      </Link>
-    </>
-  )}
+          {!user && (
+            <>
+              <Link
+                to="/login"
+                className="text-xs font-bold text-slate-700"
+              >
+                Sign In
+              </Link>
 
-  <button
-    onClick={() => setMenuOpen(!menuOpen)}
-    className="text-slate-700"
-  >
-    {menuOpen ? <X size={24} /> : <Menu size={24} />}
-  </button>
-</div>
+              <Link
+                to="/register"
+                className="bg-[#003366] text-white text-xs font-bold px-3 py-1.5 rounded-full"
+              >
+                Register
+              </Link>
+            </>
+          )}
+
+          <button
+            onClick={() => setMenuOpen(!menuOpen)}
+            className="text-slate-700"
+          >
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
 
         <div className="hidden md:flex items-center gap-6">
           <button

@@ -32,16 +32,35 @@ function Register() {
   }
 
   useEffect(() => {
-    
+    const initializeGoogle = () => {
+      if (window.google) {
+        google.accounts.id.initialize({
+          client_id: "242260456878-i33gg7lb37j70rk893i4i9svc15ep1pl.apps.googleusercontent.com",
+          callback: handleCredentialResponse
+        });
+        google.accounts.id.renderButton(
+          document.getElementById("googleBtnRegister"),
+          { theme: "outline", size: "large", width: "380px" }
+        );
+      }
+    };
+
     if (window.google) {
-      google.accounts.id.initialize({
-        client_id: "242260456878-i33gg7lb37j70rk893i4i9svc15ep1pl.apps.googleusercontent.com",
-        callback: handleCredentialResponse
-      });
-      google.accounts.id.renderButton(
-        document.getElementById("googleBtnRegister"),
-        { theme: "outline", size: "large", width: "380px" }
-      );
+      initializeGoogle();
+    } else {
+      let script = document.getElementById('google-gsi-script');
+      if (!script) {
+        script = document.createElement('script');
+        script.id = 'google-gsi-script';
+        script.src = 'https://accounts.google.com/gsi/client';
+        script.async = true;
+        script.defer = true;
+        document.body.appendChild(script);
+      }
+      script.addEventListener('load', initializeGoogle);
+      return () => {
+        script.removeEventListener('load', initializeGoogle);
+      };
     }
   }, []);
 
