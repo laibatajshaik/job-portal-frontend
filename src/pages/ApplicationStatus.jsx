@@ -108,7 +108,7 @@ function ApplicationStatus() {
           </div>
 
           {}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs font-bold text-slate-655">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs font-bold text-slate-600">
             <div className="space-y-4">
               <div>
                 <h4 className="text-[10px] text-slate-400 uppercase font-black">Applied Job Position</h4>

@@ -423,7 +423,7 @@ function AdminDashboard() {
                       className={`px-2.5 py-1.5 rounded text-[10px] border transition ${
                         activeStepFilter === f
                           ? 'bg-[#003366] text-white border-[#003366]'
-                          : 'bg-slate-50 text-slate-655 border-[#0066FF]/20 hover:bg-slate-100'
+                          : 'bg-slate-50 text-slate-600 border-[#0066FF]/20 hover:bg-slate-100'
                       }`}
                     >
                       {f}
@@ -443,7 +443,7 @@ function AdminDashboard() {
                       className={`px-2.5 py-1.5 rounded text-[10px] border transition ${
                         activeDeptFilter === f
                           ? 'bg-[#003366] text-white border-[#003366]'
-                          : 'bg-slate-50 text-slate-655 border-[#0066FF]/20 hover:bg-slate-100'
+                          : 'bg-slate-50 text-slate-600 border-[#0066FF]/20 hover:bg-slate-100'
                       }`}
                     >
                       {f}
@@ -606,9 +606,9 @@ function AdminDashboard() {
                 <div className="bg-slate-50/50 p-6 rounded-xl border border-[#0066FF]/20">
                   <h3 className="text-sm font-bold text-[#003366] mb-3">System Log Analytics</h3>
                   <div className="space-y-2">
-                    <p className="text-xs text-slate-655 font-semibold">Total DB Registrations: <b>{users.length} Candidates</b></p>
-                    <p className="text-xs text-slate-655 font-semibold">Published Listings: <b>{jobs.length} Positions</b></p>
-                    <p className="text-xs text-slate-655 font-semibold">ATS Shortlist Threshold: <b>{atsThreshold}%</b></p>
+                    <p className="text-xs text-slate-600 font-semibold">Total DB Registrations: <b>{users.length} Candidates</b></p>
+                    <p className="text-xs text-slate-600 font-semibold">Published Listings: <b>{jobs.length} Positions</b></p>
+                    <p className="text-xs text-slate-600 font-semibold">ATS Shortlist Threshold: <b>{atsThreshold}%</b></p>
                   </div>
                 </div>
 
@@ -633,7 +633,7 @@ function AdminDashboard() {
             <div className="overflow-x-auto">
               <h3 className="text-sm font-bold text-[#003366] mb-3">Job Openings Database ({filteredJobs.length} positions)</h3>
               {filteredJobs.length === 0 ? (
-                <div className="text-center py-10 text-xs text-slate-555 font-semibold space-y-1">
+                <div className="text-center py-10 text-xs text-slate-600 font-semibold space-y-1">
                   <p>No jobs match your search parameters.</p>
                   <button onClick={clearFilters} className="text-[#0066FF] hover:underline">Reset</button>
                 </div>
@@ -674,7 +674,7 @@ function AdminDashboard() {
             <div className="overflow-x-auto">
               <h3 className="text-sm font-bold text-[#003366] mb-3">Candidate Applications ({filteredApplications.length} applications)</h3>
               {filteredApplications.length === 0 ? (
-                <div className="text-center py-10 text-xs text-slate-555 font-semibold space-y-1">
+                <div className="text-center py-10 text-xs text-slate-600 font-semibold space-y-1">
                   <p>No applications match your search parameters.</p>
                   <button onClick={clearFilters} className="text-[#0066FF] hover:underline">Reset</button>
                 </div>
@@ -743,7 +743,7 @@ function AdminDashboard() {
             <div className="overflow-x-auto">
               <h3 className="text-sm font-bold text-[#003366] mb-3">User Database ({filteredUsers.length} users)</h3>
               {filteredUsers.length === 0 ? (
-                <div className="text-center py-10 text-xs text-slate-555 font-semibold space-y-1">
+                <div className="text-center py-10 text-xs text-slate-600 font-semibold space-y-1">
                   <p>No users match your search parameters.</p>
                   <button onClick={clearFilters} className="text-[#0066FF] hover:underline">Reset</button>
                 </div>
@@ -788,7 +788,7 @@ function AdminDashboard() {
             <div className="overflow-x-auto">
               <h3 className="text-sm font-bold text-[#003366] mb-3">Recruiting Companies ({filteredCompanies.length} companies)</h3>
               {filteredCompanies.length === 0 ? (
-                <div className="text-center py-10 text-xs text-slate-555 font-semibold space-y-1">
+                <div className="text-center py-10 text-xs text-slate-600 font-semibold space-y-1">
                   <p>No companies match your search parameters.</p>
                   <button onClick={clearFilters} className="text-[#0066FF] hover:underline">Reset</button>
                 </div>
@@ -805,7 +805,7 @@ function AdminDashboard() {
                     {filteredCompanies.map((comp, idx) => (
                       <tr key={idx} className="hover:bg-slate-50/50 transition">
                         <td className="p-3 font-bold text-[#003366]">{comp.name}</td>
-                        <td className="p-3 text-slate-655">{comp.location}</td>
+                        <td className="p-3 text-slate-600">{comp.location}</td>
                         <td className="p-3">
                           <span className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[10px] font-bold border border-slate-200">
                             {comp.jobsCount} Openings

@@ -292,7 +292,7 @@ function ApplicantManagement() {
                     className={`px-2.5 py-1.5 rounded text-[10px] border transition ${
                       activeStepFilter === f
                         ? 'bg-[#003366] text-white border-[#003366]'
-                        : 'bg-slate-50 text-slate-655 border-[#0066FF]/20 hover:bg-slate-100'
+                        : 'bg-slate-50 text-slate-600 border-[#0066FF]/20 hover:bg-slate-100'
                     }`}
                   >
                     {f}
@@ -312,7 +312,7 @@ function ApplicantManagement() {
                     className={`px-2.5 py-1.5 rounded text-[10px] border transition ${
                       activeDeptFilter === f
                         ? 'bg-[#003366] text-white border-[#003366]'
-                        : 'bg-slate-50 text-slate-655 border-[#0066FF]/20 hover:bg-slate-100'
+                        : 'bg-slate-50 text-slate-600 border-[#0066FF]/20 hover:bg-slate-100'
                     }`}
                   >
                     {f}
@@ -547,7 +547,7 @@ function ApplicantManagement() {
           {activeTab === 'database' && (
             <div className="space-y-4">
               <h3 className="text-base font-black text-[#003366] uppercase">Candidate Raw Database</h3>
-              <p className="text-xs text-slate-555 font-semibold leading-relaxed">
+              <p className="text-xs text-slate-600 font-semibold leading-relaxed">
                 Raw database representation of applications submitted for this specific job position.
               </p>
               
@@ -565,7 +565,7 @@ function ApplicantManagement() {
                     {filteredApplicants.map(app => (
                       <tr key={app.id} className="hover:bg-slate-55/50 transition">
                         <td className="p-3 font-bold text-[#003366]">{app.candidate_name || 'Anonymous'}</td>
-                        <td className="p-3 text-slate-655">{app.candidate_email}</td>
+                        <td className="p-3 text-slate-600">{app.candidate_email}</td>
                         <td className="p-3 text-slate-600">{app.ats_score || 70}%</td>
                         <td className="p-3">
                           <span className="text-[10px] font-bold px-2.5 py-0.5 rounded bg-slate-100 text-slate-700">
@@ -599,7 +599,7 @@ function ApplicantManagement() {
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-400 text-[10px] uppercase">Details</h4>
-                  <p className="text-slate-655 mt-1 leading-relaxed">{job?.description}</p>
+                  <p className="text-slate-600 mt-1 leading-relaxed">{job?.description}</p>
                 </div>
               </div>
             </div>

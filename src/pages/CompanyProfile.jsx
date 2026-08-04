@@ -164,7 +164,7 @@ function CompanyProfile() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4 text-xs font-bold text-slate-655">
+          <form onSubmit={handleSubmit} className="space-y-4 text-xs font-bold text-slate-600">
             
             {}
             <div>

@@ -93,21 +93,21 @@ function Navbar() {
         <div className="hidden md:flex items-center gap-6">
           <button
             onClick={() => handleScrollTo('home')}
-            className="text-xs font-bold tracking-wide uppercase text-slate-555 hover:text-[#0066FF] transition cursor-pointer outline-none"
+            className="text-xs font-bold tracking-wide uppercase text-slate-600 hover:text-[#0066FF] transition cursor-pointer outline-none"
           >
             Home
           </button>
           
           <button
             onClick={() => handleScrollTo('services')}
-            className="text-xs font-bold tracking-wide uppercase text-slate-555 hover:text-[#0066FF] transition cursor-pointer outline-none"
+            className="text-xs font-bold tracking-wide uppercase text-slate-600 hover:text-[#0066FF] transition cursor-pointer outline-none"
           >
             Services
           </button>
 
           <button
             onClick={() => handleScrollTo('about')}
-            className="text-xs font-bold tracking-wide uppercase text-slate-555 hover:text-[#0066FF] transition cursor-pointer outline-none"
+            className="text-xs font-bold tracking-wide uppercase text-slate-600 hover:text-[#0066FF] transition cursor-pointer outline-none"
           >
             About
           </button>
@@ -117,7 +117,7 @@ function Navbar() {
             className={`text-xs font-bold tracking-wide uppercase transition ${
               location.pathname === '/jobs'
                 ? 'text-[#0066FF] font-black border-b-2 border-[#0066FF] pb-1'
-                : 'text-slate-555 hover:text-[#0066FF]'
+                : 'text-slate-600 hover:text-[#0066FF]'
             }`}
           >
             Find Jobs
@@ -126,7 +126,7 @@ function Navbar() {
           {user && user.role === 'manager' && (
             <Link
               to="/manager/post-job"
-              className="hidden lg:flex items-center gap-1.5 text-xs font-bold tracking-wide uppercase text-slate-555 hover:text-[#0066FF] transition"
+              className="hidden lg:flex items-center gap-1.5 text-xs font-bold tracking-wide uppercase text-slate-600 hover:text-[#0066FF] transition"
             >
               <PlusCircle className="w-4 h-4 text-[#0066FF]" />
               <span>Post a Job</span>

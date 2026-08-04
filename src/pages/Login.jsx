@@ -171,7 +171,7 @@ function Login() {
             </div>
 
             {}
-            <div className="flex items-center justify-between text-[11px] font-bold text-slate-505 px-1">
+            <div className="flex items-center justify-between text-[11px] font-bold text-slate-500 px-1">
               <label className="flex items-center gap-1.5 cursor-pointer select-none">
                 <input
                   type="checkbox"

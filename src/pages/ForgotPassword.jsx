@@ -216,7 +216,7 @@ function ForgotPassword() {
         )}
 
         {}
-        <div className="text-center text-xs text-slate-505 pt-2 border-t border-slate-100">
+        <div className="text-center text-xs text-slate-500 pt-2 border-t border-slate-100">
           <Link to="/login" className="inline-flex items-center gap-1.5 text-slate-500 hover:text-[#0066FF] font-bold transition">
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to Login</span>

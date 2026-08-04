@@ -206,7 +206,7 @@ function UserDashboard() {
                     className={`px-2.5 py-1 rounded text-[10px] border transition ${
                       activeStepFilter === f
                         ? 'bg-[#003366] text-white border-[#003366]'
-                        : 'bg-slate-50 text-slate-655 border-[#0066FF]/20 hover:bg-slate-100'
+                        : 'bg-slate-50 text-slate-600 border-[#0066FF]/20 hover:bg-slate-100'
                     }`}
                   >
                     {f}
@@ -282,7 +282,7 @@ function UserDashboard() {
               </div>
 
               {applications.length === 0 ? (
-                <div className="text-center py-12 text-slate-555 space-y-3 font-semibold">
+                <div className="text-center py-12 text-slate-600 space-y-3 font-semibold">
                   <p className="text-sm">You haven't submitted any job applications yet.</p>
                   <Link
                     to="/jobs"
@@ -414,7 +414,7 @@ function UserDashboard() {
                 </div>
               )}
 
-              <p className="text-xs text-slate-555 font-semibold leading-relaxed">
+              <p className="text-xs text-slate-600 font-semibold leading-relaxed">
                 Here are the links to files you have uploaded for your job applications. Ensure your Google Drive links are set to public sharing so recruiters can read them.
               </p>
 

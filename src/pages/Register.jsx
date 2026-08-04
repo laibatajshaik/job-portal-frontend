@@ -223,7 +223,7 @@ function Register() {
 
           {}
           <div className="text-center pt-2">
-            <p className="text-[11px] font-bold text-slate-505">
+            <p className="text-[11px] font-bold text-slate-500">
               Already have an account?{" "}
               <Link to="/login" className="text-[#0066FF] hover:underline">
                 Sign In
