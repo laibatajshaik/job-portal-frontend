@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../api/axios'
 import JobCard from '../components/JobCard'
-import { Search, MapPin, ArrowRight, Briefcase, Award, ShieldCheck, Heart, Sparkles } from 'lucide-react'
 
 const defaultDemoJobs = [
   {
@@ -92,7 +91,7 @@ function Home() {
 
           <div className="relative z-10 space-y-6 max-w-4xl mx-auto">
             <span className="inline-flex items-center gap-1.5 bg-white/10 text-white text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full border border-white/20">
-              <Briefcase className="w-3.5 h-3.5" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" className="w-3.5 h-3.5"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg>
               Welcome to Shnoor JobPortal
             </span>
             
@@ -112,7 +111,7 @@ function Home() {
               <div className="bg-[#003366]/35 p-3 rounded-[28px] border border-white/10 backdrop-blur-md flex flex-col md:flex-row items-center gap-3">
                 
                 <div className="flex items-center gap-2 bg-white/10 border border-white/10 focus-within:border-white/40 focus-within:bg-white/15 rounded-2xl px-4 py-3.5 flex-1 w-full transition">
-                  <Search className="w-4 h-4 text-white/60 shrink-0" />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" className="w-4 h-4 text-white/60 shrink-0"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                   <input
                     type="text"
                     aria-label="Job title, skill, or keyword search input"
@@ -124,7 +123,7 @@ function Home() {
                 </div>
 
                 <div className="flex items-center gap-2 bg-white/10 border border-white/10 focus-within:border-white/40 focus-within:bg-white/15 rounded-2xl px-4 py-3.5 flex-1 w-full transition">
-                  <MapPin className="w-4 h-4 text-white/60 shrink-0" />
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" className="w-4 h-4 text-white/60 shrink-0"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
                   <input
                     type="text"
                     aria-label="City, state, or remote location search input"
@@ -166,7 +165,7 @@ function Home() {
             {}
             <div className="bg-[#F4F7FC] p-6 rounded-2xl border border-[#0066FF]/10 space-y-4 hover:shadow transition duration-200">
               <div className="w-10 h-10 rounded-xl bg-white text-[#0066FF] flex items-center justify-center shadow-sm">
-                <Award className="w-5 h-5" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-5 h-5"><circle cx="12" cy="8" r="7"/><path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12"/></svg>
               </div>
               <h3 className="font-extrabold text-sm text-[#003366]">ATS Score Matching</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-semibold">
@@ -177,7 +176,7 @@ function Home() {
             {}
             <div className="bg-[#F4F7FC] p-6 rounded-2xl border border-[#0066FF]/10 space-y-4 hover:shadow transition duration-200">
               <div className="w-10 h-10 rounded-xl bg-white text-[#0066FF] flex items-center justify-center shadow-sm">
-                <ShieldCheck className="w-5 h-5" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-5 h-5"><path d="M20 13c0 5-3.5 7.5-7.66 9.7a1 1 0 0 1-.68 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 .76-.97l8-2a1 1 0 0 1 .48 0l8 2A1 1 0 0 1 20 6v7z"/><path d="m9 12 2 2 4-4"/></svg>
               </div>
               <h3 className="font-extrabold text-sm text-[#003366]">Direct Safe Submissions</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-semibold">
@@ -188,7 +187,7 @@ function Home() {
             {}
             <div className="bg-[#F4F7FC] p-6 rounded-2xl border border-[#0066FF]/10 space-y-4 hover:shadow transition duration-200">
               <div className="w-10 h-10 rounded-xl bg-white text-[#0066FF] flex items-center justify-center shadow-sm">
-                <Sparkles className="w-5 h-5" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="w-5 h-5"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
               </div>
               <h3 className="font-extrabold text-sm text-[#003366]">Horizontal Dashboards</h3>
               <p className="text-xs text-slate-600 leading-relaxed font-semibold">
@@ -270,7 +269,7 @@ function Home() {
               className="text-xs font-bold text-[#0066FF] hover:text-[#0040A0] flex items-center gap-1 bg-[#0066FF]/5 border border-[#0066FF]/15 px-4 py-2.5 rounded-full transition shadow-sm"
             >
               <span>View all jobs</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" className="w-3.5 h-3.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </Link>
           </div>
 
