@@ -109,7 +109,7 @@ function UserDashboard() {
   const getFilteredApplications = () => {
     return applications.filter(app => {
       if (activeStepFilter === 'Applied') {
-        return app.status === 'Pending' || app.status === 'Applied';
+        return true;
       }
       if (activeStepFilter === 'Interviewing') {
         return app.status === 'Interviewing';
