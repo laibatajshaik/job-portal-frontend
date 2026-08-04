@@ -199,7 +199,7 @@ function UserDashboard() {
             <div className="space-y-1.5">
               <span className="text-slate-400 block uppercase tracking-wider text-[10px]">Filter by Step</span>
               <div className="flex flex-wrap gap-1">
-                {['All', 'Applied', 'Interviewing', 'Selected'].map(f => (
+                {['All', 'Applied', 'Selected'].map(f => (
                   <button
                     key={f}
                     onClick={() => setActiveStepFilter(f)}
