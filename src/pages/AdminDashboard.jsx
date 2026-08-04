@@ -324,23 +324,6 @@ function AdminDashboard() {
             </button>
 
             <button
-              onClick={() => { setTab('weekly_calendar'); clearFilters(); }}
-              className={`flex items-center gap-1.5 px-4 py-2.5 rounded-lg transition relative ${
-                tab === 'weekly_calendar'
-                  ? 'bg-[#0066FF] text-white shadow-sm'
-                  : 'text-white/80 hover:bg-white/10 hover:text-white'
-              }`}
-            >
-              <Calendar className="w-3.5 h-3.5" />
-              <span>Weekly Calendar (Jobs)</span>
-              {unopenedJobsCount > 0 && (
-                <span className="absolute -top-1.5 -right-1 bg-amber-500 text-white text-[8px] font-black w-4 h-4 rounded-full flex items-center justify-center animate-bounce">
-                  {unopenedJobsCount}
-                </span>
-              )}
-            </button>
-
-            <button
               onClick={() => { setTab('pipeline'); clearFilters(); }}
               className={`flex items-center gap-1.5 px-4 py-2.5 rounded-lg transition relative ${
                 tab === 'pipeline'
@@ -353,23 +336,6 @@ function AdminDashboard() {
               {unopenedApplicationsCount > 0 && (
                 <span className="absolute -top-1.5 -right-1 bg-amber-500 text-white text-[8px] font-black w-4 h-4 rounded-full flex items-center justify-center animate-bounce">
                   {unopenedApplicationsCount}
-                </span>
-              )}
-            </button>
-
-            <button
-              onClick={() => { setTab('database'); clearFilters(); }}
-              className={`flex items-center gap-1.5 px-4 py-2.5 rounded-lg transition relative ${
-                tab === 'database'
-                  ? 'bg-[#0066FF] text-white shadow-sm'
-                  : 'text-white/80 hover:bg-white/10 hover:text-white'
-              }`}
-            >
-              <Users className="w-3.5 h-3.5" />
-              <span>Database (Users)</span>
-              {unopenedUsersCount > 0 && (
-                <span className="absolute -top-1.5 -right-1 bg-amber-500 text-white text-[8px] font-black w-4 h-4 rounded-full flex items-center justify-center animate-bounce">
-                  {unopenedUsersCount}
                 </span>
               )}
             </button>

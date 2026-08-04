@@ -75,7 +75,7 @@ function UserDashboard() {
       const fileUrl = uploadRes.data.file_url
 
       await api.post('/applications/', {
-        job_id: 0,
+        job_id: -1,
         resume_url: fileUrl,
         cover_letter: `Uploaded CV: ${file.name}`
       })
@@ -359,13 +359,15 @@ function UserDashboard() {
                         </div>
 
                         {/* View Job Spec */}
-                        <Link
-                          to={`/jobs/${app.job_id}`}
-                          className="bg-white hover:bg-slate-100 text-[#003366] border border-[#0066FF]/20 text-xs font-bold px-4 py-2.5 rounded-lg shadow-sm transition flex items-center gap-1"
-                        >
-                          <span>View spec</span>
-                          <ExternalLink className="w-3.5 h-3.5 text-[#0066FF]" />
-                        </Link>
+                        {app.job_title !== 'Uploaded Resume' && app.job_id !== -1 && (
+                          <Link
+                            to={`/jobs/${app.job_id}`}
+                            className="bg-white hover:bg-slate-100 text-[#003366] border border-[#0066FF]/20 text-xs font-bold px-4 py-2.5 rounded-lg shadow-sm transition flex items-center gap-1"
+                          >
+                            <span>View spec</span>
+                            <ExternalLink className="w-3.5 h-3.5 text-[#0066FF]" />
+                          </Link>
+                        )}
 
                       </div>
                     </div>
