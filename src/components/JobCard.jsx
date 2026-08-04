@@ -15,7 +15,7 @@ function JobCard({ job }) {
             <h3 className="text-base sm:text-lg font-bold text-[#003366] leading-snug line-clamp-1">
               {job.title || 'Job Opening'}
             </h3>
-            <div className="flex items-center gap-1.5 text-xs text-slate-500 font-semibold">
+            <div className="flex items-center gap-1.5 text-xs text-slate-600 font-bold">
               <Building className="w-3.5 h-3.5 text-[#0066FF]" />
               <span>{companyName}</span>
             </div>
@@ -41,8 +41,8 @@ function JobCard({ job }) {
 
         {}
         <div className="flex items-center justify-between text-xs font-semibold pt-4 border-t border-slate-100">
-          <div className="flex items-center gap-1.5 text-slate-500">
-            <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+          <div className="flex items-center gap-1.5 text-slate-600">
+            <MapPin className="w-3.5 h-3.5 text-slate-500 shrink-0" />
             <span>{job.location || 'Remote'}</span>
           </div>
 

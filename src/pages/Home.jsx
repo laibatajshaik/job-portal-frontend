@@ -156,7 +156,7 @@ function Home() {
             <h2 className="text-2xl sm:text-3xl font-black text-[#003366] tracking-tight uppercase">
               Our Premium Services
             </h2>
-            <p className="text-xs text-slate-500 font-semibold leading-relaxed">
+            <p className="text-xs text-slate-600 font-semibold leading-relaxed">
               We leverage modern technology to simplify recruitment pipelines for both recruiters and job seekers.
             </p>
           </div>
@@ -218,15 +218,15 @@ function Home() {
             <div className="grid grid-cols-3 gap-4 pt-4 border-t border-slate-100 text-center sm:text-left">
               <div>
                 <p className="text-xl sm:text-2xl font-black text-[#0066FF]">10k+</p>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Candidates</p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Candidates</p>
               </div>
               <div>
                 <p className="text-xl sm:text-2xl font-black text-[#0066FF]">500+</p>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Published Jobs</p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Published Jobs</p>
               </div>
               <div>
                 <p className="text-xl sm:text-2xl font-black text-[#0066FF]">98%</p>
-                <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Success Rate</p>
+                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Success Rate</p>
               </div>
             </div>
           </div>
@@ -236,7 +236,7 @@ function Home() {
             <div className="absolute w-60 h-60 rounded-full bg-[#0066FF]/5 -top-20 -right-20 pointer-events-none" />
             <div className="space-y-2 relative z-10">
               <h3 className="font-extrabold text-lg text-[#003366] uppercase">Join as a Candidate or Recruiter</h3>
-              <p className="text-xs text-slate-500 font-semibold leading-relaxed">
+              <p className="text-xs text-slate-600 font-semibold leading-relaxed">
                 Unlock instant access to dream careers or publish active openings on our dashboard console with real-time analytics.
               </p>
             </div>
@@ -263,7 +263,7 @@ function Home() {
           <div className="flex items-center justify-between mb-8 border-b border-slate-200/50 pb-4">
             <div>
               <h2 className="text-xl font-black text-[#003366] tracking-tight">LATEST JOB OPENINGS</h2>
-              <p className="text-xs text-slate-500 mt-0.5 font-bold">Handpicked opportunities updated daily</p>
+              <p className="text-xs text-slate-600 mt-0.5 font-bold">Handpicked opportunities updated daily</p>
             </div>
             <Link 
               to="/jobs" 
