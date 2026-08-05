@@ -246,7 +246,14 @@ function ManagerDashboard() {
                     >
                       <div className="space-y-2">
                         <div>
-                          <h4 className="font-extrabold text-sm text-[#003366]">{job.title}</h4>
+                          <h4 className="font-extrabold text-sm text-[#003366] flex items-center gap-2">
+                            {job.title}
+                            {job.expiry_date && new Date(job.expiry_date) < new Date(new Date().setHours(0,0,0,0)) && (
+                              <span className="bg-rose-100 text-rose-700 text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full border border-rose-200">
+                                Expired
+                              </span>
+                            )}
+                          </h4>
                           <div className="flex items-center gap-3 text-[11px] text-slate-600 font-semibold mt-0.5">
                             <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5 text-slate-400" /> {job.location || 'Remote'}</span>
                             <span className="text-slate-300">|</span>
@@ -259,6 +266,12 @@ function ManagerDashboard() {
                             <Clock className="w-3.5 h-3.5 text-slate-400" />
                             <span>Job Type: {job.job_type || 'Full Time'}</span>
                           </div>
+                          {job.expiry_date && (
+                            <div className="flex items-center gap-1">
+                              <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                              <span>Expires: {job.expiry_date}</span>
+                            </div>
+                          )}
                         </div>
                       </div>
 

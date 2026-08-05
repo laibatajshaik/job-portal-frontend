@@ -5,6 +5,7 @@ function JobCard({ job }) {
   if (!job) return null
   const companyName = job.company_name || 'Demo Company'
   const isFullTime = (job.job_type || '').toLowerCase().includes('full')
+  const isExpired = job.expiry_date && new Date(job.expiry_date) < new Date(new Date().setHours(0,0,0,0))
 
   return (
     <div className="bg-white border border-[#0066FF]/20 hover:border-[#0066FF]/50 rounded-xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between h-full">
@@ -21,15 +22,22 @@ function JobCard({ job }) {
             </div>
           </div>
 
-          <span
-            className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded shrink-0 shadow-sm ${
-              isFullTime
-                ? 'bg-[#003366] text-white'
-                : 'bg-[#0066FF]/10 text-[#003366] border border-[#0066FF]/30'
-            }`}
-          >
-            {job.job_type || 'Full Time'}
-          </span>
+          <div className="flex items-center gap-1.5 shrink-0">
+            {isExpired && (
+              <span className="bg-rose-100 text-rose-700 text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-rose-200 shadow-sm">
+                Expired
+              </span>
+            )}
+            <span
+              className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded shrink-0 shadow-sm ${
+                isFullTime
+                  ? 'bg-[#003366] text-white'
+                  : 'bg-[#0066FF]/10 text-[#003366] border border-[#0066FF]/30'
+              }`}
+            >
+              {job.job_type || 'Full Time'}
+            </span>
+          </div>
         </div>
 
         {}

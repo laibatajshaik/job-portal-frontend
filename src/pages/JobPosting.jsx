@@ -27,6 +27,7 @@ function JobPosting() {
   const [location, setLocation] = useState('')
   const [salary, setSalary] = useState('')
   const [jobType, setJobType] = useState('Full Time')
+  const [expiryDate, setExpiryDate] = useState('')
   const [loading, setLoading] = useState(false)
 
   const [activeTab, setTab] = useState('pipeline')
@@ -40,7 +41,8 @@ function JobPosting() {
         description,
         location,
         salary,
-        job_type: jobType
+        job_type: jobType,
+        expiry_date: expiryDate || null
       })
       navigate('/manager/dashboard')
     } catch (err) {
@@ -193,6 +195,19 @@ function JobPosting() {
                 <option value="Contract">Contract Spec</option>
                 <option value="Internship">Internship Node</option>
               </select>
+            </div>
+
+            <div>
+              <label className="block mb-1.5">Job Expiry Date</label>
+              <div className="flex items-center gap-2 bg-[#F4F7FC]/50 border border-[#0066FF]/25 focus-within:border-[#0066FF] focus-within:bg-white focus-within:ring-2 focus-within:ring-[#0066FF]/10 rounded-xl px-3.5 py-2.5 transition">
+                <Clock className="w-4 h-4 text-slate-400" />
+                <input
+                  type="date"
+                  value={expiryDate}
+                  onChange={(e) => setExpiryDate(e.target.value)}
+                  className="bg-transparent text-xs text-[#003366] focus:outline-none w-full font-bold cursor-pointer"
+                />
+              </div>
             </div>
 
             {}

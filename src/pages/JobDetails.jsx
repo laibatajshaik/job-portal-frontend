@@ -80,6 +80,8 @@ function JobDetails() {
     return `₹${strSal}`
   }
 
+  const isExpired = job.expiry_date && new Date(job.expiry_date) < new Date(new Date().setHours(0,0,0,0))
+
   if (loading) return <Loader />
   if (!job) return <p className="text-center mt-10">Job not found</p>
 
@@ -93,12 +95,25 @@ function JobDetails() {
           <span>Back to Job Listings</span>
         </Link>
 
+        {isExpired && (
+          <div className="bg-rose-55 border border-rose-200 text-rose-800 p-4 rounded-xl text-xs font-bold text-center">
+            ⚠️ This job opening has expired and is no longer accepting new applications.
+          </div>
+        )}
+
         {}
         <div className="bg-white border border-[#0066FF]/20 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
           
           <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-slate-100 pb-6">
             <div>
-              <h1 className="text-2xl font-bold text-[#003366]">{job.title}</h1>
+              <h1 className="text-2xl font-bold text-[#003366] flex items-center gap-2">
+                {job.title}
+                {isExpired && (
+                  <span className="bg-rose-100 text-rose-700 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded border border-rose-200">
+                    Expired
+                  </span>
+                )}
+              </h1>
               <div className="flex items-center gap-2 text-xs text-slate-500 mt-1">
                 <Building className="w-4 h-4 text-[#0066FF]" />
                 <span className="font-bold text-slate-700">{job.company_name || 'Demo Company'}</span>
@@ -135,7 +150,14 @@ function JobDetails() {
 
           {}
           <div className="pt-4 border-t border-slate-100">
-            {user && user.role === 'user' ? (
+            {isExpired ? (
+              <button
+                disabled
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-slate-300 text-slate-500 font-extrabold text-xs px-6 py-3.5 rounded-xl cursor-not-allowed uppercase tracking-wider"
+              >
+                <span>Position Closed</span>
+              </button>
+            ) : user && user.role === 'user' ? (
               <Link
                 to={`/apply/${job.id}`}
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#003366] hover:bg-[#002244] text-white font-extrabold text-xs px-6 py-3.5 rounded-xl shadow-md transition uppercase tracking-wider"
