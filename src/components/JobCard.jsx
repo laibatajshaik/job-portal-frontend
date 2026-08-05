@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { MapPin, Building, ArrowUpRight } from 'lucide-react'
+import { MapPin, Building, ArrowUpRight, Calendar } from 'lucide-react'
 
 function JobCard({ job }) {
   if (!job) return null
@@ -45,6 +45,13 @@ function JobCard({ job }) {
           <p className="text-slate-600 text-xs sm:text-sm line-clamp-2 leading-relaxed font-medium">
             {job.description}
           </p>
+        )}
+
+        {job.expiry_date && (
+          <div className="flex items-center gap-1.5 text-xs text-slate-500 font-bold mt-1">
+            <Calendar className="w-3.5 h-3.5 text-[#0066FF]" />
+            <span>Expires: {job.expiry_date}</span>
+          </div>
         )}
 
         {}

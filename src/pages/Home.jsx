@@ -284,7 +284,8 @@ function Home() {
                   location: job.location,
                   salary: formatSalary(job.salary),
                   job_type: job.job_type,
-                  company_name: job.company_name || "Demo Company"
+                  company_name: job.company_name || "Demo Company",
+                  expiry_date: job.expiry_date || null
                 }}
               />
             ))}

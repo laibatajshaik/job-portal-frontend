@@ -27,6 +27,24 @@ import {
   Clock
 } from 'lucide-react'
 
+const formatLocalTime = (isoString) => {
+  if (!isoString) return 'Recent';
+  try {
+    const d = new Date(isoString);
+    if (isNaN(d.getTime())) {
+      return isoString;
+    }
+    const year = d.getFullYear();
+    const month = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    const hours = String(d.getHours()).padStart(2, '0');
+    const minutes = String(d.getMinutes()).padStart(2, '0');
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
+  } catch (e) {
+    return isoString;
+  }
+};
+
 function ApplicantManagement() {
   const { jobId } = useParams()
   const navigate = useNavigate()
@@ -471,7 +489,7 @@ function ApplicantManagement() {
                         <div className="flex items-center gap-4 text-xs font-semibold text-slate-600">
                           <div className="flex items-center gap-1">
                             <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                            <span>Applied: {app.applied_at || 'Recent'}</span>
+                            <span>Applied: {formatLocalTime(app.applied_at)}</span>
                           </div>
                           <div className="flex items-center gap-1">
                             <Award className="w-3.5 h-3.5 text-[#0066FF]" />
