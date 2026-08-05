@@ -23,20 +23,21 @@ function JobCard({ job }) {
           </div>
 
           <div className="flex items-center gap-1.5 shrink-0">
-            {isExpired && (
-              <span className="bg-rose-100 text-rose-700 text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded border border-rose-200 shadow-sm">
-                Expired
+            {isExpired ? (
+              <span className="bg-rose-50 text-rose-700 border border-rose-250 text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded shadow-sm">
+                No Openings
+              </span>
+            ) : (
+              <span
+                className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded shrink-0 shadow-sm ${
+                  isFullTime
+                    ? 'bg-[#003366] text-white'
+                    : 'bg-[#0066FF]/10 text-[#003366] border border-[#0066FF]/30'
+                }`}
+              >
+                {job.job_type || 'Full Time'}
               </span>
             )}
-            <span
-              className={`text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded shrink-0 shadow-sm ${
-                isFullTime
-                  ? 'bg-[#003366] text-white'
-                  : 'bg-[#0066FF]/10 text-[#003366] border border-[#0066FF]/30'
-              }`}
-            >
-              {job.job_type || 'Full Time'}
-            </span>
           </div>
         </div>
 
@@ -68,13 +69,23 @@ function JobCard({ job }) {
       </div>
 
       <div className="pt-4 mt-auto">
-        <Link
-          to={`/jobs/${job.id}`}
-          className="w-full inline-flex items-center justify-center gap-1 bg-[#003366] hover:bg-[#002244] text-white text-xs font-bold py-3 px-5 rounded-lg shadow transition"
-        >
-          <span>View Details</span>
-          <ArrowUpRight className="w-3.5 h-3.5" />
-        </Link>
+        {isExpired ? (
+          <Link
+            to={`/jobs/${job.id}`}
+            className="w-full inline-flex items-center justify-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-500 border border-slate-200 text-xs font-bold py-3 px-5 rounded-lg transition"
+          >
+            <span>Position Closed (View)</span>
+            <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
+          </Link>
+        ) : (
+          <Link
+            to={`/jobs/${job.id}`}
+            className="w-full inline-flex items-center justify-center gap-1 bg-[#003366] hover:bg-[#002244] text-white text-xs font-bold py-3 px-5 rounded-lg shadow transition"
+          >
+            <span>View Details</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </Link>
+        )}
       </div>
     </div>
   )
