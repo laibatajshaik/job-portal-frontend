@@ -476,6 +476,53 @@ function AdminDashboard() {
         )}
 
         {}
+        {/* Visual Pipeline Funnel & Distribution Bar */}
+        <section className="bg-white rounded-xl border border-[#0066FF]/35 p-6 shadow-sm space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-100 pb-3">
+            <div>
+              <h3 className="text-sm font-black text-[#003366] uppercase tracking-wider">Candidate Recruitment Pipeline Funnel</h3>
+              <p className="text-[10px] text-slate-400 font-bold uppercase mt-0.5">Real-time status ratio of all submissions</p>
+            </div>
+            <div className="flex items-center gap-3 text-[10px] font-bold">
+              <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-amber-400 block" /> Applied</span>
+              <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-blue-500 block" /> Interviewing</span>
+              <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-emerald-500 block" /> Selected</span>
+              <span className="flex items-center gap-1"><span className="w-2.5 h-2.5 rounded-full bg-rose-500 block" /> Rejected</span>
+            </div>
+          </div>
+
+          {/* Dynamic Segmented Bar */}
+          {(() => {
+            const pending = applications.filter(a => a.status === 'Pending' || a.status === 'Applied').length;
+            const interviewing = applications.filter(a => a.status === 'Interviewing').length;
+            const selected = applications.filter(a => a.status === 'Shortlisted' || a.status === 'Selected').length;
+            const rejected = applications.filter(a => a.status === 'Rejected').length;
+            const total = pending + interviewing + selected + rejected || 1;
+
+            const pctPending = ((pending / total) * 100).toFixed(0);
+            const pctInterviewing = ((interviewing / total) * 100).toFixed(0);
+            const pctSelected = ((selected / total) * 100).toFixed(0);
+            const pctRejected = ((rejected / total) * 100).toFixed(0);
+
+            return (
+              <div className="space-y-2">
+                <div className="h-4 w-full rounded-full bg-slate-100 flex overflow-hidden border border-slate-200/50 shadow-inner">
+                  {pending > 0 && <div className="bg-amber-400 transition-all duration-300 hover:opacity-90 cursor-help" style={{ width: `${pctPending}%` }} title={`Applied: ${pending}`} />}
+                  {interviewing > 0 && <div className="bg-blue-500 transition-all duration-300 hover:opacity-90 cursor-help" style={{ width: `${pctInterviewing}%` }} title={`Interviewing: ${interviewing}`} />}
+                  {selected > 0 && <div className="bg-emerald-500 transition-all duration-300 hover:opacity-90 cursor-help" style={{ width: `${pctSelected}%` }} title={`Selected: ${selected}`} />}
+                  {rejected > 0 && <div className="bg-rose-500 transition-all duration-300 hover:opacity-90 cursor-help" style={{ width: `${pctRejected}%` }} title={`Rejected: ${rejected}`} />}
+                </div>
+                <div className="grid grid-cols-4 gap-2 text-[10px] font-bold text-center text-slate-500">
+                  <div>Applied: <span className="text-[#003366] font-black">{pctPending}%</span></div>
+                  <div>Interviewing: <span className="text-[#003366] font-black">{pctInterviewing}%</span></div>
+                  <div>Selected: <span className="text-[#003366] font-black">{pctSelected}%</span></div>
+                  <div>Rejected: <span className="text-[#003366] font-black">{pctRejected}%</span></div>
+                </div>
+              </div>
+            );
+          })()}
+        </section>
+
         <section className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
           
           {}
