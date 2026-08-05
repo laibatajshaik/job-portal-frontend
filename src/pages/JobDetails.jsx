@@ -80,10 +80,10 @@ function JobDetails() {
     return `₹${strSal}`
   }
 
-  const isExpired = job.expiry_date && new Date(job.expiry_date) < new Date(new Date().setHours(0,0,0,0))
-
   if (loading) return <Loader />
   if (!job) return <p className="text-center mt-10">Job not found</p>
+
+  const isExpired = job.expiry_date && new Date(job.expiry_date) < new Date(new Date().setHours(0,0,0,0))
 
   return (
     <div className="min-h-screen bg-[#F4F7FC] py-10 px-4 sm:px-6 lg:px-8">
