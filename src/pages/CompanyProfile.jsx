@@ -74,7 +74,7 @@ function CompanyProfile() {
 
   const handleLogout = () => {
     logout()
-    navigate('/login')
+    navigate('/')
   }
 
   if (loading && !companyName) return <Loader />

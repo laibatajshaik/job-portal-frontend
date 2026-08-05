@@ -54,7 +54,7 @@ function JobPosting() {
 
   const handleLogout = () => {
     logout()
-    navigate('/login')
+    navigate('/')
   }
 
   return (

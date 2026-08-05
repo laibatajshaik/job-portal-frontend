@@ -121,7 +121,7 @@ function UserDashboard() {
 
   const handleLogout = () => {
     logout()
-    navigate('/login')
+    navigate('/')
   }
 
   const getFilteredApplications = () => {
