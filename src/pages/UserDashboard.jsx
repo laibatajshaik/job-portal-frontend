@@ -41,6 +41,30 @@ const formatLocalTime = (isoString) => {
   }
 };
 
+const getSkillsForApp = (app) => {
+  let skillList = [];
+  if (app.skills) {
+    skillList = app.skills.split(',').map(s => s.trim());
+  } else {
+    const title = (app.job_title || '').toLowerCase();
+    if (title.includes('front')) {
+      skillList = ['React.js', 'JavaScript', 'HTML/CSS', 'TailwindCSS', 'Redux Toolkit', 'TypeScript'];
+    } else if (title.includes('python') || title.includes('stack')) {
+      skillList = ['Python', 'FastAPI', 'React', 'PostgreSQL', 'Docker', 'REST APIs'];
+    } else if (title.includes('design') || title.includes('ux')) {
+      skillList = ['Figma', 'UI Design', 'Prototyping', 'Wireframing', 'User Research', 'Design Systems'];
+    } else if (title.includes('data')) {
+      skillList = ['SQL', 'Python', 'Excel', 'Tableau', 'PowerBI', 'Statistics'];
+    } else {
+      skillList = ['Git', 'Problem Solving', 'Communication', 'Teamwork', 'Agile'];
+    }
+  }
+  const splitIndex = Math.max(1, Math.floor(skillList.length * 0.7));
+  const matched = skillList.slice(0, splitIndex);
+  const missing = skillList.slice(splitIndex);
+  return { matched, missing };
+};
+
 function UserDashboard() {
   const { user, logout } = useContext(AuthContext)
   const navigate = useNavigate()
@@ -424,53 +448,6 @@ function UserDashboard() {
                         </div>
                       </div>
 
-                      <div className="py-2 border-t border-slate-100 mt-2">
-                        <div className="flex items-center justify-between max-w-lg mx-auto relative pt-4">
-                          <div className="absolute top-7 left-[10%] right-[10%] h-0.5 bg-slate-200 -z-10" />
-                          <div 
-                            className="absolute top-7 left-[10%] h-0.5 bg-[#0066FF] -z-10 transition-all duration-300" 
-                            style={{ 
-                              width: app.status === 'Interviewing' ? '40%' : (app.status === 'Shortlisted' || app.status === 'Selected') ? '80%' : '0%' 
-                            }} 
-                          />
-
-                          <div className="flex flex-col items-center gap-1.5">
-                            <div className="w-6 h-6 rounded-full bg-[#0066FF] text-white flex items-center justify-center text-[10px] font-black shadow-md shadow-[#0066FF]/25">1</div>
-                            <span className="text-[10px] font-bold text-[#003366]">Applied</span>
-                          </div>
-
-                          <div className="flex flex-col items-center gap-1.5">
-                            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black shadow transition-all duration-300 ${
-                              app.status === 'Interviewing' || app.status === 'Shortlisted' || app.status === 'Selected'
-                                ? 'bg-[#0066FF] text-white shadow-md shadow-[#0066FF]/25'
-                                : 'bg-white border-2 border-slate-200 text-slate-400'
-                            }`}>2</div>
-                            <span className={`text-[10px] font-bold ${
-                              app.status === 'Interviewing' || app.status === 'Shortlisted' || app.status === 'Selected'
-                                ? 'text-[#003366]'
-                                : 'text-slate-400'
-                            }`}>Interview</span>
-                          </div>
-
-                          <div className="flex flex-col items-center gap-1.5">
-                            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black shadow transition-all duration-300 ${
-                              app.status === 'Shortlisted' || app.status === 'Selected'
-                                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/25'
-                                : app.status === 'Rejected'
-                                ? 'bg-rose-600 text-white shadow-md shadow-rose-600/25'
-                                : 'bg-white border-2 border-slate-200 text-slate-400'
-                            }`}>{app.status === 'Rejected' ? '✗' : '3'}</div>
-                            <span className={`text-[10px] font-bold ${
-                              app.status === 'Shortlisted' || app.status === 'Selected'
-                                ? 'text-emerald-700'
-                                : app.status === 'Rejected'
-                                ? 'text-rose-700'
-                                : 'text-slate-400'
-                            }`}>{app.status === 'Rejected' ? 'Rejected' : 'Selected'}</span>
-                          </div>
-                        </div>
-                      </div>
-
                       {app.status === 'Interviewing' && (
                         <div className="bg-[#0066FF]/5 border border-[#0066FF]/20 rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 mt-2">
                           <div className="flex items-center gap-3">
@@ -494,8 +471,6 @@ function UserDashboard() {
                         </div>
                       )}
 
-
-
                       <div className="border-t border-slate-100 pt-3 mt-2 text-left">
                         <details className="group">
                           <summary className="text-[11px] font-bold text-[#0066FF] hover:underline cursor-pointer list-none flex items-center gap-1 select-none">
@@ -503,24 +478,31 @@ function UserDashboard() {
                             <span>View ATS Skill Match Details</span>
                           </summary>
                           
-                          <div className="mt-3 bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2">
-                            <div className="flex flex-wrap items-center gap-1.5">
-                              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mr-2">Matched Skills:</span>
-                              {['React.js', 'JavaScript', 'HTML/CSS', 'TailwindCSS'].map((s, i) => (
-                                <span key={i} className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-0.5">
-                                  ✓ {s}
-                                </span>
-                              ))}
-                            </div>
-                            <div className="flex flex-wrap items-center gap-1.5 pt-1.5 border-t border-dashed border-slate-200">
-                              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mr-2">Missing Skills:</span>
-                              {['Redux Toolkit', 'TypeScript'].map((s, i) => (
-                                <span key={i} className="bg-slate-100 text-slate-600 border border-slate-200 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-0.5">
-                                  ⚠ {s}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
+                          {(() => {
+                            const { matched, missing } = getSkillsForApp(app);
+                            return (
+                              <div className="mt-3 bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2">
+                                <div className="flex flex-wrap items-center gap-1.5">
+                                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mr-2">Matched Skills:</span>
+                                  {matched.map((s, i) => (
+                                    <span key={i} className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-0.5">
+                                      ✓ {s}
+                                    </span>
+                                  ))}
+                                </div>
+                                {missing.length > 0 && (
+                                  <div className="flex flex-wrap items-center gap-1.5 pt-1.5 border-t border-dashed border-slate-200">
+                                    <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mr-2">Missing Skills:</span>
+                                    {missing.map((s, i) => (
+                                      <span key={i} className="bg-slate-100 text-slate-600 border border-slate-200 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-0.5">
+                                        ⚠ {s}
+                                      </span>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })()}
                         </details>
                       </div>
 
