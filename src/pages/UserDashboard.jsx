@@ -217,7 +217,7 @@ function UserDashboard() {
             <div className="space-y-1.5">
               <span className="text-slate-400 block uppercase tracking-wider text-[10px]">Filter by Step</span>
               <div className="flex flex-wrap gap-1">
-                {['All', 'Applied', 'Selected'].map(f => (
+                {['All', 'Applied', 'Interviewing', 'Selected'].map(f => (
                   <button
                     key={f}
                     onClick={() => setActiveStepFilter(f)}
@@ -236,7 +236,7 @@ function UserDashboard() {
         </section>
 
         {}
-        <section className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <section className="grid grid-cols-2 lg:grid-cols-5 gap-3">
           
           <div className="bg-white rounded-lg p-3 border border-[#0066FF]/20 shadow-sm flex items-center gap-3">
             <div className="w-8 h-8 rounded bg-[#F4F7FC] text-[#003366] flex items-center justify-center">
@@ -256,6 +256,18 @@ function UserDashboard() {
               <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Selected</p>
               <p className="text-sm font-black text-[#003366]">
                 {applications.filter(a => a.status === 'Shortlisted' || a.status === 'Selected').length}
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-white rounded-lg p-3 border border-[#0066FF]/20 shadow-sm flex items-center gap-3">
+            <div className="w-8 h-8 rounded bg-[#F4F7FC] text-blue-600 flex items-center justify-center">
+              <Clock className="w-4 h-4 text-blue-600" />
+            </div>
+            <div>
+              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Interviewing</p>
+              <p className="text-sm font-black text-[#003366]">
+                {applications.filter(a => a.status === 'Interviewing').length}
               </p>
             </div>
           </div>
