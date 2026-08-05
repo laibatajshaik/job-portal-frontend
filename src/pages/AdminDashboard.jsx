@@ -480,7 +480,7 @@ function AdminDashboard() {
         <section className="bg-white rounded-xl border border-[#0066FF]/35 p-6 shadow-sm space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-100 pb-3">
             <div>
-              <h3 className="text-sm font-black text-[#003366] uppercase tracking-wider">Candidate Recruitment Pipeline Funnel</h3>
+              <h3 className="text-sm font-black text-[#003366] uppercase tracking-wider">Candidate Recruitment</h3>
               <p className="text-[10px] text-slate-400 font-bold uppercase mt-0.5">Real-time status ratio of all submissions</p>
             </div>
             <div className="flex items-center gap-3 text-[10px] font-bold">
