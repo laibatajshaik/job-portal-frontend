@@ -186,7 +186,7 @@ function Navbar() {
               aria-label="Secure Admin System Access"
               className="p-2 rounded-full text-slate-400 hover:text-[#0066FF] hover:bg-slate-50 transition"
             >
-              <ShieldCheck className="w-4.5 h-4.5" />
+              <ShieldCheck className="w-5 h-5" />
             </Link>
           )}
 
@@ -196,7 +196,7 @@ function Navbar() {
             className="p-2 rounded-full text-slate-400 hover:text-[#0066FF] hover:bg-slate-50 transition flex items-center justify-center cursor-pointer"
             title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
           >
-            {theme === 'light' ? <Moon className="w-4.5 h-4.5" /> : <Sun className="w-4.5 h-4.5 text-amber-500" />}
+            {theme === 'light' ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5 text-amber-550" />}
           </button>
           
         </div>

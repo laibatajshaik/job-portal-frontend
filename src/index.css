@@ -34,28 +34,22 @@
     color: var(--text-body) !important;
   }
   
-  .dark .bg-[#F4F7FC],
-  .dark .bg-[#F4F7FC]/50,
-  .dark .bg-[#F4F7FC]/70,
-  .dark .bg-[#F4F7FC]/20 {
+  .dark [class*="bg-[#F4F7FC]"] {
     background-color: var(--bg-input) !important;
   }
 
-  .dark .bg-[#003366] {
+  .dark [class*="bg-[#003366]"] {
     background-color: #1e293b !important;
     border-color: #475569 !important;
   }
   
-  .dark .border-[#0066FF]/20,
-  .dark .border-[#0066FF]/15,
-  .dark .border-[#0066FF]/35,
-  .dark .border-[#0066FF]/30,
+  .dark [class*="border-[#0066FF]"],
   .dark .border-slate-100,
-  .dark .border-slate-200/50 {
+  .dark [class*="border-slate-200"] {
     border-color: var(--border-card) !important;
   }
   
-  .dark .text-[#003366],
+  .dark [class*="text-[#003366]"],
   .dark .text-slate-800,
   .dark .text-slate-700 {
     color: var(--text-main) !important;
