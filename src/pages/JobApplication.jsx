@@ -1,15 +1,33 @@
-import { useState } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import api from '../api/axios'
+import { AuthContext } from '../context/AuthContext'
 import { ArrowLeft, CheckCircle2, AlertCircle, Send, FileText } from 'lucide-react'
 
 function JobApplication() {
   const { id } = useParams()
+  const { user } = useContext(AuthContext)
   const navigate = useNavigate()
   const [resumeUrl, setResumeUrl] = useState('')
   const [coverLetter, setCoverLetter] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  const [job, setJob] = useState(null)
+
+  useEffect(() => {
+    fetchJob()
+  }, [id])
+
+  const fetchJob = async () => {
+    try {
+      const res = await api.get(`/jobs/${id}`)
+      if (res.data && res.data.job) {
+        setJob(res.data.job)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -20,6 +38,23 @@ function JobApplication() {
         resume_url: resumeUrl,
         cover_letter: coverLetter
       })
+
+      // Save to localStorage under user's email
+      const localAppsKey = `apps_${user?.email || 'guest'}`
+      const existing = JSON.parse(localStorage.getItem(localAppsKey) || '[]')
+      const newLocalApp = {
+        id: Date.now(),
+        job_id: parseInt(id, 10),
+        job_title: job?.title || 'Position',
+        company_name: job?.company_name || 'Razorpay',
+        applied_at: new Date().toISOString(),
+        status: 'Pending',
+        ats_score: 75,
+        resume_url: resumeUrl,
+        cover_letter: coverLetter
+      }
+      localStorage.setItem(localAppsKey, JSON.stringify([...existing, newLocalApp]))
+
       setSuccess('Application submitted successfully! Redirecting...')
       setTimeout(() => navigate('/user/dashboard'), 1500)
     } catch (err) {

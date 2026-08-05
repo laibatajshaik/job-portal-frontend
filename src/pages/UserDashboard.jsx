@@ -64,11 +64,37 @@ function UserDashboard() {
     setLoading(true)
     try {
       const res = await api.get('/applications/my-applications')
-      if (Array.isArray(res.data)) {
-        setApplications(res.data)
+      let backendApps = Array.isArray(res.data) ? res.data : []
+      
+      const localAppsKey = `apps_${user?.email || 'guest'}`
+      const localApps = JSON.parse(localStorage.getItem(localAppsKey) || '[]')
+      
+      if (backendApps.length < localApps.length) {
+        const backendJobIds = new Set(backendApps.map(a => a.job_id))
+        const missingApps = localApps.filter(la => !backendJobIds.has(la.job_id))
+        
+        for (const app of missingApps) {
+          try {
+            await api.post('/applications/', {
+              job_id: app.job_id,
+              resume_url: app.resume_url,
+              cover_letter: app.cover_letter
+            })
+          } catch (err) {
+            console.warn("Failed to sync missing app to backend:", err)
+          }
+        }
+        
+        const finalRes = await api.get('/applications/my-applications')
+        backendApps = Array.isArray(finalRes.data) ? finalRes.data : backendApps
       }
+      
+      localStorage.setItem(localAppsKey, JSON.stringify(backendApps))
+      setApplications(backendApps)
     } catch (err) {
-      console.log(err)
+      console.warn(err)
+      const localAppsKey = `apps_${user?.email || 'guest'}`
+      setApplications(JSON.parse(localStorage.getItem(localAppsKey) || '[]'))
     }
     setLoading(false)
   }
