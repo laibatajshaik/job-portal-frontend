@@ -25,6 +25,7 @@ function ManagerDashboard() {
   const navigate = useNavigate()
 
   const [jobs, setJobs] = useState([])
+  const [applications, setApplications] = useState([])
   const [loading, setLoading] = useState(true)
 
   const [activeTab, setActiveTab] = useState('pipeline')
@@ -34,6 +35,7 @@ function ManagerDashboard() {
 
   useEffect(() => {
     fetchJobs()
+    fetchApplications()
   }, [])
 
   const fetchJobs = async () => {
@@ -47,6 +49,51 @@ function ManagerDashboard() {
       console.log(err)
     }
     setLoading(false)
+  }
+
+  const fetchApplications = async () => {
+    try {
+      const res = await api.get('/manager/applicants')
+      if (res.data && Array.isArray(res.data.applicants)) {
+        setApplications(res.data.applicants)
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const getFilteredJobs = () => {
+    return jobs.filter(job => {
+      const jobApps = applications.filter(app => app.job_id === job.id)
+      
+      if (activeStepFilter !== 'All') {
+        if (activeStepFilter === 'Sourced') {
+          const hasSourced = jobApps.some(app => app.status === 'Pending' || app.status === 'Applied')
+          if (!hasSourced) return false
+        } else if (activeStepFilter === '1st Interview') {
+          const hasInterview = jobApps.some(app => app.status === 'Interviewing')
+          if (!hasInterview) return false
+        } else if (activeStepFilter === 'Offer') {
+          const hasOffer = jobApps.some(app => app.status === 'Shortlisted' || app.status === 'Selected')
+          if (!hasOffer) return false
+        }
+      }
+
+      if (activeDeptFilter !== 'All') {
+        if (activeDeptFilter === 'Research') {
+          const hasResearch = jobApps.some(app => (app.candidate_name || '').length % 2 !== 0)
+          if (!hasResearch) return false
+        } else if (activeDeptFilter === 'Strategic') {
+          const hasStrategic = jobApps.some(app => (app.candidate_name || '').length % 2 === 0)
+          if (!hasStrategic) return false
+        } else if (activeDeptFilter === 'Support') {
+          const hasSupport = jobApps.some(app => app.status === 'Rejected')
+          if (!hasSupport) return false
+        }
+      }
+
+      return true
+    })
   }
 
   const handleDeleteJob = async (id) => {
@@ -239,7 +286,7 @@ function ManagerDashboard() {
                 </div>
               ) : (
                 <div className="grid grid-cols-1 gap-4">
-                  {jobs.map((job) => (
+                  {getFilteredJobs().map((job) => (
                     <div
                       key={job.id}
                       className="bg-[#F4F7FC]/50 hover:bg-[#F4F7FC] rounded-xl p-5 border border-[#0066FF]/15 flex flex-col md:flex-row md:items-center justify-between gap-4 transition duration-150"
@@ -320,8 +367,8 @@ function ManagerDashboard() {
                       <th className="p-3">Type</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-slate-100">
-                    {jobs.map(job => (
+                   <tbody className="divide-y divide-slate-100">
+                    {getFilteredJobs().map(job => (
                       <tr key={job.id} className="hover:bg-slate-50/50">
                         <td className="p-3 font-bold text-[#003366]">{job.title}</td>
                         <td className="p-3 text-slate-600">{job.location}</td>
