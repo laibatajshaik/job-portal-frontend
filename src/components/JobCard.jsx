@@ -7,6 +7,22 @@ function JobCard({ job }) {
   const isFullTime = (job.job_type || '').toLowerCase().includes('full')
   const isExpired = job.expiry_date && new Date(job.expiry_date) < new Date(new Date().setHours(0,0,0,0))
 
+  const formatSalary = (salary) => {
+    if (!salary) return '₹6.5 LPA'
+    const salStr = String(salary).trim()
+    if (salStr.toLowerCase().includes('lpa')) {
+      return salStr.startsWith('₹') ? salStr : `₹${salStr}`
+    }
+    const num = parseInt(salStr.replace(/[^0-9]/g, ''), 10)
+    if (isNaN(num)) return salStr
+    if (num >= 100000) {
+      const lpa = (num / 100000).toFixed(1)
+      const formatted = lpa.endsWith('.0') ? lpa.slice(0, -2) : lpa
+      return `₹${formatted} LPA`
+    }
+    return `₹${num}`
+  }
+
   return (
     <div className="bg-white border border-[#0066FF]/20 hover:border-[#0066FF]/50 rounded-xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col justify-between h-full">
       <div className="space-y-4">
@@ -63,7 +79,7 @@ function JobCard({ job }) {
           </div>
 
           <div className="text-[#003366] font-extrabold bg-[#0066FF]/10 px-3 py-1 rounded border border-[#0066FF]/35">
-            <span>{job.salary || '₹9,00,000'}</span>
+            <span>{formatSalary(job.salary)}</span>
           </div>
         </div>
       </div>

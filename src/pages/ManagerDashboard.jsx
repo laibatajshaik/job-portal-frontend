@@ -62,6 +62,22 @@ function ManagerDashboard() {
     }
   }
 
+  const formatSalary = (salary) => {
+    if (!salary) return '₹6.5 LPA'
+    const salStr = String(salary).trim()
+    if (salStr.toLowerCase().includes('lpa')) {
+      return salStr.startsWith('₹') ? salStr : `₹${salStr}`
+    }
+    const num = parseInt(salStr.replace(/[^0-9]/g, ''), 10)
+    if (isNaN(num)) return salStr
+    if (num >= 100000) {
+      const lpa = (num / 100000).toFixed(1)
+      const formatted = lpa.endsWith('.0') ? lpa.slice(0, -2) : lpa
+      return `₹${formatted} LPA`
+    }
+    return `₹${num}`
+  }
+
   const getFilteredJobs = () => {
     return jobs.filter(job => {
       const jobApps = applications.filter(app => app.job_id === job.id)
@@ -304,7 +320,7 @@ function ManagerDashboard() {
                           <div className="flex items-center gap-3 text-[11px] text-slate-600 font-semibold mt-0.5">
                             <span className="flex items-center gap-1"><MapPin className="w-3.5 h-3.5 text-slate-400" /> {job.location || 'Remote'}</span>
                             <span className="text-slate-300">|</span>
-                            <span className="flex items-center gap-1"><DollarSign className="w-3.5 h-3.5 text-slate-400" /> {job.salary || '₹9,00,000'}</span>
+                             <span className="flex items-center gap-1"><DollarSign className="w-3.5 h-3.5 text-slate-400" /> {formatSalary(job.salary)}</span>
                           </div>
                         </div>
 
@@ -372,7 +388,7 @@ function ManagerDashboard() {
                       <tr key={job.id} className="hover:bg-slate-50/50">
                         <td className="p-3 font-bold text-[#003366]">{job.title}</td>
                         <td className="p-3 text-slate-600">{job.location}</td>
-                        <td className="p-3 text-slate-600">{job.salary}</td>
+                         <td className="p-3 text-slate-600">{formatSalary(job.salary)}</td>
                         <td className="p-3 text-slate-600">{job.job_type}</td>
                       </tr>
                     ))}

@@ -72,12 +72,19 @@ function JobDetails() {
   }
 
   const formatSalary = (salary) => {
-    if (!salary) return '₹90,000'
-    if (typeof salary === 'number') return `₹${salary.toLocaleString('en-IN')}`
-    const strSal = String(salary).trim()
-    if (strSal.startsWith('₹')) return strSal
-    if (strSal.startsWith('$')) return `₹${strSal.substring(1)}`
-    return `₹${strSal}`
+    if (!salary) return '₹6.5 LPA'
+    const salStr = String(salary).trim()
+    if (salStr.toLowerCase().includes('lpa')) {
+      return salStr.startsWith('₹') ? salStr : `₹${salStr}`
+    }
+    const num = parseInt(salStr.replace(/[^0-9]/g, ''), 10)
+    if (isNaN(num)) return salStr
+    if (num >= 100000) {
+      const lpa = (num / 100000).toFixed(1)
+      const formatted = lpa.endsWith('.0') ? lpa.slice(0, -2) : lpa
+      return `₹${formatted} LPA`
+    }
+    return `₹${num}`
   }
 
   if (loading) return <Loader />
