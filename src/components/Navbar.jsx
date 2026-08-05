@@ -1,10 +1,12 @@
 import { useContext, useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { AuthContext } from '../context/AuthContext'
-import { Menu, X, Briefcase, User, LogOut, ShieldCheck, PlusCircle } from 'lucide-react' 
+import { ThemeContext } from '../context/ThemeContext'
+import { Menu, X, Briefcase, User, LogOut, ShieldCheck, PlusCircle, Sun, Moon } from 'lucide-react' 
 
 function Navbar() {
   const { user, logout } = useContext(AuthContext)
+  const { theme, toggleTheme } = useContext(ThemeContext)
   const navigate = useNavigate()
   const location = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
@@ -187,6 +189,15 @@ function Navbar() {
               <ShieldCheck className="w-4.5 h-4.5" />
             </Link>
           )}
+
+          {/* Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full text-slate-400 hover:text-[#0066FF] hover:bg-slate-50 transition flex items-center justify-center cursor-pointer"
+            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+          >
+            {theme === 'light' ? <Moon className="w-4.5 h-4.5" /> : <Sun className="w-4.5 h-4.5 text-amber-500" />}
+          </button>
           
         </div>
 
@@ -219,6 +230,17 @@ function Navbar() {
     >
       Find Jobs
     </Link>
+
+    <button
+      onClick={() => {
+        toggleTheme()
+        setMenuOpen(false)
+      }}
+      className="text-left font-medium flex items-center gap-1.5"
+    >
+      {theme === 'light' ? <Moon className="w-4 h-4 text-slate-400" /> : <Sun className="w-4 h-4 text-amber-500" />}
+      <span>{theme === 'light' ? 'Dark Mode' : 'Light Mode'}</span>
+    </button>
   </div>
 )}
 
