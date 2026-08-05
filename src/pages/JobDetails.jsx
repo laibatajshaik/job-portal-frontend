@@ -129,7 +129,7 @@ function JobDetails() {
           </div>
 
           {}
-          <div className="grid grid-cols-2 gap-4 bg-slate-50 p-4 rounded-xl border border-[#0066FF]/15">
+          <div className="grid grid-cols-3 gap-4 bg-slate-50 p-4 rounded-xl border border-[#0066FF]/15">
             <div>
               <p className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Offered Salary</p>
               <p className="text-sm font-black text-[#003366] mt-0.5">{formatSalary(job.salary)}</p>
@@ -137,6 +137,10 @@ function JobDetails() {
             <div>
               <p className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Job Type</p>
               <p className="text-sm font-black text-slate-800 mt-0.5">{job.job_type || 'Full Time'}</p>
+            </div>
+            <div>
+              <p className="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Deadline</p>
+              <p className="text-sm font-black text-rose-600 mt-0.5">{job.expiry_date || 'No Limit'}</p>
             </div>
           </div>
 

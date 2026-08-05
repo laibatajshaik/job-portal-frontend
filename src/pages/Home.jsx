@@ -11,7 +11,8 @@ const defaultDemoJobs = [
     location: 'Bengaluru, KA',
     salary: '₹9,00,000',
     job_type: 'Full Time',
-    company_name: 'Shnoor Technologies'
+    company_name: 'Shnoor Technologies',
+    expiry_date: '2026-08-31'
   },
   {
     id: 1,
@@ -20,7 +21,8 @@ const defaultDemoJobs = [
     location: 'Mumbai, MH',
     salary: '₹11,50,000',
     job_type: 'Full Time',
-    company_name: 'Shnoor International'
+    company_name: 'Shnoor International',
+    expiry_date: '2026-08-31'
   },
   {
     id: 2,
@@ -29,7 +31,8 @@ const defaultDemoJobs = [
     location: 'Hyderabad, TS',
     salary: '₹8,50,000',
     job_type: 'Contract',
-    company_name: 'TechSoft'
+    company_name: 'TechSoft',
+    expiry_date: '2026-08-31'
   },
   {
     id: 3,
@@ -38,7 +41,8 @@ const defaultDemoJobs = [
     location: 'Pune, MH',
     salary: '₹8,00,000',
     job_type: 'Full Time',
-    company_name: 'Analytics Hub'
+    company_name: 'Analytics Hub',
+    expiry_date: '2026-08-31'
   }
 ]
 

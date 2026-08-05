@@ -50,7 +50,7 @@ function JobCard({ job }) {
         {job.expiry_date && (
           <div className="flex items-center gap-1.5 text-xs text-slate-500 font-bold mt-1">
             <Calendar className="w-3.5 h-3.5 text-[#0066FF]" />
-            <span>Expires: {job.expiry_date}</span>
+            <span>Deadline: {job.expiry_date}</span>
           </div>
         )}
 

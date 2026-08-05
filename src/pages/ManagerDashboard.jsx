@@ -316,7 +316,7 @@ function ManagerDashboard() {
                           {job.expiry_date && (
                             <div className="flex items-center gap-1">
                               <Calendar className="w-3.5 h-3.5 text-slate-400" />
-                              <span>Expires: {job.expiry_date}</span>
+                              <span>Deadline: {job.expiry_date}</span>
                             </div>
                           )}
                         </div>
