@@ -1,5 +1,19 @@
-html {
-  scroll-behavior: smooth;
+:root {
+  --bg-body: #F4F7FC;
+  --bg-card: #ffffff;
+  --text-main: #003366;
+  --text-body: #334155;
+  --border-card: rgba(0, 102, 255, 0.15);
+  --bg-input: #F4F7FC;
+}
+
+.dark {
+  --bg-body: #0f172a;
+  --bg-card: #1e293b;
+  --text-main: #f8fafc;
+  --text-body: #cbd5e1;
+  --border-card: #334155;
+  --bg-input: #334155;
 }
 
 @tailwind base;
@@ -9,9 +23,61 @@ html {
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #F8FAFC;
-    color: #1E293B;
+    background-color: var(--bg-body) !important;
+    color: var(--text-body) !important;
     overflow-x: hidden;
+  }
+
+  /* Apply dark mode overrides for standard layout components */
+  .dark .bg-white {
+    background-color: var(--bg-card) !important;
+    color: var(--text-body) !important;
+  }
+  
+  .dark .bg-[#F4F7FC],
+  .dark .bg-[#F4F7FC]/50,
+  .dark .bg-[#F4F7FC]/70,
+  .dark .bg-[#F4F7FC]/20 {
+    background-color: var(--bg-input) !important;
+  }
+
+  .dark .bg-[#003366] {
+    background-color: #1e293b !important;
+    border-color: #475569 !important;
+  }
+  
+  .dark .border-[#0066FF]/20,
+  .dark .border-[#0066FF]/15,
+  .dark .border-[#0066FF]/35,
+  .dark .border-[#0066FF]/30,
+  .dark .border-slate-100,
+  .dark .border-slate-200/50 {
+    border-color: var(--border-card) !important;
+  }
+  
+  .dark .text-[#003366],
+  .dark .text-slate-800,
+  .dark .text-slate-700 {
+    color: var(--text-main) !important;
+  }
+  
+  .dark .text-slate-650,
+  .dark .text-slate-600,
+  .dark .text-slate-500 {
+    color: var(--text-body) !important;
+  }
+
+  .dark input, 
+  .dark textarea,
+  .dark select {
+    background-color: var(--bg-input) !important;
+    color: var(--text-main) !important;
+    border-color: var(--border-card) !important;
+  }
+  
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: #64748b !important;
   }
 }
 
