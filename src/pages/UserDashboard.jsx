@@ -363,69 +363,188 @@ function UserDashboard() {
                   {filteredApplications.map((app) => (
                     <div
                       key={app.id}
-                      className="bg-[#F4F7FC]/50 hover:bg-[#F4F7FC] rounded-xl p-5 border border-[#0066FF]/15 flex flex-col sm:flex-row sm:items-center justify-between gap-4 transition duration-150"
+                      className="bg-white rounded-xl p-6 border border-[#0066FF]/20 shadow-sm flex flex-col gap-4.5 hover:shadow-md transition-all duration-200"
                     >
-                      <div className="space-y-2">
-                        <div>
-                          <h4 className="font-extrabold text-sm text-[#003366]">{app.job_title}</h4>
-                          <div className="flex items-center gap-1 text-[11px] text-slate-500 font-semibold mt-0.5">
-                            <Building className="w-3.5 h-3.5 text-slate-400" />
-                            <span>{app.company_name || 'Demo Company'}</span>
+                      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                        <div className="space-y-2">
+                          <div>
+                            <h4 className="font-extrabold text-base text-[#003366]">{app.job_title}</h4>
+                            <div className="flex items-center gap-1 text-[11px] text-slate-500 font-bold mt-0.5">
+                              <Building className="w-3.5 h-3.5 text-slate-400" />
+                              <span>{app.company_name || 'Demo Company'}</span>
+                            </div>
+                          </div>
+
+                          <div className="flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-500">
+                            <div className="flex items-center gap-1">
+                              <Clock className="w-3.5 h-3.5 text-slate-400" />
+                              <span>Applied: {formatLocalTime(app.applied_at)}</span>
+                            </div>
+                            <div className="flex items-center gap-1">
+                              <Award className="w-3.5 h-3.5 text-[#0066FF]" />
+                              <span>ATS Match: <b>{app.ats_score || 70}%</b></span>
+                            </div>
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-4 text-xs font-semibold text-slate-500">
-                          <div className="flex items-center gap-1">
-                            <Clock className="w-3.5 h-3.5 text-slate-400" />
-                            <span>Applied: {formatLocalTime(app.applied_at)}</span>
+                        <div className="flex items-center gap-2.5">
+                          <div>
+                            {app.status === 'Shortlisted' || app.status === 'Selected' ? (
+                              <span className="bg-emerald-50 text-emerald-700 border border-emerald-250 text-[10px] font-black uppercase tracking-wider px-3.5 py-1.5 rounded-full flex items-center gap-1">
+                                <CheckCircle className="w-3.5 h-3.5 text-emerald-600" />
+                                <span>Selected</span>
+                              </span>
+                            ) : app.status === 'Interviewing' ? (
+                              <span className="bg-blue-50 text-blue-700 border border-blue-250 text-[10px] font-black uppercase tracking-wider px-3.5 py-1.5 rounded-full flex items-center gap-1">
+                                <Clock className="w-3.5 h-3.5 text-blue-600" />
+                                <span>Interviewing</span>
+                              </span>
+                            ) : app.status === 'Rejected' ? (
+                              <span className="bg-rose-50 text-rose-700 border border-rose-250 text-[10px] font-black uppercase tracking-wider px-3.5 py-1.5 rounded-full flex items-center gap-1">
+                                <XCircle className="w-3.5 h-3.5 text-rose-600" />
+                                <span>Rejected</span>
+                              </span>
+                            ) : (
+                              <span className="bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-black uppercase tracking-wider px-3.5 py-1.5 rounded-full flex items-center gap-1">
+                                <Clock className="w-3.5 h-3.5 text-amber-600" />
+                                <span>Applied</span>
+                              </span>
+                            )}
                           </div>
-                          <div className="flex items-center gap-1">
-                            <Award className="w-3.5 h-3.5 text-[#0066FF]" />
-                            <span>ATS Match: <b>{app.ats_score || 70}%</b></span>
-                          </div>
-                        </div>
-                      </div>
 
-                      {/* Status & Actions */}
-                      <div className="flex items-center justify-between sm:justify-end gap-4 border-t sm:border-t-0 pt-3 sm:pt-0 border-slate-100">
-                        
-                        {/* Status Badge */}
-                        <div className="flex items-center gap-1.5">
-                          {app.status === 'Shortlisted' || app.status === 'Selected' ? (
-                            <span className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full flex items-center gap-1">
-                              <CheckCircle className="w-3.5 h-3.5 text-emerald-600" />
-                              <span>Selected</span>
-                            </span>
-                          ) : app.status === 'Interviewing' ? (
-                            <span className="bg-blue-50 text-blue-700 border border-blue-250 text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full flex items-center gap-1">
-                              <Clock className="w-3.5 h-3.5 text-blue-600" />
-                              <span>Interviewing</span>
-                            </span>
-                          ) : app.status === 'Rejected' ? (
-                            <span className="bg-rose-50 text-rose-700 border border-rose-200 text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full flex items-center gap-1">
-                              <XCircle className="w-3.5 h-3.5 text-rose-600" />
-                              <span>Rejected</span>
-                            </span>
-                          ) : (
-                            <span className="bg-amber-50 text-amber-700 border border-amber-200 text-[10px] font-black uppercase tracking-wider px-3 py-1 rounded-full flex items-center gap-1">
-                              <Clock className="w-3.5 h-3.5 text-amber-600" />
-                              <span>Applied</span>
-                            </span>
+                          {app.job_title !== 'Uploaded Resume' && app.job_id !== -1 && (
+                            <Link
+                              to={`/jobs/${app.job_id}`}
+                              className="bg-white hover:bg-slate-100 text-[#003366] border border-[#0066FF]/20 text-xs font-bold px-4 py-2.5 rounded-lg shadow-sm transition flex items-center gap-1"
+                            >
+                              <span>View spec</span>
+                              <ExternalLink className="w-3.5 h-3.5 text-[#0066FF]" />
+                            </Link>
                           )}
                         </div>
-
-                        {/* View Job Spec */}
-                        {app.job_title !== 'Uploaded Resume' && app.job_id !== -1 && (
-                          <Link
-                            to={`/jobs/${app.job_id}`}
-                            className="bg-white hover:bg-slate-100 text-[#003366] border border-[#0066FF]/20 text-xs font-bold px-4 py-2.5 rounded-lg shadow-sm transition flex items-center gap-1"
-                          >
-                            <span>View spec</span>
-                            <ExternalLink className="w-3.5 h-3.5 text-[#0066FF]" />
-                          </Link>
-                        )}
-
                       </div>
+
+                      <div className="py-2 border-t border-slate-100 mt-2">
+                        <div className="flex items-center justify-between max-w-lg mx-auto relative pt-4">
+                          <div className="absolute top-7 left-[10%] right-[10%] h-0.5 bg-slate-200 -z-10" />
+                          <div 
+                            className="absolute top-7 left-[10%] h-0.5 bg-[#0066FF] -z-10 transition-all duration-300" 
+                            style={{ 
+                              width: app.status === 'Interviewing' ? '40%' : (app.status === 'Shortlisted' || app.status === 'Selected') ? '80%' : '0%' 
+                            }} 
+                          />
+
+                          <div className="flex flex-col items-center gap-1.5">
+                            <div className="w-6 h-6 rounded-full bg-[#0066FF] text-white flex items-center justify-center text-[10px] font-black shadow-md shadow-[#0066FF]/25">1</div>
+                            <span className="text-[10px] font-bold text-[#003366]">Applied</span>
+                          </div>
+
+                          <div className="flex flex-col items-center gap-1.5">
+                            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black shadow transition-all duration-300 ${
+                              app.status === 'Interviewing' || app.status === 'Shortlisted' || app.status === 'Selected'
+                                ? 'bg-[#0066FF] text-white shadow-md shadow-[#0066FF]/25'
+                                : 'bg-white border-2 border-slate-200 text-slate-400'
+                            }`}>2</div>
+                            <span className={`text-[10px] font-bold ${
+                              app.status === 'Interviewing' || app.status === 'Shortlisted' || app.status === 'Selected'
+                                ? 'text-[#003366]'
+                                : 'text-slate-400'
+                            }`}>Interview</span>
+                          </div>
+
+                          <div className="flex flex-col items-center gap-1.5">
+                            <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-black shadow transition-all duration-300 ${
+                              app.status === 'Shortlisted' || app.status === 'Selected'
+                                ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/25'
+                                : app.status === 'Rejected'
+                                ? 'bg-rose-600 text-white shadow-md shadow-rose-600/25'
+                                : 'bg-white border-2 border-slate-200 text-slate-400'
+                            }`}>{app.status === 'Rejected' ? '✗' : '3'}</div>
+                            <span className={`text-[10px] font-bold ${
+                              app.status === 'Shortlisted' || app.status === 'Selected'
+                                ? 'text-emerald-700'
+                                : app.status === 'Rejected'
+                                ? 'text-rose-700'
+                                : 'text-slate-400'
+                            }`}>{app.status === 'Rejected' ? 'Rejected' : 'Selected'}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {app.status === 'Interviewing' && (
+                        <div className="bg-[#0066FF]/5 border border-[#0066FF]/20 rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 mt-2">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-lg bg-[#0066FF]/10 text-[#0066FF] flex items-center justify-center">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>
+                            </div>
+                            <div className="text-left">
+                              <p className="text-[11px] text-[#0066FF] font-black uppercase tracking-wider">Scheduled Interview</p>
+                              <p className="text-xs text-slate-800 font-extrabold mt-0.5">Aug 10, 2026 at 10:00 AM IST</p>
+                            </div>
+                          </div>
+                          <a 
+                            href="https://meet.google.com/abc-defg-hij" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="bg-[#0066FF] hover:bg-[#0055DD] text-white text-xs font-bold px-4 py-2 rounded-lg shadow-sm transition flex items-center gap-1.5"
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>
+                            <span>Join Virtual Room</span>
+                          </a>
+                        </div>
+                      )}
+
+                      {(app.status === 'Shortlisted' || app.status === 'Selected') && (
+                        <div className="bg-emerald-50/50 border border-emerald-200 rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 mt-2">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center">
+                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m.75 12 3 3m0 0 3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" /></svg>
+                            </div>
+                            <div className="text-left">
+                              <p className="text-[11px] text-emerald-700 font-black uppercase tracking-wider">Offer Issued Successfully</p>
+                              <p className="text-xs text-slate-800 font-extrabold mt-0.5">Congratulations on your selection!</p>
+                            </div>
+                          </div>
+                          <button 
+                            onClick={() => {
+                              alert(`Downloading Offer Letter for ${app.job_title} at ${app.company_name || 'Razorpay'}...\n\nThank you for choosing JobPortal!`);
+                            }}
+                            className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-lg shadow-sm transition flex items-center gap-1.5"
+                          >
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
+                            <span>Download Offer Letter</span>
+                          </button>
+                        </div>
+                      )}
+
+                      <div className="border-t border-slate-100 pt-3 mt-2 text-left">
+                        <details className="group">
+                          <summary className="text-[11px] font-bold text-[#0066FF] hover:underline cursor-pointer list-none flex items-center gap-1 select-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="w-3.5 h-3.5 transition-transform group-open:rotate-180"><path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" /></svg>
+                            <span>View ATS Skill Match Details</span>
+                          </summary>
+                          
+                          <div className="mt-3 bg-slate-50 p-4 rounded-xl border border-slate-100 space-y-2">
+                            <div className="flex flex-wrap items-center gap-1.5">
+                              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mr-2">Matched Skills:</span>
+                              {['React.js', 'JavaScript', 'HTML/CSS', 'TailwindCSS'].map((s, i) => (
+                                <span key={i} className="bg-emerald-50 text-emerald-700 border border-emerald-200 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-0.5">
+                                  ✓ {s}
+                                </span>
+                              ))}
+                            </div>
+                            <div className="flex flex-wrap items-center gap-1.5 pt-1.5 border-t border-dashed border-slate-200">
+                              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider block mr-2">Missing Skills:</span>
+                              {['Redux Toolkit', 'TypeScript'].map((s, i) => (
+                                <span key={i} className="bg-slate-100 text-slate-600 border border-slate-200 text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-0.5">
+                                  ⚠ {s}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </details>
+                      </div>
+
                     </div>
                   ))}
                 </div>
