@@ -494,28 +494,7 @@ function UserDashboard() {
                         </div>
                       )}
 
-                      {(app.status === 'Shortlisted' || app.status === 'Selected') && (
-                        <div className="bg-emerald-50/50 border border-emerald-200 rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 mt-2">
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m.75 12 3 3m0 0 3-3m-3 3v-6m-1.5-9H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" /></svg>
-                            </div>
-                            <div className="text-left">
-                              <p className="text-[11px] text-emerald-700 font-black uppercase tracking-wider">Offer Issued Successfully</p>
-                              <p className="text-xs text-slate-800 font-extrabold mt-0.5">Congratulations on your selection!</p>
-                            </div>
-                          </div>
-                          <button 
-                            onClick={() => {
-                              alert(`Downloading Offer Letter for ${app.job_title} at ${app.company_name || 'Razorpay'}...\n\nThank you for choosing JobPortal!`);
-                            }}
-                            className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-lg shadow-sm transition flex items-center gap-1.5"
-                          >
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2.5" stroke="currentColor" className="w-4 h-4"><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" /></svg>
-                            <span>Download Offer Letter</span>
-                          </button>
-                        </div>
-                      )}
+
 
                       <div className="border-t border-slate-100 pt-3 mt-2 text-left">
                         <details className="group">
