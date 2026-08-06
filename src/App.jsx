@@ -19,7 +19,6 @@ const JobApplication = lazy(() => import('./pages/JobApplication'))
 const UserDashboard = lazy(() => import('./pages/UserDashboard'))
 const ApplicationStatus = lazy(() => import('./pages/ApplicationStatus'))
 const ManagerDashboard = lazy(() => import('./pages/ManagerDashboard'))
-const CompanyProfile = lazy(() => import('./pages/CompanyProfile'))
 const JobPosting = lazy(() => import('./pages/JobPosting'))
 const ApplicantManagement = lazy(() => import('./pages/ApplicantManagement'))
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'))
@@ -77,14 +76,6 @@ function App() {
                 element={
                   <PrivateRoute allowedRoles={['manager']}>
                     <ManagerDashboard />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/manager/company-profile"
-                element={
-                  <PrivateRoute allowedRoles={['manager']}>
-                    <CompanyProfile />
                   </PrivateRoute>
                 }
               />

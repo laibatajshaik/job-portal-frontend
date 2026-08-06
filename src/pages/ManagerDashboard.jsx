@@ -170,14 +170,6 @@ function ManagerDashboard() {
               <FileSpreadsheet className="w-3.5 h-3.5" />
               <span>Database</span>
             </button>
-
-            <Link
-              to="/manager/company"
-              className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition"
-            >
-              <Building2 className="w-3.5 h-3.5" />
-              <span>Company Spec</span>
-            </Link>
           </nav>
 
           {}
@@ -252,7 +244,7 @@ function ManagerDashboard() {
         </section>
 
         {}
-        <section className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-3">
           
           <div className="bg-white rounded-lg p-3 border border-[#0066FF]/20 shadow-sm flex items-center gap-3">
             <div className="w-8 h-8 rounded bg-[#F4F7FC] text-[#003366] flex items-center justify-center">
@@ -261,16 +253,6 @@ function ManagerDashboard() {
             <div>
               <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Active Jobs</p>
               <p className="text-sm font-black text-[#003366]">{jobs.length}</p>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-lg p-3 border border-[#0066FF]/20 shadow-sm flex items-center gap-3">
-            <div className="w-8 h-8 rounded bg-[#F4F7FC] text-[#003366] flex items-center justify-center">
-              <Building className="w-4 h-4" />
-            </div>
-            <div>
-              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Company Spec</p>
-              <p className="text-sm font-black text-[#003366]">Configured</p>
             </div>
           </div>
 
