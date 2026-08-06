@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import api from '../api/axios'
 import JobCard from '../components/JobCard'
+import { AuthContext } from '../context/AuthContext'
 
 const defaultDemoJobs = [
   {
@@ -47,10 +48,23 @@ const defaultDemoJobs = [
 ]
 
 function Home() {
+  const { user } = useContext(AuthContext)
   const [jobs, setJobs] = useState(defaultDemoJobs)
   const [search, setSearch] = useState('')
   const [location, setLocation] = useState('')
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (user) {
+      if (user.role === 'admin') {
+        navigate('/admin/dashboard', { replace: true })
+      } else if (user.role === 'manager') {
+        navigate('/manager/dashboard', { replace: true })
+      } else if (user.role === 'user') {
+        navigate('/user/dashboard', { replace: true })
+      }
+    }
+  }, [user, navigate])
 
   useEffect(() => {
     fetchJobs()
