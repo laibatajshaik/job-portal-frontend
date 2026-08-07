@@ -194,76 +194,80 @@ function UserDashboard() {
   if (loading) return <Loader />
 
   return (
-    <div className="min-h-screen bg-[#F4F7FC] text-slate-800 font-sans pb-12">
-      
-      {}
-      <header className="bg-[#003366] text-white sticky top-0 z-40 shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between min-h-[64px] py-3 md:py-0 gap-4">
-          
-          {}
-          <div className="flex items-center gap-2.5">
+    <div className="min-h-screen flex bg-[#F4F7FC]">
+      <aside className="w-64 bg-[#003366] text-white flex flex-col justify-between shrink-0 sticky top-0 h-screen border-r border-[#0066FF]/20 shadow-lg p-5">
+        <div className="space-y-6">
+          <div className="flex items-center gap-2.5 border-b border-white/10 pb-4">
             <Link to="/" className="w-8 h-8 rounded-lg bg-[#0066FF] flex items-center justify-center text-white font-bold shadow">
               <Briefcase className="w-4 h-4" />
             </Link>
             <span className="font-extrabold text-sm tracking-tight text-white">Candidate Workspace</span>
           </div>
 
-          {}
-          <nav className="flex items-center gap-2 text-xs font-bold">
+          <nav className="flex flex-col gap-2 text-xs font-bold">
             <button
               onClick={() => setActiveTab('pipeline')}
-              className={`flex items-center gap-1.5 px-4 py-2.5 rounded-lg transition ${
+              className={`flex items-center gap-2 px-4 py-3 rounded-lg transition text-left w-full ${
                 activeTab === 'pipeline'
                   ? 'bg-[#0066FF] text-white shadow'
                   : 'text-white/80 hover:bg-white/10 hover:text-white'
               }`}
             >
-              <Clock className="w-3.5 h-3.5" />
+              <Clock className="w-4 h-4" />
               <span>My Applications</span>
             </button>
 
             <button
               onClick={() => setActiveTab('database')}
-              className={`flex items-center gap-1.5 px-4 py-2.5 rounded-lg transition ${
+              className={`flex items-center gap-2 px-4 py-3 rounded-lg transition text-left w-full ${
                 activeTab === 'database'
                   ? 'bg-[#0066FF] text-white shadow'
                   : 'text-white/80 hover:bg-white/10 hover:text-white'
               }`}
             >
-              <FileText className="w-3.5 h-3.5" />
+              <FileText className="w-4 h-4" />
               <span>CV Archive</span>
             </button>
-          </nav>
 
-          {}
-          <div className="flex items-center gap-3">
             <Link
               to="/"
-              className="bg-white/10 hover:bg-white/20 text-white text-xs font-bold px-4.5 py-2.5 rounded-lg transition flex items-center gap-1.5"
+              className="flex items-center gap-2 px-4 py-3 rounded-lg text-white/80 hover:bg-white/10 hover:text-white transition w-full text-left font-bold"
             >
               <span>Back to Home</span>
             </Link>
-            <button
-              onClick={handleLogout}
-              className="text-white/80 hover:text-white text-xs font-bold"
-            >
-              Logout
-            </button>
-          </div>
-
+          </nav>
         </div>
-      </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 space-y-6">
+        <div className="border-t border-white/10 pt-4">
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-2 px-4 py-3 rounded-lg text-rose-300 hover:bg-rose-900/20 hover:text-rose-200 transition text-left text-xs font-bold"
+          >
+            <LogOut className="w-4 h-4" />
+            <span>Logout</span>
+          </button>
+        </div>
+      </aside>
 
-        {}
+      <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+        <header className="bg-white border-b border-[#0066FF]/15 px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-sm">
+          <h1 className="text-base font-black text-[#003366] uppercase tracking-tight">Candidate Dashboard</h1>
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-slate-505 font-bold bg-[#0066FF]/10 px-3 py-1.5 rounded-full">
+              Logged in: candidate
+            </span>
+          </div>
+        </header>
+
+        <main className="flex-1 p-6 space-y-6">
+
         <section className="bg-white rounded-xl border border-[#0066FF]/30 p-4 shadow-sm space-y-3.5">
           <div className="flex items-center gap-2 text-xs font-bold text-[#003366]">
             <span>Filter Job Status</span>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-bold">
-            {}
+            
             <div className="space-y-1.5">
               <span className="text-slate-400 block uppercase tracking-wider text-[10px]">Filter by Step</span>
               <div className="flex flex-wrap gap-1">
@@ -285,7 +289,6 @@ function UserDashboard() {
           </div>
         </section>
 
-        {}
         <section className="grid grid-cols-2 lg:grid-cols-5 gap-3">
           
           <div className="bg-white rounded-lg p-3 border border-[#0066FF]/20 shadow-sm flex items-center gap-3">
@@ -348,10 +351,8 @@ function UserDashboard() {
 
         </section>
 
-        {}
         <section className="bg-white rounded-xl border border-[#0066FF]/35 shadow-sm p-6">
-          
-          {}
+
           {activeTab === 'pipeline' && (
             <div className="space-y-4">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
@@ -513,7 +514,6 @@ function UserDashboard() {
             </div>
           )}
 
-          {/* TAB 2: CV ARCHIVE */}
           {activeTab === 'database' && (
             <div className="space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-[#0066FF]/10 pb-3">
@@ -590,7 +590,7 @@ function UserDashboard() {
         </section>
 
       </main>
-
+      </div>
     </div>
   )
 }

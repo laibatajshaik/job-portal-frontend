@@ -166,7 +166,7 @@ function AdminDashboard() {
   }
 
   const getCompaniesList = () => {
-    const companyMap = {}
+    const companyMap = 
     jobs.forEach(job => {
       const name = job.company_name || 'Demo Company'
       const key = name.trim().toLowerCase()
@@ -295,46 +295,41 @@ function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F4F7FC] text-slate-800 font-sans pb-12">
-      
-      {}
-      <header className="bg-[#003366] text-white sticky top-0 z-40 shadow-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between min-h-[64px] py-3 md:py-0 gap-4">
-          
-          {}
-          <div className="flex items-center gap-2.5">
+    <div className="min-h-screen flex bg-[#F4F7FC]">
+      <aside className="w-64 bg-[#003366] text-white flex flex-col justify-between shrink-0 sticky top-0 h-screen border-r border-[#0066FF]/20 shadow-lg p-5">
+        <div className="space-y-6">
+          <div className="flex items-center gap-2.5 border-b border-white/10 pb-4">
             <div className="w-8 h-8 rounded-lg bg-[#0066FF] flex items-center justify-center text-white font-bold shadow">
               <LayoutDashboard className="w-4 h-4" />
             </div>
             <span className="font-extrabold text-sm tracking-tight text-white">Admin System Console</span>
           </div>
 
-          {}
-          <nav className="flex items-center flex-wrap justify-center gap-1.5 text-xs font-bold">
+          <nav className="flex flex-col gap-2 text-xs font-bold">
             <button
               onClick={() => { setTab('dashboard'); clearFilters(); }}
-              className={`flex items-center gap-1.5 px-4 py-2.5 rounded-lg transition ${
+              className={`flex items-center gap-2 px-4 py-3 rounded-lg transition text-left w-full ${
                 tab === 'dashboard'
                   ? 'bg-[#0066FF] text-white shadow-sm'
                   : 'text-white/80 hover:bg-white/10 hover:text-white'
               }`}
             >
-              <LayoutDashboard className="w-3.5 h-3.5" />
+              <LayoutDashboard className="w-4 h-4" />
               <span>Dashboard</span>
             </button>
 
             <button
               onClick={() => { setTab('pipeline'); clearFilters(); }}
-              className={`flex items-center gap-1.5 px-4 py-2.5 rounded-lg transition relative ${
+              className={`flex items-center gap-2 px-4 py-3 rounded-lg transition text-left w-full relative ${
                 tab === 'pipeline'
                   ? 'bg-[#0066FF] text-white shadow-sm'
                   : 'text-white/80 hover:bg-white/10 hover:text-white'
               }`}
             >
-              <Briefcase className="w-3.5 h-3.5" />
+              <Briefcase className="w-4 h-4" />
               <span>Applications</span>
               {unopenedApplicationsCount > 0 && (
-                <span className="absolute -top-1.5 -right-1 bg-amber-500 text-white text-[8px] font-black w-4 h-4 rounded-full flex items-center justify-center animate-bounce">
+                <span className="absolute top-3 right-3 bg-amber-500 text-white text-[8px] font-black w-4 h-4 rounded-full flex items-center justify-center animate-bounce">
                   {unopenedApplicationsCount}
                 </span>
               )}
@@ -342,16 +337,16 @@ function AdminDashboard() {
 
             <button
               onClick={() => { setTab('position'); clearFilters(); }}
-              className={`flex items-center gap-1.5 px-4 py-2.5 rounded-lg transition relative ${
+              className={`flex items-center gap-2 px-4 py-3 rounded-lg transition text-left w-full relative ${
                 tab === 'position'
                   ? 'bg-[#0066FF] text-white shadow-sm'
                   : 'text-white/80 hover:bg-white/10 hover:text-white'
               }`}
             >
-              <Building2 className="w-3.5 h-3.5" />
+              <Building2 className="w-4 h-4" />
               <span>Position (Companies)</span>
               {unopenedCompaniesCount > 0 && (
-                <span className="absolute -top-1.5 -right-1 bg-amber-500 text-white text-[8px] font-black w-4 h-4 rounded-full flex items-center justify-center animate-bounce">
+                <span className="absolute top-3 right-3 bg-amber-500 text-white text-[8px] font-black w-4 h-4 rounded-full flex items-center justify-center animate-bounce">
                   {unopenedCompaniesCount}
                 </span>
               )}
@@ -359,41 +354,48 @@ function AdminDashboard() {
 
             <button
               onClick={() => { setTab('settings'); clearFilters(); }}
-              className={`flex items-center gap-1.5 px-4 py-2.5 rounded-lg transition ${
+              className={`flex items-center gap-2 px-4 py-3 rounded-lg transition text-left w-full ${
                 tab === 'settings'
                   ? 'bg-[#0066FF] text-white shadow-sm'
                   : 'text-white/80 hover:bg-white/10 hover:text-white'
               }`}
             >
-              <Settings className="w-3.5 h-3.5" />
+              <Settings className="w-4 h-4" />
               <span>Settings</span>
             </button>
           </nav>
-
-          {}
-          <div className="flex items-center gap-2">
-            <button
-              onClick={fetchData}
-              className="bg-[#0066FF] hover:bg-[#0040A0] text-white text-xs font-extrabold px-4 py-2 rounded-lg transition shadow flex items-center gap-1"
-            >
-              <RefreshCw className="w-3.5 h-3.5" />
-              <span>Refresh All</span>
-            </button>
-            <button
-              onClick={handleLogout}
-              className="bg-white/10 hover:bg-rose-600 hover:text-white text-white/90 text-xs font-extrabold px-3 py-2 rounded-lg transition"
-            >
-              <LogOut className="w-3.5 h-3.5" />
-            </button>
-          </div>
-
         </div>
-      </header>
 
-      {}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 space-y-6">
+        <div className="border-t border-white/10 pt-4 space-y-2">
+          <button
+            onClick={fetchData}
+            className="w-full flex items-center gap-2 px-4 py-3 rounded-lg bg-[#0066FF] hover:bg-[#0040A0] text-white text-xs font-bold transition shadow"
+          >
+            <RefreshCw className="w-4 h-4" />
+            <span>Refresh All</span>
+          </button>
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-2 px-4 py-3 rounded-lg text-rose-300 hover:bg-rose-900/20 hover:text-rose-200 transition text-left text-xs font-bold"
+          >
+            <LogOut className="w-4 h-4" />
+            <span>Logout</span>
+          </button>
+        </div>
+      </aside>
 
-        {}
+      <div className="flex-1 flex flex-col min-w-0 overflow-y-auto">
+        <header className="bg-white border-b border-[#0066FF]/15 px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-sm">
+          <h1 className="text-base font-black text-[#003366] uppercase tracking-tight">Admin Dashboard</h1>
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-slate-550 font-bold bg-[#0066FF]/10 px-3 py-1.5 rounded-full">
+              System Console
+            </span>
+          </div>
+        </header>
+
+        <main className="flex-1 p-6 space-y-6">
+
         {tab !== 'dashboard' && tab !== 'settings' && (
           <section className="bg-white rounded-xl border border-[#0066FF]/30 p-5 shadow-sm space-y-4">
             <div className="flex items-center justify-between border-b border-slate-100 pb-2">
@@ -412,7 +414,7 @@ function AdminDashboard() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs font-bold">
-              {}
+              
               <div className={`space-y-1.5 ${tab === 'pipeline' ? '' : 'opacity-40 pointer-events-none'}`}>
                 <span className="text-slate-400 block uppercase tracking-wider text-[10px]">Filter by Step</span>
                 <div className="flex flex-wrap gap-1">
@@ -432,7 +434,6 @@ function AdminDashboard() {
                 </div>
               </div>
 
-              {}
               <div className={`space-y-1.5 ${tab === 'pipeline' ? '' : 'opacity-40 pointer-events-none'}`}>
                 <span className="text-slate-400 block uppercase tracking-wider text-[10px]">Filter by Department</span>
                 <div className="flex flex-wrap gap-1">
@@ -452,7 +453,6 @@ function AdminDashboard() {
                 </div>
               </div>
 
-              {}
               <div className="md:col-span-2 space-y-1.5">
                 <span className="text-slate-400 block uppercase tracking-wider text-[10px]">Live Search Database</span>
                 <div className="flex items-center gap-2 bg-[#F4F7FC]/70 border border-[#0066FF]/20 focus-within:border-[#0066FF] focus-within:bg-white rounded-lg px-3 py-2 transition">
@@ -475,8 +475,6 @@ function AdminDashboard() {
           </section>
         )}
 
-        {}
-        {/* Visual Pipeline Funnel & Distribution Bar */}
         <section className="bg-white rounded-xl border border-[#0066FF]/35 p-6 shadow-sm space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 border-b border-slate-100 pb-3">
             <div>
@@ -491,7 +489,6 @@ function AdminDashboard() {
             </div>
           </div>
 
-          {/* Dynamic Segmented Bar */}
           {(() => {
             const pending = applications.filter(a => a.status === 'Pending' || a.status === 'Applied').length;
             const interviewing = applications.filter(a => a.status === 'Interviewing').length;
@@ -524,8 +521,7 @@ function AdminDashboard() {
         </section>
 
         <section className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
-          
-          {}
+
           <div className="bg-white rounded-lg p-3 border border-[#0066FF]/20 shadow-sm flex items-center gap-3">
             <div className="w-8 h-8 rounded bg-[#F4F7FC] text-[#003366] flex items-center justify-center">
               <Users className="w-4 h-4" />
@@ -536,7 +532,6 @@ function AdminDashboard() {
             </div>
           </div>
 
-          {}
           <div className="bg-white rounded-lg p-3 border border-[#0066FF]/20 shadow-sm flex items-center gap-3">
             <div className="w-8 h-8 rounded bg-[#F4F7FC] text-[#003366] flex items-center justify-center">
               <Briefcase className="w-4 h-4" />
@@ -547,7 +542,6 @@ function AdminDashboard() {
             </div>
           </div>
 
-          {}
           <div className="bg-white rounded-lg p-3 border border-[#0066FF]/20 shadow-sm flex items-center gap-3">
             <div className="w-8 h-8 rounded bg-[#F4F7FC] text-[#003366] flex items-center justify-center">
               <Clock className="w-4 h-4 text-amber-500" />
@@ -560,7 +554,6 @@ function AdminDashboard() {
             </div>
           </div>
 
-          {}
           <div className="bg-white rounded-lg p-3 border border-[#0066FF]/20 shadow-sm flex items-center gap-3">
             <div className="w-8 h-8 rounded bg-[#F4F7FC] text-[#003366] flex items-center justify-center">
               <Clock className="w-4 h-4 text-blue-500" />
@@ -573,7 +566,6 @@ function AdminDashboard() {
             </div>
           </div>
 
-          {}
           <div className="bg-white rounded-lg p-3 border border-[#0066FF]/20 shadow-sm flex items-center gap-3">
             <div className="w-8 h-8 rounded bg-[#F4F7FC] text-[#003366] flex items-center justify-center">
               <Award className="w-4 h-4 text-emerald-600" />
@@ -586,7 +578,6 @@ function AdminDashboard() {
             </div>
           </div>
 
-          {}
           <div className="bg-white rounded-lg p-3 border border-[#0066FF]/20 shadow-sm flex items-center gap-3">
             <div className="w-8 h-8 rounded bg-[#F4F7FC] text-rose-600 flex items-center justify-center">
               <X className="w-4 h-4" />
@@ -599,7 +590,6 @@ function AdminDashboard() {
             </div>
           </div>
 
-          {}
           <div className="bg-white rounded-lg p-3 border border-[#0066FF]/20 shadow-sm flex items-center gap-3">
             <div className="w-8 h-8 rounded bg-[#F4F7FC] text-[#003366] flex items-center justify-center">
               <Building2 className="w-4 h-4" />
@@ -610,7 +600,6 @@ function AdminDashboard() {
             </div>
           </div>
 
-          {}
           <div className="bg-white rounded-lg p-3 border border-[#0066FF]/20 shadow-sm flex items-center gap-3">
             <div className="w-8 h-8 rounded bg-[#F4F7FC] text-[#003366] flex items-center justify-center">
               <CheckCircle2 className="w-4 h-4" />
@@ -623,10 +612,8 @@ function AdminDashboard() {
 
         </section>
 
-        {}
         <section className="bg-white rounded-xl border border-[#0066FF]/35 shadow-sm p-6 space-y-4">
-          
-          {}
+
           <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 pb-2 gap-2 text-[10px] text-slate-400 font-bold uppercase tracking-widest">
             <div className="flex items-center gap-1">
               <Home className="w-3.5 h-3.5" />
@@ -646,7 +633,6 @@ function AdminDashboard() {
             )}
           </div>
 
-          {}
           {tab === 'dashboard' && (
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
@@ -675,7 +661,6 @@ function AdminDashboard() {
             </div>
           )}
 
-          {}
           {tab === 'weekly_calendar' && (
             <div className="overflow-x-auto">
               <h3 className="text-sm font-bold text-[#003366] mb-3">Job Openings Database ({filteredJobs.length} positions)</h3>
@@ -716,7 +701,6 @@ function AdminDashboard() {
             </div>
           )}
 
-          {}
           {tab === 'pipeline' && (
             <div className="overflow-x-auto">
               <h3 className="text-sm font-bold text-[#003366] mb-3">Candidate Applications ({filteredApplications.length} applications)</h3>
@@ -785,7 +769,6 @@ function AdminDashboard() {
             </div>
           )}
 
-          {}
           {tab === 'database' && (
             <div className="overflow-x-auto">
               <h3 className="text-sm font-bold text-[#003366] mb-3">User Database ({filteredUsers.length} users)</h3>
@@ -830,7 +813,6 @@ function AdminDashboard() {
             </div>
           )}
 
-          {}
           {tab === 'position' && (
             <div className="overflow-x-auto">
               <h3 className="text-sm font-bold text-[#003366] mb-3">Recruiting Companies ({filteredCompanies.length} companies)</h3>
@@ -866,7 +848,6 @@ function AdminDashboard() {
             </div>
           )}
 
-          {}
           {tab === 'settings' && (
             <div className="max-w-xl py-2">
               <h3 className="text-sm font-bold text-[#003366] mb-4">System Settings</h3>
@@ -918,7 +899,6 @@ function AdminDashboard() {
 
       </main>
 
-      {}
       {selectedResumeUrl && (
         <div className="fixed inset-0 bg-[#003366]/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-xl w-full max-w-4xl h-[90vh] flex flex-col overflow-hidden shadow-2xl border border-[#0066FF]/40 animate-in fade-in zoom-in-95 duration-200">
@@ -962,7 +942,7 @@ function AdminDashboard() {
           </div>
         </div>
       )}
-
+      </div>
     </div>
   )
 }
