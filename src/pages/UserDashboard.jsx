@@ -20,7 +20,8 @@ import {
   TrendingUp,
   Award,
   Upload,
-  Plus
+  Plus,
+  LogOut
 } from 'lucide-react'
 
 const formatLocalTime = (isoString) => {

@@ -17,7 +17,8 @@ import {
   FileSpreadsheet,
   Building2,
   Trash2,
-  DollarSign
+  DollarSign,
+  LogOut
 } from 'lucide-react'
 
 function ManagerDashboard() {
