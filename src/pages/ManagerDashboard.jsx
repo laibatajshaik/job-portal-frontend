@@ -142,7 +142,7 @@ function ManagerDashboard() {
             <Link to="/manager/dashboard" className="w-8 h-8 rounded-lg bg-[#0066FF] flex items-center justify-center text-white font-bold shadow">
               <Briefcase className="w-4 h-4" />
             </Link>
-            <span className="font-extrabold text-sm tracking-tight text-white">Recruiter Workspace</span>
+            <span className="font-extrabold text-sm tracking-tight text-white">Manager Workspace</span>
           </div>
 
           {}
@@ -351,8 +351,8 @@ function ManagerDashboard() {
           {activeTab === 'database' && (
             <div className="space-y-4">
               <h3 className="text-base font-black text-[#003366] uppercase">Positions Raw Data</h3>
-              <p className="text-xs text-slate-600 font-semibold leading-relaxed">
-                Raw database representation of job listings posted under your recruiter account credentials.
+              <p className="text-xs text-slate-650 font-semibold leading-relaxed">
+                Raw database representation of job listings posted under your manager account credentials.
               </p>
               
               <div className="overflow-x-auto">
