@@ -103,7 +103,8 @@ function UserDashboard() {
             await api.post('/applications/', {
               job_id: app.job_id,
               resume_url: app.resume_url,
-              cover_letter: app.cover_letter
+              cover_letter: app.cover_letter,
+              silent: true
             })
           } catch (err) {
             console.warn("Failed to sync missing app to backend:", err)
@@ -146,7 +147,8 @@ function UserDashboard() {
       await api.post('/applications/', {
         job_id: -1,
         resume_url: fileUrl,
-        cover_letter: `Uploaded CV: ${file.name}`
+        cover_letter: `Uploaded CV: ${file.name}`,
+        silent: true
       })
 
       alert('CV uploaded successfully to your archive!')
