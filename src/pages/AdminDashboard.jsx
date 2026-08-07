@@ -166,7 +166,7 @@ function AdminDashboard() {
   }
 
   const getCompaniesList = () => {
-    const companyMap = 
+    const companyMap = {}
     jobs.forEach(job => {
       const name = job.company_name || 'Demo Company'
       const key = name.trim().toLowerCase()

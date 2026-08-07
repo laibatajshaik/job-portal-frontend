@@ -193,7 +193,7 @@ function ManagerDashboard() {
           <h1 className="text-base font-black text-[#003366] uppercase tracking-tight">Manager Dashboard</h1>
           <div className="flex items-center gap-3">
             <span className="text-xs text-slate-505 font-bold bg-[#0066FF]/10 px-3 py-1.5 rounded-full">
-              Logged in: manager@gmail.com
+              Logged in: {user?.name || user?.email || 'Manager'}
             </span>
           </div>
         </header>

@@ -257,7 +257,7 @@ function UserDashboard() {
           <h1 className="text-base font-black text-[#003366] uppercase tracking-tight">Candidate Dashboard</h1>
           <div className="flex items-center gap-3">
             <span className="text-xs text-slate-505 font-bold bg-[#0066FF]/10 px-3 py-1.5 rounded-full">
-              Logged in: candidate
+              Logged in: {user?.name || user?.email || 'Candidate'}
             </span>
           </div>
         </header>
